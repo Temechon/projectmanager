@@ -4,7 +4,7 @@
     "version": "0.1.0"
   },
   "build": {
-    "distDir": "../dist/assets",
+    "distDir": "../dist/projectmanager",
     "devPath": "http://localhost:4200",
     "beforeDevCommand": "",
     "beforeBuildCommand": ""
@@ -53,11 +53,12 @@
     },
     "windows": [
       {
-        "title": "projectmanager",
+        "title": "Project Manager",
+        "center": true,
+        "resizable": true,
         "width": 800,
         "height": 600,
-        "resizable": true,
-        "fullscreen": false
+        "visible": true
       }
     ],
     "security": {
