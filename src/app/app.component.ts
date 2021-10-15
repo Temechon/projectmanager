@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { appWindow } from '@tauri-apps/api/window'
 
 
 @Component({
@@ -11,6 +10,5 @@ export class AppComponent {
   title = 'projectmanager';
 
   ngOnInit() {
-    appWindow.maximize();
   }
 }
