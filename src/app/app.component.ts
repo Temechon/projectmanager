@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { addPouchPlugin, createRxDatabase, dbCount, getRxStoragePouch } from 'rxdb';
-import { DatabaseService } from './services/database.service';
+import { DatabaseLokiService } from './services/database-loki.service';
 
 
 
@@ -11,13 +10,10 @@ import { DatabaseService } from './services/database.service';
 })
 export class AppComponent {
 
-  constructor(private db: DatabaseService) { }
+  constructor(private db: DatabaseLokiService) { }
 
   ngOnInit() {
-    this.db.addProject({});
-
-    this.db.find().then((data: any) => console.log("jch", data));
-
+    console.log("ici", this.db.find());
 
   }
 }

@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DatabaseService, initDatabase } from './services/database.service';
+import { DatabaseLokiService, initDatabase } from './services/database-loki.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { DatabaseService, initDatabase } from './services/database.service';
       multi: true,
       deps: []
     },
-    DatabaseService
+    DatabaseLokiService
   ],
   bootstrap: [AppComponent]
 })
