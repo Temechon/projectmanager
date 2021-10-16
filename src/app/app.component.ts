@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { addPouchPlugin, createRxDatabase, dbCount, getRxStoragePouch } from 'rxdb';
+import { DatabaseService } from './services/database.service';
+
 
 
 @Component({
@@ -7,8 +10,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'projectmanager';
+
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
+    this.db.addProject({});
+
+    this.db.find().then((data: any) => console.log("jch", data));
+
+
   }
 }
