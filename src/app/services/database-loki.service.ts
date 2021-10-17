@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import IndexedStorage from '@lokidb/indexed-storage';
 import Loki from '@lokidb/loki';
+import { Project } from '../model/project.model';
 
 
 @Injectable({
@@ -8,14 +9,14 @@ import Loki from '@lokidb/loki';
 })
 export class DatabaseLokiService {
 
+
   constructor() {
 
   }
 
-  find() {
-    return DB_INSTANCE.getCollection('projects').findOne({ "id": "jchid" } as any);
+  get(id: string): Project {
+    throw new Error('Method not implemented.');
   }
-
 }
 
 let DB_INSTANCE: Loki;
@@ -24,7 +25,7 @@ let initState: null | Promise<any> = null;
 async function _create() {
 
   let idbAdapter = new IndexedStorage();
-  let db = new Loki("databasetestjch");
+  let db = new Loki("projectmanager");
   await db.initializePersistence({ adapter: idbAdapter, autosave: true, autoload: true });
   let collection = db.getCollection('projects');
 
@@ -34,11 +35,7 @@ async function _create() {
     console.log("Collection does not exist!Initialize it");
 
     // All options here:https://github.com/LokiJS-Forge/LokiDB/blob/57e2ff8/packages/loki/src/collection.ts#L178
-    db.addCollection<any>("projects", { unique: ['id'] }).insert(
-      {
-        name: "Nom du projet ici",
-        id: "jchid",
-      });
+    db.addCollection<any>("projects", { unique: ['id'] });
   }
 
   DB_INSTANCE = db;

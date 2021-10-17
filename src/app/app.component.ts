@@ -13,7 +13,5 @@ export class AppComponent {
   constructor(private db: DatabaseLokiService) { }
 
   ngOnInit() {
-    console.log("ici", this.db.find());
-
   }
 }

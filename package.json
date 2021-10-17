@@ -21,6 +21,7 @@
     "@lokidb/indexed-storage": "^2.1.0",
     "@lokidb/loki": "^2.1.0",
     "pouchdb-adapter-indexeddb": "^7.2.2",
+    "tailwindcss": "^2.2.17",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },
