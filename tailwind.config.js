@@ -14,8 +14,8 @@ module.exports = {
         'secondary': '#F80A50',
         'accent': '#3ECEE5',
         'mygreen': '#37BA83',
-        'mylightgray': '#F2F0F5',
-        'mylightgrayer': '#dddbe0',
+        'mylightgray': '#f6f7fc',
+        'darker': '#323659'
 
 
       },
