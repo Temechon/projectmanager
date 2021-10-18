@@ -14,7 +14,9 @@ module.exports = {
         'secondary': '#F80A50',
         'accent': '#3ECEE5',
         'mygreen': '#37BA83',
-        'mylightgray': '#F2F0F5'
+        'mylightgray': '#F2F0F5',
+        'mylightgrayer': '#dddbe0',
+
 
       },
       fontFamily: {
