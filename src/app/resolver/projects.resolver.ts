@@ -18,12 +18,11 @@ export class ProjectResolver {
 
         // Check if the note id is in the curent route
         let id = route.paramMap.get('id');
-        console.log("PEOPLE ID", id)
+        console.log("Project ID", id)
 
-        // Check if the project is the same as the previous one
         if (id) {
             // Otherwise, retrieve it from database
-            let p = this.database.get(id);
+            let p = this.database.getProject(id);
             return of(p);
         } else {
             return EMPTY;

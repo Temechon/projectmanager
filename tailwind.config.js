@@ -16,7 +16,11 @@ module.exports = {
         'mygreen': '#37BA83',
         'mylightgray': '#F2F0F5'
 
-      }
+      },
+      fontFamily: {
+        sans: ['Jost', 'sans-serif'],
+        display: ['Jost', 'sans-serif']
+      },
     },
   },
   variants: {

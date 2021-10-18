@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import IndexedStorage from '@lokidb/indexed-storage';
+import { Doc } from '@lokidb/indexed-storage/types/common/types';
 import Loki from '@lokidb/loki';
 import { Project } from '../model/project.model';
 
@@ -14,8 +15,24 @@ export class DatabaseLokiService {
 
   }
 
-  get(id: string): Project {
-    throw new Error('Method not implemented.');
+  getProject(id: string): Project {
+    let p = DB_INSTANCE.getCollection('projects').findOne({ id } as any);
+    if (p) {
+      return new Project(p);
+    }
+    return null;
+  }
+
+  getProjects() {
+    return DB_INSTANCE.getCollection('projects').find().map(doc => new Project(doc));
+  }
+
+  // this.db.addProject(new Project({
+  //   internalid: 2152,
+  //   name: "Démarchage téléphonique"
+  // }))
+  addProject(p: Project) {
+    return DB_INSTANCE.getCollection('projects').insert(p.toObject());
   }
 }
 

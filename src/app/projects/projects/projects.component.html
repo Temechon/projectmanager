@@ -1,1 +1,16 @@
-<p>projects works!</p>
+<div class="flex h-[calc(100%-4px)]">
+    <!-- Sidebar -->
+    <div class="w-96 bg-mylightgray h-full flex flex-col py-4">
+
+        <div class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary hover:text-white cursor-pointer"
+            routerLinkActive="bg-primary text-white" [routerLink]="p.id" *ngFor="let p of projects">
+            <span class="font-semibold mr-4">{{p.internalid}}</span>
+            <div class="truncate">{{p.name}}</div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div>
+        <router-outlet></router-outlet>
+    </div>
+</div>

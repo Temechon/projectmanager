@@ -22,25 +22,28 @@ const routes: Routes = [
           {
             path: '',
             component: ProjectsComponent,
-          },
-          {
-            path: ':id',
-            resolve: {
-              people: ProjectResolver,
-            },
-            component: ProjectComponent,
             children: [
               {
-                path: '',
-                redirectTo: 'general',
-                pathMatch: 'full',
-              },
-              {
-                path: 'general',
-                component: GeneralInformationComponent,
+                path: ':id',
+                resolve: {
+                  people: ProjectResolver,
+                },
+                component: ProjectComponent,
+                children: [
+                  {
+                    path: '',
+                    redirectTo: 'general',
+                    pathMatch: 'full',
+                  },
+                  {
+                    path: 'general',
+                    component: GeneralInformationComponent,
+                  }
+                ]
               }
+
             ]
-          }
+          },
         ]
       },
 
