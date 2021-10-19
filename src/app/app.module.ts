@@ -7,6 +7,7 @@ import { DatabaseLokiService, initDatabase } from './services/database-loki.serv
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { GeneralInformationComponent } from './projects/general-information/general-information.component';
+import { GuiModule } from './gui/gui.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GeneralInformationComponent } from './projects/general-information/gene
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    GuiModule
   ],
   providers: [
     {

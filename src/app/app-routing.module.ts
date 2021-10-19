@@ -26,7 +26,7 @@ const routes: Routes = [
               {
                 path: ':id',
                 resolve: {
-                  people: ProjectResolver,
+                  project: ProjectResolver,
                 },
                 component: ProjectComponent,
                 children: [

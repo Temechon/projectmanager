@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import IndexedStorage from '@lokidb/indexed-storage';
 import { Doc } from '@lokidb/indexed-storage/types/common/types';
 import Loki from '@lokidb/loki';
-import { Project } from '../model/project.model';
+import { guid, Project } from '../model/project.model';
 
 
 @Injectable({
@@ -15,25 +15,22 @@ export class DatabaseLokiService {
 
   }
 
-  getProject(id: string): Project {
-    let p = DB_INSTANCE.getCollection('projects').findOne({ id } as any);
-    if (p) {
-      return new Project(p);
-    }
-    return null;
+  getProject(id: string): Doc<Project> {
+    return DB_INSTANCE.getCollection('projects').findOne({ id } as any) as Doc<Project>;
   }
 
-  getProjects() {
-    return DB_INSTANCE.getCollection('projects').find().map(doc => new Project(doc));
+  getProjects(): Doc<Project>[] {
+    return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
-  // this.db.addProject(new Project({
-  //   internalid: 2152,
-  //   name: "Démarchage téléphonique"
-  // }))
   addProject(p: Project) {
-    return DB_INSTANCE.getCollection('projects').insert(p.toObject());
+    return DB_INSTANCE.getCollection('projects').insert(p);
   }
+
+  saveProject(p: Doc<Project>) {
+    DB_INSTANCE.getCollection('projects').update(p);
+  }
+
 }
 
 let DB_INSTANCE: Loki;

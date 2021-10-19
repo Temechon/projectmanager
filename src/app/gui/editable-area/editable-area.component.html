@@ -1,0 +1,7 @@
+<div class="relative group text-myblue w-full">
+    <textarea type="text" autosize
+        class="w-full pl-4 py-2 cursor-pointer rounded-sm ring-1 ring-gray-200 hover:ring-gray-300 focus:ring-mygreen focus:ring-2 focus:outline-none focus:shadow-md"
+        [(ngModel)]="text" [placeholder]="placeholder" [ngClass]="custom" (keyup)="onChange($event)"></textarea>
+    <i
+        class="group-hover:opacity-100 text-mygreen opacity-0 fas fa-pen absolute top-1/2 right-4 transform -translate-y-1/2"></i>
+</div>

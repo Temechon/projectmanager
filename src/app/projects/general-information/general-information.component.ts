@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Doc } from '@lokidb/indexed-storage/types/common/types';
+import { Project } from 'src/app/model/project.model';
+import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 
 @Component({
   selector: 'app-general-information',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GeneralInformationComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private db: DatabaseLokiService
+  ) { }
+
+  project: Doc<Project>
 
   ngOnInit(): void {
+
+    this.project = this.route.parent.snapshot.data.project;
+    console.log("PROJECT ICI", this.project)
+  }
+
+  save() {
+    console.log("Saving project", this.project);
+    this.db.saveProject(this.project);
   }
 
 }
