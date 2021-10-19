@@ -22,7 +22,9 @@ export class ProjectsComponent implements OnInit {
       this.db.addProject({
         id: guid(),
         internalid: "1734",
-        name: 'Affichage mode connecté'
+        name: 'Affichage mode connecté',
+        pplink: "",
+        actors: []
       })
       this.projects = this.db.getProjects();
     }

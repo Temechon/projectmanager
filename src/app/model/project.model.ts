@@ -11,5 +11,8 @@ export class Project {
     id: string;
     internalid: string;
     name: string;
+    pplink: string; // Link to the sharepoint page
+
+    actors: Array<{ name: string, dga: string }>;
 
 }

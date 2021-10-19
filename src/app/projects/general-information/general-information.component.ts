@@ -27,6 +27,7 @@ export class GeneralInformationComponent implements OnInit {
   save() {
     console.log("Saving project", this.project);
     this.db.saveProject(this.project);
+    console.log("Done!");
   }
 
 }

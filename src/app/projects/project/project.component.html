@@ -1,26 +1,29 @@
-<!-- Top action bar -->
-<div class="inline-block absolute right-3 text-sm mt-3 ml-2 bg-gray-100 text-gray-300 rounded-full">
-    <div class="h-full flex items-center justify-start space-x-4 px-1">
+<div class="flex flex-row w-full h-full">
+    <!-- Content -->
+    <div class="w-[calc(100%-20rem)] h-full">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- Sidebar -->
+    <div class="w-80 h-full text-gray-300 pt-12">
 
-        <div routerLink="general" routerLinkActive="bg-secondary text-white"
-            class="hover:bg-secondary transition-all  px-3 py-0.5 rounded-full cursor-pointer hover:text-white">
-            Informations générales
+        <div class="w-full h-8 truncate flex items-center pl-4 hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary !border-primary font-semibold" routerLink="general">Informations générales
         </div>
-        <div class="hover:bg-secondary transition-all  px-3 py-0.5 rounded-full cursor-pointer hover:text-white">
-            Acteurs
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary" routerLink="followup">Suivi
         </div>
-        <div class="hover:bg-secondary transition-all  px-3 py-0.5 rounded-full cursor-pointer hover:text-white">
-            Comptes-rendus
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary" routerLink="actors">Acteurs
         </div>
-        <div class="hover:bg-secondary transition-all  px-3 py-0.5 rounded-full cursor-pointer hover:text-white">
-            Notes
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary" routerLink="minutes">Comptes-rendus
         </div>
-        <div class="hover:bg-secondary  transition-all  px-3 py-0.5 rounded-full cursor-pointer hover:text-white">
-            Jalons
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary" routerLink="notes">Notes
+        </div>
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2"
+            routerLinkActive="text-primary" routerLink="milestones">Jalons
         </div>
     </div>
-</div>
 
-<div class="w-full h-full">
-    <router-outlet></router-outlet>
 </div>

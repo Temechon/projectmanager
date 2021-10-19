@@ -8,13 +8,15 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { GeneralInformationComponent } from './projects/general-information/general-information.component';
 import { GuiModule } from './gui/gui.module';
+import { ActorsComponent } from './projects/actors/actors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent,
     ProjectComponent,
-    GeneralInformationComponent
+    GeneralInformationComponent,
+    ActorsComponent
   ],
   imports: [
     BrowserModule,
