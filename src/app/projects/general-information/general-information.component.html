@@ -1,22 +1,48 @@
 <div class="p-12 w-full h-full bg-white">
-    <h1 class="text-4xl font-bold text-darker mb-8 ">Informations Générales</h1>
+    <h1 class="text-4xl font-bold text-darker mb-12">Informations Générales</h1>
 
-    <!-- Row -->
-    <div class="flex flex-row mb-2">
-        <div class="w-52 pl-4 flex items-center justify-start">Identifiant projet</div>
-        <div class="w-full">
-            <editable-text placeholder="ID" [(text)]="project.internalid" (onFinished)="save()"></editable-text>
+    <div class="w-2/3 mr-auto">
+        <!-- Row -->
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Identifiant projet</div>
+            <div class="w-full">
+                <editable-text placeholder="ID" [(text)]="project.internalid" (onFinished)="save()"></editable-text>
+            </div>
         </div>
-    </div>
 
-    <div class="flex flex-row mb-2">
-        <div class="w-52 pl-4 flex items-center justify-start">Portefeuille projet</div>
-        <div class="w-[calc(100%-4rem)]">
-            <editable-text placeholder="Lien vers le portefeuille projet" [(text)]="project.pplink"
-                (onFinished)="save()"></editable-text>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Portefeuille projet</div>
+            <div class="w-[calc(100%-4rem)]">
+                <editable-text placeholder="Lien vers le portefeuille projet" [(text)]="project.pplink"
+                    (onFinished)="save()"></editable-text>
+            </div>
+            <a class="w-16 flex items-center justify-center cursor-pointer" [href]="project.pplink" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
-        <a class="w-16 flex items-center justify-center cursor-pointer" [href]="project.pplink" target="_blank">
-            <i class="fas fa-external-link-alt"></i>
-        </a>
+
+        <h2 class="text-gray-400 mt-8 mb-4">Dates</h2>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Date de recette</div>
+            <div class="w-full">
+                <editable-text placeholder="Date de la recette" [(text)]="project.recette_date" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Date de VP</div>
+            <div class="w-full">
+                <editable-text placeholder="Date de VP" [(text)]="project.prod_date" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+
+        <h2 class="text-gray-400 mt-8 mb-4">Contexte</h2>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Description</div>
+            <div class="w-full">
+                <editable-area [(text)]="project.description" (onFinished)="save()"></editable-area>
+            </div>
+        </div>
     </div>
 </div>

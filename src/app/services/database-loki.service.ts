@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import IndexedStorage from '@lokidb/indexed-storage';
 import { Doc } from '@lokidb/indexed-storage/types/common/types';
 import Loki from '@lokidb/loki';
+import { Settings } from 'luxon';
 import { guid, Project } from '../model/project.model';
 
 
@@ -63,6 +64,9 @@ async function _create() {
  * to ensure the database exists before the angular-app starts up
  */
 export async function initDatabase() {
+
+  Settings.defaultLocale = "fr";
+
   /**
    * When server side rendering is used,
    * The database might already be there

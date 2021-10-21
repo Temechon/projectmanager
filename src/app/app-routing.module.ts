@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActorsComponent } from './projects/actors/actors.component';
 import { GeneralInformationComponent } from './projects/general-information/general-information.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
@@ -15,7 +16,6 @@ const routes: Routes = [
         pathMatch: 'full',
         redirectTo: 'projects',
       },
-
       {
         path: 'projects',
         children: [
@@ -38,6 +38,10 @@ const routes: Routes = [
                   {
                     path: 'general',
                     component: GeneralInformationComponent,
+                  },
+                  {
+                    path: 'actors',
+                    component: ActorsComponent,
                   }
                 ]
               }

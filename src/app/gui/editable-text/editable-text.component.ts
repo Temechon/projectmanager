@@ -21,20 +21,20 @@ export class EditableTextComponent implements OnInit, OnDestroy {
   @Input()
   placeholder: string = "";
 
-  @Output() onFinished: EventEmitter<any> = new EventEmitter();
-  @Output() enterPressed: EventEmitter<any> = new EventEmitter();
+  @Output() onFinished: EventEmitter<string> = new EventEmitter();
+  @Output() enterPressed: EventEmitter<string> = new EventEmitter();
 
   saveSub = new Subject<void>();
 
   ngOnInit(): void {
     this.saveSub.pipe(debounceTime(500)).subscribe(() => {
-      this.onFinished.emit();
+      this.onFinished.emit(this.text);
     })
   }
 
   // Do stuff when the enter key is pressed
   onEnter($event: Event) {
-    this.enterPressed.emit($event);
+    this.enterPressed.emit(this.text);
   }
 
   onChange($event: Event) {

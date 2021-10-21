@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Doc } from '@lokidb/indexed-storage/types/common/types';
+import { DateTime } from 'luxon';
 import { guid, Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 
@@ -19,13 +20,7 @@ export class ProjectsComponent implements OnInit {
 
     this.projects = this.db.getProjects();
     if (this.projects.length === 0) {
-      this.db.addProject({
-        id: guid(),
-        internalid: "1734",
-        name: 'Affichage mode connecté',
-        pplink: "",
-        actors: []
-      })
+      this.db.addProject(Project.TEST_PROJECT)
       this.projects = this.db.getProjects();
     }
 
