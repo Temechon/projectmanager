@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Doc } from '@lokidb/indexed-storage/types/common/types';
 import { Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 
@@ -15,7 +14,7 @@ export class ActorsComponent implements OnInit {
     private route: ActivatedRoute,
     private db: DatabaseLokiService) { }
 
-  project: Doc<Project>
+  project: Project
   sortAttribute: string = 'name';
   sortOrder = 1;
   newactor = {
@@ -36,12 +35,14 @@ export class ActorsComponent implements OnInit {
   }
 
   add() {
-    this.project.actors.push({
-      name: this.newactor.name,
-      dga: this.newactor.dga
-    });
-    this.newactor.name = this.newactor.dga = "";
-    this.save();
+    if (this.newactor.name || this.newactor.dga) {
+      this.project.actors.push({
+        name: this.newactor.name,
+        dga: this.newactor.dga
+      });
+      this.newactor.name = this.newactor.dga = "";
+      this.save();
+    }
   }
 
   delete(index: number) {

@@ -1,17 +1,15 @@
 <div class="p-12 w-full h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-12">Acteurs</h1>
 
-    <div class="w-2/3 mr-auto">
+    <div class="w-5/6 mr-auto">
         <table class="w-full border-collapse table-fixed">
             <thead>
-                <th class=" text-primary relative border-b table-cell cursor-pointer"
-                    (click)="sortBy('name', caretname)">
+                <th class="text-primary relative table-cell cursor-pointer" (click)="sortBy('name', caretname)">
                     Nom
                     <i #caretname
                         class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
                 </th>
-                <th class=" text-primary relative border-b table-cell w-80 cursor-pointer"
-                    (click)="sortBy('dga', caretdga)">
+                <th class=" text-primary relative table-cell w-80 cursor-pointer" (click)="sortBy('dga', caretdga)">
                     DGA
                     <i #caretdga
                         class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>

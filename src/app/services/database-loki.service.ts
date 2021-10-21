@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import IndexedStorage from '@lokidb/indexed-storage';
-import { Doc } from '@lokidb/indexed-storage/types/common/types';
-import Loki from '@lokidb/loki';
-import { Settings } from 'luxon';
-import { guid, Project } from '../model/project.model';
+import { addPouchPlugin, createRxDatabase, getRxStoragePouch } from 'rxdb';
+import { Project, TEST_PROJECT } from '../model/project.model';
+import { PMDatabase, projectsSchema } from './dbmodel';
+
 
 
 @Injectable({
@@ -16,47 +15,51 @@ export class DatabaseLokiService {
 
   }
 
-  getProject(id: string): Doc<Project> {
-    return DB_INSTANCE.getCollection('projects').findOne({ id } as any) as Doc<Project>;
+  getProject(id: string): any {
+    // return DB_INSTANCE.getCollection('projects').findOne({ id } as any) as Doc<Project>;
   }
 
-  getProjects(): Doc<Project>[] {
-    return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
+  getProjects() {
+    // return DB_INSTANCE.allDocs();
+    // return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
   addProject(p: Project) {
-    return DB_INSTANCE.getCollection('projects').insert(p);
+    // return DB_INSTANCE.getCollection('projects').insert(p);
   }
 
-  saveProject(p: Doc<Project>) {
-    DB_INSTANCE.getCollection('projects').update(p);
+  saveProject(p: any) {
+    // DB_INSTANCE.getCollection('projects').update(p);
   }
 
 }
 
-let DB_INSTANCE: Loki;
+let DB_INSTANCE: any;
 let initState: null | Promise<any> = null;
 
 async function _create() {
 
-  let idbAdapter = new IndexedStorage();
-  let db = new Loki("projectmanager");
-  await db.initializePersistence({ adapter: idbAdapter, autosave: true, autoload: true });
-  let collection = db.getCollection('projects');
+  addPouchPlugin(require('pouchdb-adapter-indexeddb'));
 
-  if (collection) {
-    console.log("Collection already exists! Nothing to do");
-  } else {
-    console.log("Collection does not exist!Initialize it");
 
-    // All options here:https://github.com/LokiJS-Forge/LokiDB/blob/57e2ff8/packages/loki/src/collection.ts#L178
-    db.addCollection<any>("projects", { unique: ['id'] });
-  }
+  let db = await createRxDatabase<PMDatabase>({
+    name: 'projectmanagerdb',
+    storage: getRxStoragePouch('indexeddb'),
+    multiInstance: false
+  });
+  await db.addCollections({
+    projects: {
+      schema: projectsSchema
+    }
+  })
+  await db.projects.insert(
+    TEST_PROJECT()
+  );
+
+  console.log(db);
+
 
   DB_INSTANCE = db;
-
-  return db.saveDatabase();
-
 }
 
 /**
@@ -64,8 +67,6 @@ async function _create() {
  * to ensure the database exists before the angular-app starts up
  */
 export async function initDatabase() {
-
-  Settings.defaultLocale = "fr";
 
   /**
    * When server side rendering is used,

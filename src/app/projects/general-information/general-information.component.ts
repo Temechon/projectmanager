@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Doc } from '@lokidb/indexed-storage/types/common/types';
-import { DateTime } from 'luxon';
 import { Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 
@@ -18,7 +16,7 @@ export class GeneralInformationComponent implements OnInit {
     private db: DatabaseLokiService
   ) { }
 
-  project: Doc<Project>
+  project: Project
 
   ngOnInit(): void {
 
