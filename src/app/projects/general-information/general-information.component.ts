@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from 'src/app/model/project.model';
+import { Subscription } from 'rxjs';
+import { IProject, Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 
 
@@ -17,16 +18,23 @@ export class GeneralInformationComponent implements OnInit {
   ) { }
 
   project: Project
+  routesub: Subscription;
 
   ngOnInit(): void {
 
-    this.project = this.route.parent.snapshot.data.project;
-    console.log("PROJECT ICI", this.project)
+    this.routesub = this.route.parent.data.subscribe(data => {
+      this.project = data.project
+      console.log("PROJECT ICI", this.project)
+    })
   }
 
   save() {
     console.log("Saving project", this.project);
-    this.db.saveProject(this.project);
+    this.db.saveProject(this.project.toObject());
     console.log("Done!");
+  }
+
+  ngOnDestroy() {
+    this.routesub.unsubscribe();
   }
 }

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { addPouchPlugin, createRxDatabase, getRxStoragePouch } from 'rxdb';
-import { Project, TEST_PROJECT } from '../model/project.model';
-import { PMDatabase, projectsSchema } from './dbmodel';
+import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDatabase } from 'rxdb';
+import { map, Observable } from 'rxjs';
+import { IProject, Project, TEST_PROJECT } from '../model/project.model';
+import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 
 
 
@@ -15,26 +16,37 @@ export class DatabaseLokiService {
 
   }
 
-  getProject(id: string): any {
+  getProject(id: string): Promise<IProject> {
+    return projectsCollection.projects.findOne({
+      selector: {
+        id: id
+      }
+    }).exec().then(data => {
+      console.log("get project", new Project(data).toObject());
+
+      return new Project(data)
+    });
     // return DB_INSTANCE.getCollection('projects').findOne({ id } as any) as Doc<Project>;
   }
 
-  getProjects() {
+  getProjects(): Observable<Project[]> {
+    // return projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
+    return projectsCollection.projects.find().$.pipe(map(datarr => datarr.map(data => new Project(data))));
     // return DB_INSTANCE.allDocs();
     // return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
-  addProject(p: Project) {
+  addProject(p: IProject) {
     // return DB_INSTANCE.getCollection('projects').insert(p);
   }
 
-  saveProject(p: any) {
-    // DB_INSTANCE.getCollection('projects').update(p);
+  saveProject(p: IProject) {
+    return projectsCollection.projects.atomicUpsert(p);
   }
 
 }
 
-let DB_INSTANCE: any;
+let projectsCollection: PMCollections;
 let initState: null | Promise<any> = null;
 
 async function _create() {
@@ -47,19 +59,19 @@ async function _create() {
     storage: getRxStoragePouch('indexeddb'),
     multiInstance: false
   });
-  await db.addCollections({
+  projectsCollection = await db.addCollections({
     projects: {
       schema: projectsSchema
     }
   })
-  await db.projects.insert(
-    TEST_PROJECT()
-  );
+  let allprojects = await projectsCollection.projects.find().exec();
+  if (allprojects.length === 0) {
+    await db.projects.insert(
+      TEST_PROJECT()
+    );
+  }
 
-  console.log(db);
-
-
-  DB_INSTANCE = db;
+  console.log(projectsCollection);
 }
 
 /**

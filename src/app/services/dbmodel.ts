@@ -1,9 +1,9 @@
 import { RxCollection, RxDatabase, RxDocument, RxJsonSchema } from "rxdb";
-import { Project } from "../model/project.model";
+import { IProject } from "../model/project.model";
 
-type RxProject = RxDocument<Project>;
+export type RxProject = RxDocument<IProject>;
 
-export type RxProjectCollection = RxCollection<Project>;
+export type RxProjectCollection = RxCollection<IProject>;
 
 export type PMCollections = {
     projects: RxProjectCollection
@@ -11,9 +11,9 @@ export type PMCollections = {
 
 export type PMDatabase = RxDatabase<PMCollections>;
 
-export const projectsSchema: RxJsonSchema<Project> = {
+export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
-    description: 'describes a project being',
+    description: 'describes a project',
     version: 0,
     keyCompression: true,
     primaryKey: 'id',
@@ -22,10 +22,10 @@ export const projectsSchema: RxJsonSchema<Project> = {
         id: {
             type: 'string'
         },
-        internalid: {
+        name: {
             type: 'string'
         },
-        name: {
+        internalid: {
             type: 'string'
         },
         pplink: {
@@ -41,10 +41,22 @@ export const projectsSchema: RxJsonSchema<Project> = {
                     },
                     dga: {
                         type: 'string'
+                    },
+                    comment: {
+                        type: 'string'
                     }
                 }
             }
-        }
+        },
+        recette_date: {
+            type: 'string'
+        },
+        prod_date: {
+            type: 'string'
+        },
+        description: {
+            type: 'string'
+        },
     },
     required: ['id']
 };

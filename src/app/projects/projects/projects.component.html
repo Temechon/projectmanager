@@ -1,6 +1,6 @@
 <div class="flex h-full">
     <!-- Sidebar -->
-    <div class="w-80 bg-white h-full flex flex-col">
+    <div class="w-80 bg-white h-full flex flex-col relative">
 
         <h1 class="text-gray-500 mb-8 pl-4 pt-12">Projets</h1>
 
@@ -8,6 +8,10 @@
             routerLinkActive="bg-primary text-white" [routerLink]="p.id" *ngFor="let p of projects">
             <span class="font-semibold mr-4">{{p.internalid}}</span>
             <div class="truncate">{{p.name}}</div>
+        </div>
+
+        <div class="absolute left-0 bottom-20 w-full text-center">
+            <action-button (onClick)="addProject()" text="Ajouter un projet" icon="fa-plus-circle"></action-button>
         </div>
     </div>
 

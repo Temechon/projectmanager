@@ -1,29 +1,35 @@
 <div class="p-12 w-full h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-12">Acteurs</h1>
 
-    <div class="w-5/6 mr-auto">
+    <div class="w-full mr-auto">
         <table class="w-full border-collapse table-fixed">
             <thead>
-                <th class="text-primary relative table-cell cursor-pointer" (click)="sortBy('name', caretname)">
+                <th class="text-primary relative table-cell cursor-pointer w-96" (click)="sortBy('name', caretname)">
                     Nom
                     <i #caretname
                         class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
                 </th>
-                <th class=" text-primary relative table-cell w-80 cursor-pointer" (click)="sortBy('dga', caretdga)">
+                <th class=" text-primary relative table-cell w-64 cursor-pointer" (click)="sortBy('dga', caretdga)">
                     DGA
                     <i #caretdga
                         class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
+                </th>
+                <th class=" text-primary relative table-cell cursor-pointer">
+                    Commentaire
                 </th>
                 <th class="w-20"></th>
             </thead>
             <tbody>
                 <tr *ngFor="let actor of project.actors; let index=index">
 
-                    <td class="table-cell  px-4 py-1">
+                    <td class="table-cell px-1 py-1">
                         <editable-text [(text)]="actor.name" (onFinished)="save()"></editable-text>
                     </td>
-                    <td class="table-cell  px-4 py-1">
+                    <td class="table-cell px-1 py-1">
                         <editable-text [(text)]="actor.dga" (onFinished)="save()"></editable-text>
+                    </td>
+                    <td class="table-cell px-1 py-1">
+                        <editable-text [(text)]="actor.comment" (onFinished)="save()"></editable-text>
                     </td>
 
                     <td class="px-4 py-1 text-center">
@@ -33,11 +39,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class=" table-cell px-4 py-1">
-                        <editable-text [(text)]="newactor.name" (enterPressed)="add()"></editable-text>
+                    <td class=" table-cell px-1 py-1">
+                        <editable-text [(text)]="newactor.name" placeholder="Nom" (enterPressed)="add()">
+                        </editable-text>
                     </td>
-                    <td class=" table-cell px-4 py-1">
-                        <editable-text [(text)]="newactor.dga" (enterPressed)="add()"></editable-text>
+                    <td class=" table-cell px-1 py-1">
+                        <editable-text [(text)]="newactor.dga" placeholder="DGA" (enterPressed)="add()"></editable-text>
+                    </td>
+                    <td class=" table-cell px-1 py-1">
+                        <editable-text [(text)]="newactor.comment" (enterPressed)="add()">
+                        </editable-text>
                     </td>
                 </tr>
             </tbody>

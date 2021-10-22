@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
-import { Project } from '../model/project.model';
+import { EMPTY, from, map, Observable, of } from 'rxjs';
+import { IProject } from '../model/project.model';
 import { DatabaseLokiService } from '../services/database-loki.service';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class ProjectResolver {
         private router: Router
     ) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Project> {
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IProject> {
 
         // Check if the note id is in the curent route
         let id = route.paramMap.get('id');
@@ -22,8 +22,7 @@ export class ProjectResolver {
 
         if (id) {
             // Otherwise, retrieve it from database
-            let p = this.database.getProject(id);
-            return of(p);
+            return from(this.database.getProject(id));
         } else {
             return EMPTY;
 

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Project } from 'src/app/model/project.model';
+import { IProject, Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-actors',
@@ -19,7 +20,8 @@ export class ActorsComponent implements OnInit {
   sortOrder = 1;
   newactor = {
     name: '',
-    dga: ''
+    dga: '',
+    comment: ''
   }
 
   ngOnInit(): void {
@@ -30,7 +32,7 @@ export class ActorsComponent implements OnInit {
 
   save() {
     console.log("Saving project", this.project);
-    this.db.saveProject(this.project);
+    this.db.saveProject(this.project.toObject());
     console.log("Done!");
   }
 
@@ -38,9 +40,10 @@ export class ActorsComponent implements OnInit {
     if (this.newactor.name || this.newactor.dga) {
       this.project.actors.push({
         name: this.newactor.name,
-        dga: this.newactor.dga
+        dga: this.newactor.dga,
+        comment: this.newactor.comment
       });
-      this.newactor.name = this.newactor.dga = "";
+      this.newactor = _.mapObject(this.newactor, () => "")
       this.save();
     }
   }
