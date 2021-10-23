@@ -4,8 +4,8 @@
 
         <h1 class="text-gray-500 mb-8 pl-4 pt-12">Projets</h1>
 
-        <div class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary hover:text-white cursor-pointer rounded-r-md"
-            routerLinkActive="bg-primary text-white" [routerLink]="p.id" *ngFor="let p of projects">
+        <div class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
+            routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id" *ngFor="let p of projects">
             <span class="font-semibold mr-4">{{p.internalid}}</span>
             <div class="truncate">{{p.name}}</div>
         </div>
