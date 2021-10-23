@@ -11,7 +11,6 @@ import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 })
 export class DatabaseLokiService {
 
-
   constructor() {
 
   }
@@ -29,15 +28,24 @@ export class DatabaseLokiService {
     // return DB_INSTANCE.getCollection('projects').findOne({ id } as any) as Doc<Project>;
   }
 
-  getProjects(): Observable<Project[]> {
+  getProjects$(): Observable<Project[]> {
     // return projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
     return projectsCollection.projects.find().$.pipe(map(datarr => datarr.map(data => new Project(data))));
     // return DB_INSTANCE.allDocs();
     // return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
-  addProject(p: IProject) {
-    // return DB_INSTANCE.getCollection('projects').insert(p);
+  getProjects(): Promise<Project[]> {
+    return projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
+  }
+
+
+  deleteProject(project: Project): Promise<any> {
+    return projectsCollection.projects.findOne({
+      selector: {
+        id: project.id
+      }
+    }).remove()
   }
 
   saveProject(p: IProject) {

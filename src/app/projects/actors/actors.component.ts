@@ -3,37 +3,21 @@ import { ActivatedRoute } from '@angular/router';
 import { IProject, Project } from 'src/app/model/project.model';
 import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 import _ from 'underscore';
+import { CategoryComponent } from '../category.component';
 
 @Component({
   selector: 'app-actors',
   templateUrl: './actors.component.html',
   styleUrls: ['./actors.component.scss']
 })
-export class ActorsComponent implements OnInit {
+export class ActorsComponent extends CategoryComponent {
 
-  constructor(
-    private route: ActivatedRoute,
-    private db: DatabaseLokiService) { }
-
-  project: Project
   sortAttribute: string = 'name';
   sortOrder = 1;
   newactor = {
     name: '',
     dga: '',
     comment: ''
-  }
-
-  ngOnInit(): void {
-
-    this.project = this.route.parent.snapshot.data.project;
-    console.log("PROJECT ICI", this.project)
-  }
-
-  save() {
-    console.log("Saving project", this.project);
-    this.db.saveProject(this.project.toObject());
-    console.log("Done!");
   }
 
   add() {

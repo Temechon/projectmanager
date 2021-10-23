@@ -1,8 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { IProject, Project } from 'src/app/model/project.model';
-import { DatabaseLokiService } from 'src/app/services/database-loki.service';
+import { Component } from '@angular/core';
+import { CategoryComponent } from '../category.component';
 
 
 @Component({
@@ -10,31 +7,18 @@ import { DatabaseLokiService } from 'src/app/services/database-loki.service';
   templateUrl: './general-information.component.html',
   styleUrls: ['./general-information.component.scss']
 })
-export class GeneralInformationComponent implements OnInit {
+export class GeneralInformationComponent extends CategoryComponent {
 
-  constructor(
-    private route: ActivatedRoute,
-    private db: DatabaseLokiService
-  ) { }
-
-  project: Project
-  routesub: Subscription;
-
-  ngOnInit(): void {
-
-    this.routesub = this.route.parent.data.subscribe(data => {
-      this.project = data.project
-      console.log("PROJECT ICI", this.project)
-    })
-  }
-
-  save() {
-    console.log("Saving project", this.project);
-    this.db.saveProject(this.project.toObject());
-    console.log("Done!");
-  }
-
-  ngOnDestroy() {
-    this.routesub.unsubscribe();
+  delete() {
+    let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    if (res) {
+      this.db.deleteProject(this.project).then(() => {
+        // Forward to the first project
+        return this.db.getProjects()
+      }).then((projects) => {
+        console.log("data ici", projects);
+        this.router.navigate(['projects', projects[0].id])
+      })
+    }
   }
 }
