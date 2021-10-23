@@ -1,0 +1,122 @@
+<!-- The whole container -->
+<div class="w-full bg-white h-full relative -top-12">
+
+    <div class="h-full flex flex-col">
+
+        <!-- Toolbar -->
+        <div class="h-8 leading-8 mb-2 flex items-center">
+
+            <!-- Heading/paragraph combo list -->
+            <style-button #style (onStyleSelected)="toggleHeading($event)">
+            </style-button>
+            <!-- Separator -->
+            <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+            <!-- Bold -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('bold') }"
+                (click)="editor.chain().focus().toggleBold().run()">
+                <i class="fas fa-bold"></i>
+            </button>
+            <!-- Italic -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('italic') }"
+                (click)="editor.chain().focus().toggleItalic().run()">
+                <i class="fas fa-italic"></i>
+            </button>
+            <!-- strike -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('strike') }"
+                (click)="editor.chain().focus().toggleStrike().run()">
+                <i class="fas fa-strikethrough"></i>
+            </button>
+            <!-- Highlight -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('highlight') }"
+                (click)="editor.chain().focus().toggleHighlight({ color: '#DBEAFE' }).run()">
+                <i class="fas fa-highlighter"></i>
+            </button>
+            <!-- Separator -->
+            <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+            <!-- bullet list -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('bulletList') }"
+                (click)="editor.chain().focus().toggleBulletList().run()">
+                <i class="fas fa-list-ul"></i>
+            </button>
+
+            <!-- Ordered list -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('orderedList') }"
+                (click)="editor.chain().focus().toggleOrderedList().run()">
+                <i class="fas fa-list-ol"></i>
+            </button>
+
+            <!-- Task list -->
+            <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('taskList') }"
+                (click)="editor.chain().focus().toggleTaskList().run()">
+                <i class="fas fa-tasks"></i>
+            </button>
+
+
+            <!-- Separator -->
+            <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+            <!-- Blockquote -->
+            <button (click)="editor.chain().focus().toggleBlockquote().run()"
+                [ngClass]="{ 'button':true,  'is-active': editor.isActive('blockquote') }">
+                <i class="fas fa-quote-right"></i>
+            </button>
+            <!-- Table -->
+            <!-- <button (click)="editor.chain().focus().insertTable({rows:2, cols:2, withHeaderRow:true}).run()"
+                class="button">
+                <i class="fas fa-table"></i>
+            </button> -->
+            <!-- HR -->
+            <button (click)="editor.chain().focus().setHorizontalRule().run()" class="button">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+
+        <div class="element w-full h-full pl-4 overflow-y-auto">
+
+            <h1 #title class="text-3xl font-extrabold mt-3 outline-none" contenteditable="true">
+                {{note.title}}</h1>
+
+            <!-- Separator -->
+            <div class="w-4/5 h-px bg-gray-100 my-2"></div>
+
+            <!-- header-bar -->
+            <div class="flex items-center w-full flex-wrap mb-7 ">
+                <div class="flex flex-col mr-4">
+                    <div class="text-sm text-gray-400">
+                        <i class="fas fa-clock"></i>
+                        {{note.date}}
+                    </div>
+                </div>
+                <!-- Tags -->
+                <!-- <div *ngFor="let tag of note.tags"
+                    class="rounded-full flex items-center px-3 h-6 bg-blue-50 hover:bg-blue-200 text-sm text-blue-500 leading-6 text-left mx-2 first:ml-0">
+                    <div>
+                        {{tag}}
+                    </div>
+                    <i (click)="removeTag(tag)"
+                        class="fas fa-times ml-3 cursor-pointer"></i>
+                </div> -->
+
+                <!-- <input type="text"
+                    class="h-6 leading-6 mx-4 outline-none text-sm"
+                    placeholder="Add tag..." (keydown.enter)="addTag($event)" /> -->
+            </div>
+
+        </div>
+    </div>
+
+    <div class="absolute bottom-6 right-12 flex flex-col-reverse">
+
+        <div (click)="deleteNote()"
+            class="bg-secondary  cursor-pointer text-white text-lg w-10 h-10 rounded-full flex items-center justify-center my-2">
+            <i class="fas fa-trash-alt"></i>
+        </div>
+        <!-- <div
+            class="bg-mygreen hover:bg-green-400 cursor-pointer text-white text-lg w-10 h-10 rounded-full flex items-center justify-center my-2">
+            <i class="fas fa-file-export"></i>
+        </div> -->
+    </div>
+
+</div>

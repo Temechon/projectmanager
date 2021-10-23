@@ -1,0 +1,22 @@
+.button {
+    @apply w-8 h-full;
+    @apply rounded-md;
+    @apply mx-1;
+
+    &:hover {
+        @apply shadow-lg;
+    }
+    &:active {
+        @apply text-indigo-400;
+        @apply bg-blue-50;
+        @apply outline-none;
+    }
+}
+
+// active buttons in editor
+.is-active {
+    @apply text-indigo-400;
+    @apply bg-blue-50;
+    @apply font-normal;
+    @apply shadow-sm;
+}

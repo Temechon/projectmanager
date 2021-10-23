@@ -1,0 +1,25 @@
+<div class="p-12 w-full h-full bg-white">
+    <h1 class="text-4xl font-bold text-darker mb-12">Compte-rendu</h1>
+
+    <div class="flex w-full mr-auto h-[calc(100%-40px)]">
+
+        <div class="w-80 flex flex-col relative h-full">
+
+            <div [ngClass]="{'active':isSelected(p.id)}"
+                class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
+                (click)="select(index)" *ngFor="let p of project.reports; let index=index">
+                <span class="font-semibold mr-4">{{p.date}}</span>
+                <div class="truncate">{{p.title}}</div>
+            </div>
+
+            <div class="absolute left-0 bottom-20 w-full text-center">
+                <action-button text="Ajouter un CR" (onClick)="addReport()" icon="fa-plus-circle"></action-button>
+            </div>
+        </div>
+
+
+        <div class="w-[calc(100%-20rem)] pl-8" *ngIf="selected">
+            <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)"></report-view>
+        </div>
+    </div>
+</div>

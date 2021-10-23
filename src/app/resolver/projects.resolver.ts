@@ -18,8 +18,6 @@ export class ProjectResolver {
 
         // Check if the note id is in the curent route
         let id = route.paramMap.get('id');
-        console.log("Project ID", id)
-
         if (id) {
             // Otherwise, retrieve it from database
             return from(this.database.getProject(id));

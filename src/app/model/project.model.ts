@@ -22,6 +22,8 @@ export abstract class IProject {
     prod_date: string;
     /** Description du projet */
     description: string;
+    /** Tous les comptes-rendus du projet */
+    reports: Array<{ id: string, content: string, title: string, date: string }>;
 }
 
 export class Project extends IProject {
@@ -37,6 +39,7 @@ export class Project extends IProject {
         this.recette_date = rxdoc.recette_date;
         this.prod_date = rxdoc.prod_date;
         this.description = rxdoc.description;
+        this.reports = rxdoc.reports?.slice() || [];
     }
 
     toObject(): IProject {
@@ -61,6 +64,7 @@ export function TEST_PROJECT(): IProject {
         actors: [],
         recette_date: "30/10/2021",
         prod_date: "24/11/2021",
-        description: "description du projet"
+        description: "description du projet",
+        reports: []
     }
 }

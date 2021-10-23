@@ -9,6 +9,9 @@ import { ProjectComponent } from './projects/project/project.component';
 import { GeneralInformationComponent } from './projects/general-information/general-information.component';
 import { GuiModule } from './gui/gui.module';
 import { ActorsComponent } from './projects/actors/actors.component';
+import { ReportsComponent } from './projects/reports/reports.component';
+import { ReportViewComponent } from './projects/reports/report-view/report-view.component';
+import { StyleButtonComponent } from './projects/reports/report-view/style-button/style-button.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { ActorsComponent } from './projects/actors/actors.component';
     ProjectsComponent,
     ProjectComponent,
     GeneralInformationComponent,
-    ActorsComponent
+    ActorsComponent,
+    ReportsComponent,
+    ReportViewComponent,
+    StyleButtonComponent
   ],
   imports: [
     BrowserModule,

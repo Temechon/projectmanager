@@ -4,59 +4,49 @@ import { ActorsComponent } from './projects/actors/actors.component';
 import { GeneralInformationComponent } from './projects/general-information/general-information.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
+import { ReportsComponent } from './projects/reports/reports.component';
 import { ProjectResolver } from './resolver/projects.resolver';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'projects',
+    component: ProjectsComponent,
     children: [
       {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'projects',
-      },
-      {
-        path: 'projects',
+        path: ':id',
+        resolve: {
+          project: ProjectResolver,
+        },
+        component: ProjectComponent,
         children: [
           {
+            path: 'general',
+            component: GeneralInformationComponent,
+          },
+          {
+            path: 'actors',
+            component: ActorsComponent,
+          },
+          {
+            path: 'reports',
+            component: ReportsComponent,
+          },
+          {
             path: '',
-            component: ProjectsComponent,
-            children: [
-              {
-                path: ':id',
-                resolve: {
-                  project: ProjectResolver,
-                },
-                component: ProjectComponent,
-                children: [
-                  {
-                    path: '',
-                    redirectTo: 'general',
-                    pathMatch: 'full',
-                  },
-                  {
-                    path: 'general',
-                    component: GeneralInformationComponent,
-                  },
-                  {
-                    path: 'actors',
-                    component: ActorsComponent,
-                  }
-                ]
-              }
-
-            ]
+            redirectTo: 'general',
+            pathMatch: 'full',
           },
         ]
-      },
-
-      {
-        path: '**',
-        redirectTo: 'home'
-      },
+      }
     ]
-  }]
+  },
+
+  {
+    path: '**',
+    redirectTo: 'projects'
+  },
+]
 
 
 @NgModule({

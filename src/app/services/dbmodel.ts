@@ -57,6 +57,26 @@ export const projectsSchema: RxJsonSchema<IProject> = {
         description: {
             type: 'string'
         },
+        reports: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string'
+                    },
+                    title: {
+                        type: 'string'
+                    },
+                    content: {
+                        type: 'string'
+                    },
+                    date: {
+                        type: 'string'
+                    }
+                }
+            }
+        }
     },
     required: ['id']
 };

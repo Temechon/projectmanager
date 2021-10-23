@@ -19,8 +19,6 @@ export class ProjectsComponent implements OnInit {
 
     this.db.getProjects$().subscribe(data => {
       this.projects = data;
-      console.log("data", data);
-      // this.router.navigate(['projects', this.projects[0].id])
     })
 
   }

@@ -12,3 +12,113 @@ html,
 body {
     @apply w-full h-full m-0 p-0;
 }
+
+.notes {
+    h1 {
+        @apply text-2xl;
+        @apply font-extrabold;
+        @apply mt-0 mb-6;
+    }
+    h2 {
+        @apply text-xl;
+        @apply font-bold;
+        @apply mt-7 mb-4;
+        &:first-child {
+            @apply mt-0;
+        }
+    }
+    h3 {
+        @apply text-lg;
+        @apply font-semibold;
+        @apply mt-7 mb-3;
+        &:first-child {
+            @apply mt-0;
+        }
+    }
+    p {
+        @apply mt-2;
+        @apply mb-2;
+    }
+
+    ul {
+        @apply relative;
+        @apply my-4;
+
+        &:not([data-type="taskList"]) {
+            @apply relative;
+
+            p {
+                @apply mb-1 mt-1;
+            }
+
+            li {
+                @apply pl-5;
+                @apply relative;
+                &:before {
+                    @apply absolute;
+                    @apply font-normal;
+                    @apply left-0;
+                    content: "";
+                    @apply top-3;
+                    @apply w-1 h-1;
+                    background-color: #6b7280;
+                    @apply rounded-full;
+                }
+            }
+        }
+        &[data-type="taskList"] {
+            list-style: none;
+            padding: 0;
+
+            p {
+                @apply my-px;
+            }
+
+            li {
+                @apply flex items-center;
+                @apply my-0.5;
+
+                > label {
+                    flex: 0 0 auto;
+                    margin-right: 0.5rem;
+                }
+            }
+        }
+    }
+
+    ol {
+        @apply relative;
+        @apply my-4;
+
+        li {
+            @apply pl-5;
+
+            &:before {
+                content: counter(list-item, var(--list-counter-style, decimal)) ".";
+                @apply absolute;
+                @apply font-normal;
+                @apply left-0;
+                color: #6b7280;
+            }
+            p {
+                @apply mb-1 mt-1;
+            }
+        }
+    }
+
+    blockquote {
+        @apply border-l-4;
+        @apply border-blue-400;
+        @apply pl-5;
+        @apply py-2;
+        @apply my-4;
+    }
+
+    hr {
+        @apply my-4;
+    }
+
+    mark {
+        color: #1d4ed8;
+    }
+}

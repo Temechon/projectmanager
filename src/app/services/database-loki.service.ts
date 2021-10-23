@@ -21,7 +21,7 @@ export class DatabaseLokiService {
         id: id
       }
     }).exec().then(data => {
-      console.log("get project", new Project(data).toObject());
+      // console.log("get project", new Project(data).toObject());
 
       return new Project(data)
     });
@@ -79,7 +79,7 @@ async function _create() {
     );
   }
 
-  console.log(projectsCollection);
+  // console.log(projectsCollection);
 }
 
 /**
@@ -93,7 +93,7 @@ export async function initDatabase() {
    * The database might already be there
    */
   if (!initState) {
-    console.log('initDatabase()');
+    // console.log('initDatabase()');
     initState = _create();
   }
   await initState;

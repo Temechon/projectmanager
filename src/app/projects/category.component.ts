@@ -1,6 +1,7 @@
 import { Directive, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import _ from "underscore";
 import { Project } from "../model/project.model";
 import { DatabaseLokiService } from "../services/database-loki.service";
 
@@ -18,6 +19,11 @@ export class CategoryComponent implements OnInit {
 
     ngOnInit(): void {
 
+        // save into local storage the last route
+        let url = this.router.url;
+        let path = url.substr(_.lastIndexOf(url, '/') + 1, url.length);
+        localStorage.setItem('PM_PROJECT_PATH', path);
+
         this.routesub = this.route.parent.data.subscribe(data => {
             this.project = data.project
             console.log("PROJECT ICI", this.project)
@@ -31,6 +37,6 @@ export class CategoryComponent implements OnInit {
     }
 
     ngOnDestroy() {
-        this.routesub.unsubscribe();
+        this.routesub?.unsubscribe();
     }
 }
