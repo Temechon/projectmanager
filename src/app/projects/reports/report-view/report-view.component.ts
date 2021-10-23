@@ -1,18 +1,13 @@
 import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Editor } from '@tiptap/core';
 import Highlight from '@tiptap/extension-highlight';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
-// import Image from '@tiptap/extension-image';
-// import Table from '@tiptap/extension-table';
-// import TableCell from '@tiptap/extension-table-cell';
-// import TableHeader from '@tiptap/extension-table-header';
-// import TableRow from '@tiptap/extension-table-row';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import StarterKit from '@tiptap/starter-kit';
 import { fromEvent } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { Report } from 'src/app/model/project.model';
 import { StyleButtonComponent } from './style-button/style-button.component';
 
 
@@ -27,7 +22,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
   public editor: Editor;
 
   @Input()
-  public note: any;
+  note: Report;
 
   @Output()
   onDelete: EventEmitter<void> = new EventEmitter<void>();
@@ -38,25 +33,15 @@ export class ReportViewComponent implements OnInit, OnChanges {
   @ViewChild('title', { static: true })
   title: ElementRef;
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("cc", changes.note);
+    console.log("cc", changes.note.currentValue);
+    this.note = changes.note.currentValue;
     this.editor?.commands.setContent(this.note.content)
-
   }
 
   ngOnInit(): void {
-
-    // this.route.data.subscribe((data: any) => {
-    //   if (data && data.note) {
-    //     this.note = data.note;
-    //     this.editor?.commands.setContent(this.note.content)
-    //   }
-    // });
-
 
     this.editor = new Editor({
       element: document.querySelector('.element') as Element,
@@ -65,14 +50,6 @@ export class ReportViewComponent implements OnInit, OnChanges {
         // Task list
         TaskList,
         TaskItem,
-        // Table
-        // Table.configure({
-        //   resizable: true
-        // }),
-        // TableRow,
-        // TableHeader,
-        // TableCell,
-        // Image,
         HorizontalRule,
         Highlight.configure({ multicolor: true })
       ],

@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { IProject, Project } from 'src/app/model/project.model';
-import { DatabaseLokiService } from 'src/app/services/database-loki.service';
+import { Component } from '@angular/core';
 import _ from 'underscore';
 import { CategoryComponent } from '../category.component';
 

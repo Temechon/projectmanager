@@ -1,6 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+import { DateTime } from "luxon";
 import { guid } from 'src/app/model/project.model';
+import _ from 'underscore';
 import { CategoryComponent } from '../category.component';
+
 
 @Component({
   selector: 'app-reports',
@@ -9,30 +12,28 @@ import { CategoryComponent } from '../category.component';
 })
 export class ReportsComponent extends CategoryComponent {
 
-  @ViewChild('editorRef') editorRef: ElementRef;
-
   selected: any;
   selectedindex: number;
-
-  ngAfterViewInit() {
-  }
 
   select(index: number) {
     this.selected = this.project.reports[index];
     this.selectedindex = index;
-    console.log("selected", this.selected.id);
-
   }
 
   addReport() {
-    this.project.reports.push({
+    let note = {
       id: guid(),
-      title: 'Test titre',
-      content: 'Contenu test' + guid(),
-      date: "10/20/2020"
-    })
+      title: 'Titre',
+      content: '',
+      date: DateTime.now().toLocaleString(DateTime.DATE_SHORT)
+    };
+    this.project.reports.push(note)
+    this.selected = _.last(this.project.reports)
+    this.selectedindex = this.project.reports.length - 1
     this.save();
+    // this.selected.title = "jch"
   }
+
   deleteReport(index: number) {
     this.selected = null;
     this.selectedindex = -1;

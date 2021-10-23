@@ -8,6 +8,13 @@ export function guid() {
     });
 }
 
+export type Report = {
+    id: string,
+    content: string,
+    title: string,
+    date: string
+}
+
 export abstract class IProject {
 
     id: string;
@@ -23,7 +30,7 @@ export abstract class IProject {
     /** Description du projet */
     description: string;
     /** Tous les comptes-rendus du projet */
-    reports: Array<{ id: string, content: string, title: string, date: string }>;
+    reports: Array<Report>;
 }
 
 export class Project extends IProject {
@@ -35,11 +42,11 @@ export class Project extends IProject {
         this.name = rxdoc.name;
         this.internalid = rxdoc.internalid;
         this.pplink = rxdoc.pplink;
-        this.actors = rxdoc.actors?.slice() || [];
+        this.actors = rxdoc.actors?.slice().map(_.clone) || []; // Clone because rxdb returns read only objects - why ??
         this.recette_date = rxdoc.recette_date;
         this.prod_date = rxdoc.prod_date;
         this.description = rxdoc.description;
-        this.reports = rxdoc.reports?.slice() || [];
+        this.reports = rxdoc.reports?.slice().map(_.clone) || [];
     }
 
     toObject(): IProject {
