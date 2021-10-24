@@ -27,6 +27,9 @@ export class ReportViewComponent implements OnInit, OnChanges {
   @Output()
   onDelete: EventEmitter<void> = new EventEmitter<void>();
 
+  @Output()
+  onUpdate: EventEmitter<Partial<Report>> = new EventEmitter<Partial<Report>>();
+
   @ViewChild('style')
   style: StyleButtonComponent;
 
@@ -71,7 +74,9 @@ export class ReportViewComponent implements OnInit, OnChanges {
     ).subscribe((a: any) => {
       console.log('saving')
       this.note.content = this.editor.getHTML();
-      // this.noteService.save(this.note)
+      this.onUpdate.emit({
+        content: this.note.content
+      })
     });
 
     fromEvent(this.title.nativeElement, 'keyup').pipe(
@@ -79,6 +84,9 @@ export class ReportViewComponent implements OnInit, OnChanges {
     ).subscribe(() => {
       this.note.title = this.title.nativeElement.textContent;
       this.placeCaretAtEnd(this.title.nativeElement)
+      this.onUpdate.emit({
+        title: this.note.title
+      })
       // this.noteService.save(this.note);
     })
 

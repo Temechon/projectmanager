@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DateTime } from "luxon";
-import { guid } from 'src/app/model/project.model';
+import { guid, Report } from 'src/app/model/project.model';
 import _ from 'underscore';
 import { CategoryComponent } from '../category.component';
 
@@ -38,6 +38,13 @@ export class ReportsComponent extends CategoryComponent {
     this.selected = null;
     this.selectedindex = -1;
     this.project.reports.splice(index, 1);
+    this.save();
+  }
+
+  updateReport($event: Partial<Report>) {
+    for (let key in $event) {
+      this.select[key] = $event[key];
+    }
     this.save();
   }
 

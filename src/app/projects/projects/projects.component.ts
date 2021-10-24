@@ -17,8 +17,15 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
 
+    // let path = url.substr(_.lastIndexOf(url, '/') + 1, url.length);
+
     this.db.getProjects$().subscribe(data => {
       this.projects = data;
+
+      let url = this.router.url;
+      if (url === "/projects" && this.projects.length > 0) {
+        this.router.navigate(['projects', this.projects[0].id])
+      }
     })
 
   }

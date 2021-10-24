@@ -19,7 +19,8 @@
 
 
         <div class="w-[calc(100%-20rem)] pl-8" *ngIf="selected">
-            <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)">
+            <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)"
+                (onUpdate)="updateReport($event)">
             </report-view>
         </div>
     </div>
