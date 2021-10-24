@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { DateTime } from "luxon";
 import { guid, Report } from 'src/app/model/project.model';
 import _ from 'underscore';
-import { CategoryComponent } from '../category.component';
+import { CategoryComponent } from '../../category.component';
 
 
 @Component({
@@ -14,6 +14,15 @@ export class ReportsComponent extends CategoryComponent {
 
   selected: any;
   selectedindex: number;
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    if (this.project.reports.length > 0) {
+      this.selected = _.last(this.project.reports)
+      this.selectedindex = this.project.reports.length - 1
+    }
+  }
 
   select(index: number) {
     this.selected = this.project.reports[index];
@@ -38,6 +47,9 @@ export class ReportsComponent extends CategoryComponent {
     this.selected = null;
     this.selectedindex = -1;
     this.project.reports.splice(index, 1);
+
+    this.selected = _.last(this.project.reports)
+    this.selectedindex = this.project.reports.length - 1
     this.save();
   }
 

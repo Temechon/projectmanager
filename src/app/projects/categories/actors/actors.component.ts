@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import _ from 'underscore';
-import { CategoryComponent } from '../category.component';
+import { CategoryComponent } from '../../category.component';
 
 @Component({
   selector: 'app-actors',
@@ -64,6 +64,20 @@ export class ActorsComponent extends CategoryComponent {
         return a.dga.localeCompare(b.dga) * this.sortOrder;
       }
       return a.name.localeCompare(b.name);
+    })
+  }
+
+  /**
+   * Copy all actors names into clipboard
+   */
+  copyAll() {
+    let str = "";
+    for (let actor of this.project.actors) {
+      str += `${actor.name};`
+    }
+    navigator.clipboard.writeText(str).then(() => {
+      console.log("Written into clipbaord!");
+
     })
   }
 

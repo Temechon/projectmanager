@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActorsComponent } from './projects/actors/actors.component';
-import { GeneralInformationComponent } from './projects/general-information/general-information.component';
+import { ActorsComponent } from './projects/categories/actors/actors.component';
+import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
-import { ReportsComponent } from './projects/reports/reports.component';
+import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectResolver } from './resolver/projects.resolver';
 
 

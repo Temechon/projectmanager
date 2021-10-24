@@ -6,12 +6,13 @@ import { AppComponent } from './app.component';
 import { DatabaseLokiService, initDatabase } from './services/database-loki.service';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectComponent } from './projects/project/project.component';
-import { GeneralInformationComponent } from './projects/general-information/general-information.component';
+import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { GuiModule } from './gui/gui.module';
-import { ActorsComponent } from './projects/actors/actors.component';
-import { ReportsComponent } from './projects/reports/reports.component';
-import { ReportViewComponent } from './projects/reports/report-view/report-view.component';
-import { StyleButtonComponent } from './projects/reports/report-view/style-button/style-button.component';
+import { ActorsComponent } from './projects/categories/actors/actors.component';
+import { ReportsComponent } from './projects/categories/reports/reports.component';
+import { ReportViewComponent } from './projects/categories/reports/report-view/report-view.component';
+import { StyleButtonComponent } from './projects/categories/reports/report-view/style-button/style-button.component';
+import { FollowupComponent } from './projects/categories/followup/followup.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StyleButtonComponent } from './projects/reports/report-view/style-butto
     ActorsComponent,
     ReportsComponent,
     ReportViewComponent,
-    StyleButtonComponent
+    StyleButtonComponent,
+    FollowupComponent
   ],
   imports: [
     BrowserModule,
