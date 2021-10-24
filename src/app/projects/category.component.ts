@@ -3,14 +3,14 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import _ from "underscore";
 import { Project } from "../model/project.model";
-import { DatabaseLokiService } from "../services/database-loki.service";
+import { DatabaseService } from "../services/database.service";
 
 @Directive()
 export class CategoryComponent implements OnInit {
 
     constructor(
         protected route: ActivatedRoute,
-        protected db: DatabaseLokiService,
+        protected db: DatabaseService,
         protected router: Router
     ) { }
 

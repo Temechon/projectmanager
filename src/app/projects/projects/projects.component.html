@@ -29,6 +29,12 @@
 
     <!-- Content -->
     <div id="content" class="w-[calc(100%-20rem)] relative transition-all">
+
+        <div class="h-11 flex items-center justify-start border rounded-full w-[30%] mr-auto mt-2 ml-12">
+            <i class="fas fa-search text-xl px-4"></i>
+            <input type="text" class="w-4/5 outline-none py-2 px-3" placeholder="Chercher partout" id="searchbar"
+                (keydown.enter)="searchEverywhere($event)">
+        </div>
         <router-outlet></router-outlet>
     </div>
 </div>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
 import { IProject, Project, TEST_PROJECT } from 'src/app/model/project.model';
-import { DatabaseLokiService } from 'src/app/services/database-loki.service';
+import { DatabaseService } from 'src/app/services/database.service';
+import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-projects',
@@ -11,11 +12,23 @@ import { DatabaseLokiService } from 'src/app/services/database-loki.service';
 })
 export class ProjectsComponent implements OnInit {
 
-  constructor(private db: DatabaseLokiService, private router: Router) { }
+  constructor(
+    private db: DatabaseService,
+    private router: Router,
+    private renderer: Renderer2,
+    private searchService: SearchService
+  ) { }
 
   projects: Project[];
 
   ngOnInit() {
+
+    // Search everywhere
+    this.renderer.listen(document, 'keydown.control.k', (event: KeyboardEvent) => {
+      (document.querySelector('#searchbar') as HTMLInputElement).focus()
+      event.stopPropagation();
+      event.preventDefault();
+    })
 
     // let path = url.substr(_.lastIndexOf(url, '/') + 1, url.length);
 
@@ -84,6 +97,13 @@ export class ProjectsComponent implements OnInit {
     let button = document.querySelector('#button');
     button.classList.toggle('hidden')
 
+  }
+
+
+  searchEverywhere($event: Event) {
+    let searchTerm = ($event.target as HTMLInputElement).value;
+    // Display search component
+    this.searchService.search(searchTerm)
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { EMPTY, from, map, Observable, of } from 'rxjs';
 import { IProject } from '../model/project.model';
-import { DatabaseLokiService } from '../services/database-loki.service';
+import { DatabaseService } from '../services/database.service';
 
 @Injectable({
     providedIn: 'root',
@@ -10,7 +10,7 @@ import { DatabaseLokiService } from '../services/database-loki.service';
 export class ProjectResolver {
 
     constructor(
-        private database: DatabaseLokiService,
+        private database: DatabaseService,
         private router: Router
     ) { }
 

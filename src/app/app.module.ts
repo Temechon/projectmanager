@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DatabaseLokiService, initDatabase } from './services/database-loki.service';
+import { DatabaseService, initDatabase } from './services/database.service';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
@@ -38,7 +38,7 @@ import { FollowupComponent } from './projects/categories/followup/followup.compo
       multi: true,
       deps: []
     },
-    DatabaseLokiService
+    DatabaseService
   ],
   bootstrap: [AppComponent]
 })

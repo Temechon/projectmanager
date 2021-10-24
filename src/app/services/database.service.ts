@@ -9,7 +9,7 @@ import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseLokiService {
+export class DatabaseService {
 
   constructor() {
 
@@ -61,7 +61,6 @@ async function _create() {
 
   addPouchPlugin(require('pouchdb-adapter-indexeddb'));
 
-
   let db = await createRxDatabase<PMDatabase>({
     name: 'projectmanagerdb',
     storage: getRxStoragePouch('indexeddb'),
@@ -78,7 +77,6 @@ async function _create() {
       TEST_PROJECT()
     );
   }
-
   // console.log(projectsCollection);
 }
 

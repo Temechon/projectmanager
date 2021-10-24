@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DatabaseLokiService } from './services/database-loki.service';
+import { DatabaseService } from './services/database.service';
 
 
 
@@ -10,7 +10,7 @@ import { DatabaseLokiService } from './services/database-loki.service';
 })
 export class AppComponent {
 
-  constructor(private db: DatabaseLokiService) { }
+  constructor(private db: DatabaseService) { }
 
   ngOnInit() {
   }
