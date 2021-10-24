@@ -17,20 +17,17 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // console.log("COUCOU PROJECT HERE");
-
-
-    this.routesub = this.route.data.subscribe(data => {
-      let path = localStorage.getItem('PM_PROJECT_PATH');
-      if (path) {
-        console.log("FORWARD", path, data.project);
-        this.router.navigate(['projects', data.project.id, path])
-      }
-    })
+    // this.routesub = this.route.data.subscribe(data => {
+    //   let path = localStorage.getItem('PM_PROJECT_PATH');
+    //   if (path) {
+    //     console.log("FORWARD", path, data.project);
+    //     this.router.navigate(['projects', data.project.id, path])
+    //   }
+    // })
   }
 
   ngOnDestroy() {
-    this.routesub.unsubscribe();
+    // this.routesub.unsubscribe();
   }
 
 }

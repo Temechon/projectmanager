@@ -26,7 +26,6 @@ export class CategoryComponent implements OnInit {
 
         this.routesub = this.route.parent.data.subscribe(data => {
             this.project = data.project
-            console.log("PROJECT ICI", this.project)
         })
     }
 

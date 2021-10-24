@@ -1,22 +1,34 @@
 <div class="flex h-full">
     <!-- Sidebar -->
-    <div class="w-80 bg-white h-full flex flex-col relative">
+    <div id="sidebar" class="w-80 bg-darker text-white h-full flex flex-col relative transition-all">
 
-        <h1 class="text-gray-500 mb-8 pl-4 pt-12">Projets</h1>
-
-        <div class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
-            routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id" *ngFor="let p of projects">
-            <span class="font-semibold mr-4">{{p.internalid}}</span>
-            <div class="truncate">{{p.name}}</div>
+        <div id="chevron" class="absolute top-5 right-5 text-2xl text-accent transition-all cursor-pointer transform"
+            (click)="toggleSidebar()">
+            <i class="fas fa-chevron-left"></i>
         </div>
 
-        <div class="absolute left-0 bottom-20 w-full text-center">
+        <h1 id="project-label" class="text-gray-400 mb-8 pl-4 pt-12">Projets</h1>
+
+        <div id="project-list">
+            <div class="project w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer"
+                routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
+                *ngFor="let p of projects">
+                <span class="project-id font-semibold mr-4">{{p.internalid}}</span>
+                <div class="truncate project-name">{{p.name}}</div>
+            </div>
+        </div>
+
+        <div id="button-wide" class="absolute left-0 bottom-20 w-full text-center">
             <action-button (onClick)="addProject()" text="Ajouter un projet" icon="fa-plus-circle"></action-button>
+        </div>
+
+        <div id="button" class="hidden absolute left-0 bottom-20 w-full text-center">
+            <action-button (onClick)="addProject()" icon="fa-plus-circle"></action-button>
         </div>
     </div>
 
     <!-- Content -->
-    <div class="w-[calc(100%-20rem)] relative">
+    <div id="content" class="w-[calc(100%-20rem)] relative transition-all">
         <router-outlet></router-outlet>
     </div>
 </div>
