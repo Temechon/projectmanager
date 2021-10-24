@@ -3,6 +3,7 @@ import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDa
 import { map, Observable } from 'rxjs';
 import { IProject, Project, TEST_PROJECT } from '../model/project.model';
 import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
+import { SearchService } from './search.service';
 
 
 
@@ -84,15 +85,18 @@ async function _create() {
  * This is run via APP_INITIALIZER in app.module.ts
  * to ensure the database exists before the angular-app starts up
  */
-export async function initDatabase() {
+export async function initDatabase(search: SearchService) {
 
   /**
    * When server side rendering is used,
    * The database might already be there
    */
   if (!initState) {
-    // console.log('initDatabase()');
     initState = _create();
   }
   await initState;
+  console.log("DB INIT --> ok")
+  let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
+
+  await search.init(allp)
 }

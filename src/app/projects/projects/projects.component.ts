@@ -15,8 +15,7 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private db: DatabaseService,
     private router: Router,
-    private renderer: Renderer2,
-    private searchService: SearchService
+    private renderer: Renderer2
   ) { }
 
   projects: Project[];
@@ -30,8 +29,6 @@ export class ProjectsComponent implements OnInit {
       event.preventDefault();
     })
 
-    // let path = url.substr(_.lastIndexOf(url, '/') + 1, url.length);
-
     this.db.getProjects$().subscribe(data => {
       this.projects = data;
 
@@ -40,14 +37,6 @@ export class ProjectsComponent implements OnInit {
         this.router.navigate(['projects', this.projects[0].id])
       }
     })
-
-  }
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      // this.toggleSidebar()
-
-    }, 500)
 
   }
 
@@ -103,7 +92,7 @@ export class ProjectsComponent implements OnInit {
   searchEverywhere($event: Event) {
     let searchTerm = ($event.target as HTMLInputElement).value;
     // Display search component
-    this.searchService.search(searchTerm)
+    this.router.navigate(['projects', 'search'], { queryParams: { query: searchTerm } })
   }
 
 }

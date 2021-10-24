@@ -6,6 +6,7 @@ import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectResolver } from './resolver/projects.resolver';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,10 @@ const routes: Routes = [
     path: 'projects',
     component: ProjectsComponent,
     children: [
+      {
+        path: 'search',
+        component: SearchResultsComponent
+      },
       {
         path: ':id',
         resolve: {
@@ -36,7 +41,7 @@ const routes: Routes = [
             path: '',
             redirectTo: 'general',
             pathMatch: 'full',
-          },
+          }
         ]
       }
     ]

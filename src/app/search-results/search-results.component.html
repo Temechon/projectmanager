@@ -1,0 +1,8 @@
+<div *ngFor="let res of results">
+    <div class="text-primary">
+        {{res.item.internalid}} - {{res.item.name}}
+    </div>
+    <div *ngFor="let match of res.matches">
+        Matches here: {{getMatch(res.item, match)}}
+    </div>
+</div>
