@@ -5,8 +5,6 @@ import { IProject, Project, TEST_PROJECT } from '../model/project.model';
 import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 import { SearchService } from './search.service';
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -59,6 +57,10 @@ let projectsCollection: PMCollections;
 let initState: null | Promise<any> = null;
 
 async function _create() {
+
+  // await Neutralino.storage.setData('PM_DATABASE', "COUCOU FROM STORAGE");
+  // let data = await Neutralino.storage.getData('PM_DATABASE');
+  // console.log(`ICI : Data: ${data}`);
 
   addPouchPlugin(require('pouchdb-adapter-indexeddb'));
 
