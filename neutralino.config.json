@@ -46,7 +46,7 @@
     }
   },
   "cli": {
-    "binaryName": "myapp",
+    "binaryName": "projectmanager",
     "resourcesPath": "/resources/",
     "clientLibrary": "/resources/assets/neutralino.js",
     "binaryVersion": "3.0.0",
