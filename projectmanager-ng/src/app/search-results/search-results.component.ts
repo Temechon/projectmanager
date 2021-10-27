@@ -17,15 +17,16 @@ export class SearchResultsComponent implements OnInit {
   private sub: Subscription;
 
   results: Fuse.FuseResult<any>[];
+  query: string = "";
 
   ngOnInit(): void {
 
     this.sub = this.route.queryParams.subscribe(params => {
-      let query = params.query;
-      console.log("query", query);
+      this.query = params.query;
+      console.log("query", this.query);
 
-      if (query) {
-        this.results = this.searchService.search(query);
+      if (this.query) {
+        this.results = this.searchService.search(this.query);
         console.log("results", this.results);
       }
     }

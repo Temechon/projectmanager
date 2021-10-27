@@ -1,7 +1,6 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
-import { IProject, Project, TEST_PROJECT } from 'src/app/model/project.model';
+import { Project } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { SearchService } from 'src/app/services/search.service';
 
@@ -15,7 +14,8 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private db: DatabaseService,
     private router: Router,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private index: SearchService
   ) { }
 
   projects: Project[];
@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
 
-    // Search everywhere
+    // Focus on the search bar
     this.renderer.listen(document, 'keydown.control.k', (event: KeyboardEvent) => {
       (document.querySelector('#searchbar') as HTMLInputElement).focus()
       event.stopPropagation();
@@ -44,7 +44,6 @@ export class ProjectsComponent implements OnInit {
   addProject() {
     this.db.saveProject(new Project()).then(d => {
       console.log("Project créé!", d);
-
       this.router.navigate(['projects', d.id])
     })
   }

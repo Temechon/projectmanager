@@ -13,6 +13,8 @@ export class GeneralInformationComponent extends CategoryComponent {
     let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
     if (res) {
       this.db.deleteProject(this.project).then(() => {
+        // Update index        
+        this.index.removeProject(this.project);
         // Forward to the first project
         return this.db.getProjects()
       }).then((projects) => {

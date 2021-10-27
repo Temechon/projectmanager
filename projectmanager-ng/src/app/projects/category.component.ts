@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import _ from "underscore";
 import { Project } from "../model/project.model";
 import { DatabaseService } from "../services/database.service";
+import { SearchService } from "../services/search.service";
 
 @Directive()
 export class CategoryComponent implements OnInit {
@@ -11,7 +12,8 @@ export class CategoryComponent implements OnInit {
     constructor(
         protected route: ActivatedRoute,
         protected db: DatabaseService,
-        protected router: Router
+        protected router: Router,
+        protected index: SearchService
     ) { }
 
     project: Project
@@ -32,6 +34,7 @@ export class CategoryComponent implements OnInit {
     save() {
         console.log("Saving project", this.project);
         this.db.saveProject(this.project.toObject());
+        this.index.updateProject(this.project);
         console.log("Done!");
     }
 

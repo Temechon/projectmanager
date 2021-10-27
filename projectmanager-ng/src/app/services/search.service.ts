@@ -16,6 +16,16 @@ export class SearchService {
   search(term: string): Fuse.FuseResult<any>[] {
     return this.fuse.search(term);
   }
+  removeProject(p: Project) {
+    let removed = this.fuse.remove((doc: Project, index: number) => doc.id === p.id);
+    console.log("Project removed", removed);
+  }
+
+  updateProject(p: Project) {
+    this.removeProject(p)
+    // Add the new one
+    this.fuse.add(p);
+  }
 
   async init(p: Project[]) {
 
@@ -23,7 +33,7 @@ export class SearchService {
     this.fuse = new Fuse(p, {
       includeMatches: true,
       includeScore: true,
-      threshold: 0.5,
+      threshold: 0.4,
       keys: [
         "internalid",
         "name",
