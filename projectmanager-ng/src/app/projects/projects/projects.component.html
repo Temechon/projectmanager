@@ -12,7 +12,7 @@
         <div id="project-list">
             <div class="project w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer"
                 routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
-                *ngFor="let p of projects">
+                *ngFor="let p of projects; trackBy:trackByProjectId">
                 <span class="project-id font-semibold mr-4">{{p.internalid}}</span>
                 <div class="truncate project-name">{{p.name}}</div>
             </div>

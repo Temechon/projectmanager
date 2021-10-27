@@ -19,6 +19,7 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   projects: Project[];
+  sidebarCollapsed = false;
 
   ngOnInit() {
 
@@ -48,11 +49,14 @@ export class ProjectsComponent implements OnInit {
     })
   }
 
+  trackByProjectId(index: number, project: any) {
+    return project.id
+  }
+
   toggleSidebar() {
-    console.log("ici");
+
     let chevron = document.querySelector('#chevron');
     chevron.classList.toggle('rotate-180')
-
 
     let projectLabel = document.querySelector('#project-label');
     projectLabel.classList.toggle('hidden')
