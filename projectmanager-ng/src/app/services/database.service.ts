@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDatabase } from 'rxdb';
 import { map, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { IProject, Project, TEST_PROJECT } from '../model/project.model';
 import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 import { SearchService } from './search.service';
+
+declare let Neutralino: any;
 
 @Injectable({
   providedIn: 'root'
@@ -58,9 +61,6 @@ let initState: null | Promise<any> = null;
 
 async function _create() {
 
-  // await Neutralino.storage.setData('PM_DATABASE', "COUCOU FROM STORAGE");
-  // let data = await Neutralino.storage.getData('PM_DATABASE');
-  // console.log(`ICI : Data: ${data}`);
 
   addPouchPlugin(require('pouchdb-adapter-indexeddb'));
 
@@ -69,18 +69,42 @@ async function _create() {
     storage: getRxStoragePouch('indexeddb'),
     multiInstance: false
   });
+
+
   projectsCollection = await db.addCollections({
     projects: {
       schema: projectsSchema
     }
   })
   let allprojects = await projectsCollection.projects.find().exec();
+
   if (allprojects.length === 0) {
-    await db.projects.insert(
-      TEST_PROJECT()
-    );
+    // If no projects found on database, check if this is prod environment
+    if (environment.production) {
+      // If production, load database from storage
+      Neutralino.events.on('ready', () => {
+        Neutralino.storage.getData('PMDATABASE_PROJECTS').then(strdatabase => {
+          console.log("STRING database", strdatabase)
+          if (strdatabase) {
+            let jsondatabase = JSON.parse(strdatabase)
+            projectsCollection.projects.importJSON(jsondatabase);
+          } else {
+
+          }
+        })
+      })
+    }
+
   }
-  // console.log(projectsCollection);
+
+  if (environment.production) {
+    projectsCollection.projects.$.subscribe(() => {
+      projectsCollection.projects.exportJSON().then((json) => {
+        console.log("JSON", json);
+        Neutralino.storage.setData('PMDATABASE_PROJECTS', JSON.stringify(json))
+      })
+    })
+  }
 }
 
 /**
