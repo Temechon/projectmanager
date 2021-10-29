@@ -8,11 +8,36 @@
         </div>
 
         <div *ngFor="let res of results">
-            <div class="text-primary text-2xl font-semibold">
-                {{res.item.internalid}} - {{res.item.name}}
-            </div>
-            <div *ngFor="let match of res.matches">
-                Matches here: {{getMatch(res.item, match)}}
+            <div *ngFor="let r of res.result" class="hover:bg-gray-50 p-4 cursor-pointer">
+
+                <div *ngIf="r.doc.type === 'project'" (click)="goTo(r.doc.id)">
+                    <div class="flex items-center">
+                        <div
+                            class="flex items-center justify-center bg-primary rounded-full text-sm text-white px-3 mr-4">
+                            {{r.doc.p_internalid}}
+                        </div>
+                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
+                    </div>
+                    <div class="text-gray-400 text-sm pt-4" [innerHtml]="snippet(r.doc.content)">
+                    </div>
+                </div>
+
+
+
+                <div *ngIf="r.doc.type === 'report'" (click)="goToReport(r.doc.p_id, r.id)">
+                    <div class="flex items-center">
+                        <div
+                            class="flex items-center justify-center bg-primary rounded-full text-sm text-white px-3 mr-4">
+                            {{r.doc.p_internalid}}
+                        </div>
+                        <div class="text-darker text-2xl font-bold">
+                            {{r.doc.title}}
+                            <span class="text-gray-400 text-sm ml-4">{{r.doc.date}}</span>
+                        </div>
+                    </div>
+                    <div class="text-gray-400 text-sm pt-4" [innerHtml]="snippet(r.doc.content)">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

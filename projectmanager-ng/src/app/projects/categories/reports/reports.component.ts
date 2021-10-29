@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DateTime } from "luxon";
+import { Subscription } from 'rxjs';
 import { guid, Report } from 'src/app/model/project.model';
 import _ from 'underscore';
 import { CategoryComponent } from '../../category.component';
@@ -14,14 +15,25 @@ export class ReportsComponent extends CategoryComponent {
 
   selected: any;
   selectedindex: number;
+  sub: Subscription;
 
   ngOnInit() {
     super.ngOnInit();
 
-    if (this.project.reports.length > 0) {
-      this.selected = _.last(this.project.reports)
-      this.selectedindex = this.project.reports.length - 1
-    }
+    this.sub = this.route.queryParams.subscribe((data) => {
+      let reportid = data.id;
+      if (reportid) {
+        // Select this report
+        this.selected = _.find(this.project.reports, p => p.id === reportid);
+        this.selectedindex = _.indexOf(this.project.reports, this.selected);
+      } else {
+        if (this.project.reports.length > 0) {
+          this.selected = _.last(this.project.reports)
+          this.selectedindex = this.project.reports.length - 1
+        }
+      }
+    })
+
   }
 
   select(index: number) {
@@ -62,6 +74,10 @@ export class ReportsComponent extends CategoryComponent {
 
   isSelected(pid: string) {
     return this.selected?.id === pid;
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
 

@@ -25,7 +25,9 @@ export class ProjectsComponent implements OnInit {
 
     // Focus on the search bar
     this.renderer.listen(document, 'keydown.control.k', (event: KeyboardEvent) => {
-      (document.querySelector('#searchbar') as HTMLInputElement).focus()
+      let input = (document.querySelector('#searchbar') as HTMLInputElement)
+      input.focus();
+      input.setSelectionRange(0, input.value.length)
       event.stopPropagation();
       event.preventDefault();
     })
@@ -42,7 +44,9 @@ export class ProjectsComponent implements OnInit {
   }
 
   addProject() {
-    this.db.saveProject(new Project()).then(d => {
+    let proj = new Project();
+    this.db.saveProject(proj).then(d => {
+      this.index.addProject(proj);
       console.log("Project créé!", d);
       this.router.navigate(['projects', d.id])
     })
