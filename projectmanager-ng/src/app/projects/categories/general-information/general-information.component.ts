@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 
+declare var Neutralino: any;
 
 @Component({
   selector: 'app-general-information',
@@ -21,6 +23,22 @@ export class GeneralInformationComponent extends CategoryComponent {
         console.log("data ici", projects);
         this.router.navigate(['projects', projects[0].id])
       })
+    }
+  }
+
+  openFolder(folder: string) {
+    if (environment.production) {
+      Neutralino.os.execCommand('explorer ' + folder)
+    } else {
+      console.log("Not in production")
+    }
+  }
+
+  openLink(link: string) {
+    if (environment.production) {
+      Neutralino.os.execCommand('start ' + link)
+    } else {
+      window.open(link, "_blank");
     }
   }
 }

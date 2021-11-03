@@ -28,6 +28,7 @@
     "@types/flexsearch": "^0.7.1",
     "flexsearch": "^0.7.21",
     "fuse.js": "^6.4.6",
+    "handsontable": "^10.0.0",
     "luxon": "^2.0.2",
     "ngx-autosize": "^1.8.4",
     "pouchdb-adapter-indexeddb": "^7.2.2",

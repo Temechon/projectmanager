@@ -17,6 +17,10 @@ export class EditableTextComponent implements OnInit, OnDestroy {
   textChange: EventEmitter<string> = new EventEmitter<string>();
   @Input()
   custom: string;
+  // Draw the edit icon or not
+  @Input()
+  icon: boolean = true;
+
 
   @Input()
   placeholder: string = "";

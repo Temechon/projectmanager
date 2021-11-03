@@ -73,7 +73,18 @@ async function _create() {
 
   projectsCollection = await db.addCollections({
     projects: {
-      schema: projectsSchema
+      schema: projectsSchema,
+      migrationStrategies: {
+        // 1 means, this transforms data from version 0 to version 1
+        1: (oldDoc: any) => {
+          oldDoc.folder = ""
+          return oldDoc;
+        },
+        2: (oldDoc: any) => {
+          oldDoc.taskitems = []
+          return oldDoc;
+        }
+      }
     }
   })
   let allprojects = await projectsCollection.projects.find().exec();

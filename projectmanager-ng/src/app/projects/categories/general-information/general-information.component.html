@@ -1,7 +1,7 @@
-<div class="p-12 w-full bg-white">
+<div class="p-12 pr-4 w-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-12">Informations Générales</h1>
 
-    <div class="w-5/6 mr-auto">
+    <div class="w-11/12 mr-auto">
         <!-- Row -->
         <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">Identifiant projet</div>
@@ -23,9 +23,19 @@
                 <editable-text placeholder="Lien vers le portefeuille projet" [(text)]="project.pplink"
                     (onFinished)="save()"></editable-text>
             </div>
-            <a class="w-16 flex items-center justify-center cursor-pointer" [href]="project.pplink" target="_blank">
+            <div class="w-16 flex items-center justify-center cursor-pointer" (click)="openLink(project.pplink)">
                 <i class="fas fa-external-link-alt"></i>
-            </a>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Répertoire</div>
+            <div class="w-[calc(100%-4rem)]">
+                <editable-text placeholder="Lien vers le répertoire" [(text)]="project.folder" (onFinished)="save()">
+                </editable-text>
+            </div>
+            <div class="w-16 flex items-center justify-center cursor-pointer" (click)="openFolder(project.folder)">
+                <i class="fas fa-external-link-alt"></i>
+            </div>
         </div>
 
         <h2 class="text-gray-400 mt-8 mb-4">Dates</h2>

@@ -1,7 +1,7 @@
 <div class="p-12 w-full h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-12">Acteurs</h1>
 
-    <div class="w-full mr-auto">
+    <div class="w-11/12 mr-auto">
         <table class="w-full border-collapse table-fixed">
             <thead>
                 <th class="font-normal text-primary relative table-cell cursor-pointer w-96"
@@ -24,13 +24,13 @@
             <tbody>
                 <tr *ngFor="let actor of project.actors; let index=index">
 
-                    <td class="table-cell px-1 py-1">
+                    <td class="table-cell">
                         <editable-text [(text)]="actor.name" (onFinished)="save()"></editable-text>
                     </td>
-                    <td class="table-cell px-1 py-1">
+                    <td class="table-cell">
                         <editable-text [(text)]="actor.dga" (onFinished)="save()"></editable-text>
                     </td>
-                    <td class="table-cell px-1 py-1">
+                    <td class="table-cell">
                         <editable-text [(text)]="actor.comment" (onFinished)="save()"></editable-text>
                     </td>
 
@@ -41,14 +41,14 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class=" table-cell px-1 py-1">
+                    <td class=" table-cell ">
                         <editable-text [(text)]="newactor.name" placeholder="Nom" (enterPressed)="add()">
                         </editable-text>
                     </td>
-                    <td class=" table-cell px-1 py-1">
+                    <td class=" table-cell ">
                         <editable-text [(text)]="newactor.dga" placeholder="DGA" (enterPressed)="add()"></editable-text>
                     </td>
-                    <td class=" table-cell px-1 py-1">
+                    <td class=" table-cell ">
                         <editable-text [(text)]="newactor.comment" (enterPressed)="add()">
                         </editable-text>
                     </td>

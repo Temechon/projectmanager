@@ -15,6 +15,15 @@ export type Report = {
     date: string
 }
 
+export type TaskItem = {
+    date: string,
+    title: string,
+    enddate: string,
+    status: string,
+    actor: string,
+    comment: string
+}
+
 export abstract class IProject {
 
     id: string;
@@ -22,6 +31,7 @@ export abstract class IProject {
     internalid: string;
     /** Lien vers le portefeuille projet */
     pplink: string;
+    folder: string;
     actors: Array<{ name: string, dga: string, comment: string }>;
     /** Date de la recette prévue */
     recette_date: string;
@@ -31,6 +41,9 @@ export abstract class IProject {
     description: string;
     /** Tous les comptes-rendus du projet */
     reports: Array<Report>;
+    /** Tous les items dans le suivi du projet */
+    taskitems: Array<TaskItem>;
+
 }
 
 export class Project extends IProject {
@@ -47,6 +60,8 @@ export class Project extends IProject {
         this.prod_date = rxdoc.prod_date;
         this.description = rxdoc.description;
         this.reports = rxdoc.reports?.slice().map(_.clone) || [];
+        this.folder = rxdoc.folder;
+        this.taskitems = rxdoc.taskitems?.slice().map(_.clone) || [];
     }
 
     toObject(): IProject {
@@ -72,6 +87,8 @@ export function TEST_PROJECT(): IProject {
         recette_date: "30/10/2021",
         prod_date: "24/11/2021",
         description: "description du projet",
-        reports: []
+        reports: [],
+        folder: "",
+        taskitems: []
     }
 }
