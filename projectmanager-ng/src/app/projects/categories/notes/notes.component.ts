@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
-import { guid } from 'src/app/model/project.model';
+import { guid, Note } from 'src/app/model/project.model';
+import { Subscription } from 'rxjs';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-notes',
@@ -10,7 +12,10 @@ import { guid } from 'src/app/model/project.model';
 })
 export class NotesComponent extends CategoryComponent {
 
+  selected: Note;
+  selectedIndex: number;
   keymap: () => void;
+  sub: Subscription;
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -21,6 +26,16 @@ export class NotesComponent extends CategoryComponent {
       event.stopPropagation();
       event.preventDefault();
     });
+
+    this.sub = this.route.queryParams.subscribe((data) => {
+      let noteid = data.id;
+      if (noteid) {
+        // Select this note
+        this.selected = _.find(this.project.notes, n => n.id === noteid);
+        this.selectedIndex = _.indexOf(this.project.notes, this.selected);
+      }
+    })
+
   }
 
   add() {
@@ -34,10 +49,16 @@ export class NotesComponent extends CategoryComponent {
 
   delete(index: number) {
     this.project.notes.splice(index, 1);
+    // remove selected if this was the selected note
+    if (this.selectedIndex === index) {
+      this.selected = null;
+      this.selectedIndex = null;
+    }
     this.save();
   }
 
   ngOnDestroy() {
     this.keymap();
+    this.sub.unsubscribe();
   }
 }

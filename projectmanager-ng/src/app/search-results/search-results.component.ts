@@ -85,4 +85,22 @@ export class SearchResultsComponent implements OnInit {
     return snippet
   }
 
+  getColorForType(type: string) {
+    let classname = "";
+    switch (type) {
+      case "project":
+        classname = "border-primary";
+        break;
+      case "report":
+        classname = "border-secondary";
+        break;
+      case "note":
+        classname = "border-accent ";
+        break;
+      default:
+        classname = "border-white ";
+    }
+    return classname;
+  }
+
 }

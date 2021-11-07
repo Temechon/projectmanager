@@ -16,9 +16,15 @@
                     <div class="text-gray-400 text-sm font-semibold my-2">
                         {{note.date}}
                     </div>
-                    <div>
-                        <editable-area [(text)]="note.content" (onFinished)="save()"></editable-area>
+                    <div *ngIf="selectedIndex !== index; else selectedTemplate">
+                        <editable-area [(text)]="note.content" (onFinished)="save()">
+                        </editable-area>
                     </div>
+
+                    <ng-template #selectedTemplate>
+                        <editable-area [(text)]="note.content" (onFinished)="save()" custom="ring-accent">
+                        </editable-area>
+                    </ng-template>
                 </div>
 
                 <div>

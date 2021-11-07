@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         'primary': '#3366FF',
         'primary-50': '#F3F6FF',
+        'primary-200': '#b5c7ff',
         'secondary': '#F80A50',
         'accent': '#3ECEE5',
         'mygreen': '#37BA83',
