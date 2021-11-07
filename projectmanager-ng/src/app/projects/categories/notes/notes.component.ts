@@ -71,13 +71,14 @@ export class NotesComponent extends CategoryComponent {
   }
 
   delete(index: number) {
-    this.project.notes.splice(index, 1);
+    let notes = this.project.notes.splice(index, 1);
     // remove selected if this was the selected note
     if (this.selectedIndex === index) {
       this.selected = null;
       this.selectedIndex = null;
     }
     this.save();
+    this.index.removeObject(notes[0].id)
   }
 
   ngOnDestroy() {

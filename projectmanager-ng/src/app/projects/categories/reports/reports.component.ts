@@ -52,17 +52,18 @@ export class ReportsComponent extends CategoryComponent {
     this.selected = _.last(this.project.reports)
     this.selectedindex = this.project.reports.length - 1
     this.save();
-    // this.selected.title = "jch"
   }
 
   deleteReport(index: number) {
     this.selected = null;
     this.selectedindex = -1;
-    this.project.reports.splice(index, 1);
+    let reports = this.project.reports.splice(index, 1);
 
     this.selected = _.last(this.project.reports)
     this.selectedindex = this.project.reports.length - 1
     this.save();
+
+    this.index.removeObject(reports[0].id);
   }
 
   updateReport($event: Partial<Report>) {

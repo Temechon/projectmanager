@@ -18,14 +18,24 @@ export class SearchService {
     return this.index.search(term, { enrich: true })
   }
 
+  removeObject(id: string) {
+    this.index.remove(id)
+  }
+
   removeProject(p: Project) {
     for (let rep of p.reports) {
       this.index.remove(rep.id);
+    }
+    for (let note of p.notes) {
+      this.index.remove(note.id);
     }
     this.index.remove(p.id);
   }
 
   updateProject(proj: Project) {
+
+    this.removeProject(proj);
+
     for (let report of proj.reports) {
       this.index.update(report.id,
         {
