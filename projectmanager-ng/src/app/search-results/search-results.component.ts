@@ -40,8 +40,12 @@ export class SearchResultsComponent implements OnInit {
             let firstRes = res.result[0];
             if (firstRes.doc.type === 'project') {
               this.goTo(firstRes.id);
-            } else {
+            }
+            else if (firstRes.doc.type === 'report') {
               this.goToReport(firstRes.doc.p_id, firstRes.id);
+            }
+            else if (firstRes.doc.type === 'note') {
+              this.goToNote(firstRes.doc.p_id, firstRes.id);
             }
           }
         }
@@ -53,14 +57,17 @@ export class SearchResultsComponent implements OnInit {
     this.sub.unsubscribe();
   }
 
-  goTo(res: string) {
-    this.router.navigate(['/projects', res])
+  goTo(res: string, path?: string) {
+    this.router.navigate(['/projects', res]);
   }
 
   goToReport(pid: string, reportid: string) {
     this.router.navigate(['/projects', pid, 'reports'], { queryParams: { id: reportid } })
   }
 
+  goToNote(pid: string, noteid: string) {
+    this.router.navigate(['/projects', pid, 'notes'], { queryParams: { id: noteid } });
+  }
 
   snippet(_content: string) {
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Project } from '../model/project.model';
+import { guid, Project } from '../model/project.model';
 import { Document } from 'flexsearch';
 
 
@@ -39,6 +39,20 @@ export class SearchService {
           type: "report"
         });
     }
+    for (let note of proj.notes) {
+      this.index.update(note.id,
+        {
+          id: note.id,
+          content: note.content,
+          title: "",
+          p_id: proj.id,
+          p_name: proj.name,
+          p_internalid: proj.internalid,
+          date: note.date,
+          type: "note"
+        });
+    }
+
     this.index.update(proj.id, {
       id: proj.id,
       content: proj.description,
@@ -48,8 +62,6 @@ export class SearchService {
       p_internalid: proj.internalid,
       type: "project"
     });
-    // // Add the new one
-    // this.fuse.add(p);
   }
 
   addProject(proj: Project) {
@@ -64,6 +76,21 @@ export class SearchService {
         p_internalid: proj.internalid,
         date: report.date,
         type: "report"
+      }
+      this.index.add(obj)
+    }
+
+    // Then add notes
+    for (let note of proj.notes) {
+      let obj = {
+        id: note.id,
+        content: note.content,
+        title: "",
+        p_id: proj.id,
+        p_name: proj.name,
+        p_internalid: proj.internalid,
+        date: note.date,
+        type: "note"
       }
       this.index.add(obj)
     }

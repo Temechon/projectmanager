@@ -10,6 +10,7 @@
         <div *ngFor="let res of results">
             <div *ngFor="let r of res.result" class="hover:bg-gray-50 p-4 cursor-pointer">
 
+                <!-- If the result is a project -->
                 <div *ngIf="r.doc.type === 'project'" (click)="goTo(r.doc.p_id)">
                     <div class="flex items-center">
                         <div
@@ -26,8 +27,7 @@
                     </div>
                 </div>
 
-
-
+                <!-- If the result is a report -->
                 <div *ngIf="r.doc.type === 'report'" (click)="goToReport(r.doc.p_id, r.id)">
                     <div class="flex items-center">
                         <div
@@ -41,6 +41,23 @@
                     </div>
                     <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
                         <div>Description :</div>
+                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                            *ngIf="res.field === 'content'">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- If the result is a quick note -->
+                <div *ngIf="r.doc.type === 'note'" (click)="goToNote(r.doc.p_id, r.id)">
+                    <div class="flex items-center">
+                        <div
+                            class="flex items-center justify-center bg-primary rounded-full text-sm text-white px-3 mr-4">
+                            {{r.doc.p_internalid}}
+                        </div>
+                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
+                    </div>
+                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                        <div>Contenu :</div>
                         <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
                             *ngIf="res.field === 'content'">
                         </div>

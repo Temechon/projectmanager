@@ -14,7 +14,7 @@ export type PMDatabase = RxDatabase<PMCollections>;
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 3,
+    version: 4,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -111,6 +111,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
             items: {
                 type: 'object',
                 properties: {
+                    id: {
+                        type: 'string'
+                    },
                     date: {
                         type: 'string'
                     },

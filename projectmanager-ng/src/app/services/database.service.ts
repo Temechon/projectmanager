@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDatabase } from 'rxdb';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IProject, Project, TEST_PROJECT } from '../model/project.model';
+import { guid, IProject, Project, TEST_PROJECT } from '../model/project.model';
 import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
 import { SearchService } from './search.service';
 
@@ -86,6 +86,12 @@ async function _create() {
         },
         3: (oldDoc: any) => {
           oldDoc.notes = []
+          return oldDoc;
+        },
+        4: (oldDoc: any) => {
+          for (let note of oldDoc.notes) {
+            note.id = guid();
+          }
           return oldDoc;
         }
       }

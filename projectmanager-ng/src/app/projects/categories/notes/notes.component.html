@@ -17,7 +17,7 @@
                         {{note.date}}
                     </div>
                     <div>
-                        <editable-area [(text)]="note.content"></editable-area>
+                        <editable-area [(text)]="note.content" (onFinished)="save()"></editable-area>
                     </div>
                 </div>
 

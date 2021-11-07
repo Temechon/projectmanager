@@ -1,4 +1,4 @@
-import { Directive, OnInit } from "@angular/core";
+import { Directive, OnInit, Renderer2 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import _ from "underscore";
@@ -13,7 +13,8 @@ export class CategoryComponent implements OnInit {
         protected route: ActivatedRoute,
         protected db: DatabaseService,
         protected router: Router,
-        protected index: SearchService
+        protected index: SearchService,
+        protected renderer: Renderer2
     ) { }
 
     project: Project
