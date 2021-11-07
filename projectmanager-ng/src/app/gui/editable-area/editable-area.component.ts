@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
@@ -17,9 +17,11 @@ export class EditableAreaComponent implements OnInit, OnDestroy {
   textChange: EventEmitter<string> = new EventEmitter<string>();
   @Input()
   custom: string;
-
   @Input()
   placeholder: string = "";
+
+  @ViewChild('area')
+  textarea!: ElementRef;
 
   @Output() onFinished: EventEmitter<any> = new EventEmitter();
 
@@ -39,6 +41,10 @@ export class EditableAreaComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.saveSub.complete();
     this.saveSub.unsubscribe();
+  }
+
+  focus() {
+    this.textarea.nativeElement.focus();
   }
 
 

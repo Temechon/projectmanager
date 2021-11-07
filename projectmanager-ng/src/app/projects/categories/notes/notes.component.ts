@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
 import { guid, Note } from 'src/app/model/project.model';
 import { Subscription } from 'rxjs';
 import _ from 'underscore';
+import { EditableAreaComponent } from 'src/app/gui/editable-area/editable-area.component';
 
 @Component({
   selector: 'app-notes',
@@ -12,10 +13,12 @@ import _ from 'underscore';
 })
 export class NotesComponent extends CategoryComponent {
 
-  selected: Note;
-  selectedIndex: number;
+  selected: Note = null;
+  selectedIndex: number = null;
   keymap: () => void;
   sub: Subscription;
+
+  @ViewChildren(EditableAreaComponent) editableAreas: QueryList<EditableAreaComponent>;
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -37,13 +40,33 @@ export class NotesComponent extends CategoryComponent {
     })
 
   }
+  ngAfterViewInit() {
+    console.log(this.editableAreas);
+    if (this.selectedIndex !== null) {
+      this._focus(this.selectedIndex);
+    }
+
+    // When the list is updated, focus the new one
+    this.editableAreas.changes.subscribe((r) => {
+      console.log("changes", r);
+      this._focus(this.project.notes.length - 1);
+    });
+  }
+
+  _focus(index: number) {
+    if (index < 0 || index >= this.editableAreas.length) {
+      return
+    }
+    let area = this.editableAreas.get(index);
+    area.focus();
+  }
 
   add() {
     this.project.notes.push({
       id: guid(),
       date: DateTime.local().toFormat('dd LLL yyyy - HH:mm'),
       content: ''
-    })
+    });
     this.save();
   }
 
