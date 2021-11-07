@@ -8,6 +8,7 @@ import { ReportsComponent } from './projects/categories/reports/reports.componen
 import { ProjectResolver } from './resolver/projects.resolver';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { FollowupComponent } from './projects/categories/followup/followup.component';
+import { NotesComponent } from './projects/categories/notes/notes.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
           {
             path: 'followup',
             component: FollowupComponent,
+          },
+          {
+            path: 'notes',
+            component: NotesComponent,
           },
           {
             path: '',

@@ -31,42 +31,27 @@ export class SearchResultsComponent implements OnInit {
         this.results = this.searchService.search(this.query);
         console.log("results", this.results);
 
-        // If only one result, forward to the only match
-        // if (this.results.length === 1) {
-        //   let res = this.results[0];
-        //   if (res.matches.length === 1) {
-        //     let url = this.buildUrl(res.item, res.matches[0]);
-        //     this.router.navigate(url.path, url.params);
-        //   }
-        // }
+        // If only one type of result, take it
+        if (this.results.length === 1) {
+          let res: { field: string, result: any[] } = this.results[0];
+
+          // If only one result, forward to the only match
+          if (res.result.length === 1) {
+            let firstRes = res.result[0];
+            if (firstRes.doc.type === 'project') {
+              this.goTo(firstRes.id);
+            } else {
+              this.goToReport(firstRes.doc.p_id, firstRes.id);
+            }
+          }
+        }
       }
-    }
-    );
+    })
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
-  // buildUrl(item: Project, match: Fuse.FuseResultMatch): { path: string[], params?: any } {
-  //   let res = ['projects', item.id]
-
-  //   if (match.key.indexOf('actors') >= 0) {
-  //     res.push('actors');
-  //     return { path: res };
-
-  //   } else if (match.key.indexOf('reports') >= 0) {
-  //     res.push('reports')
-  //     let report = item.reports[match.refIndex];
-  //     let queryParams = {
-  //       queryParams: { id: report.id }
-  //     }
-  //     return { path: res, params: queryParams };
-
-  //   }
-
-  //   return { path: res };
-  // }
 
   goTo(res: string) {
     this.router.navigate(['/projects', res])

@@ -21,10 +21,11 @@ export class ProjectsComponent implements OnInit {
   projects: Project[];
   sidebarCollapsed = false;
 
+  unlisten: Array<() => void> = [];
+
   ngOnInit() {
 
-    // Focus on the search bar
-    this.renderer.listen(document, 'keydown.control.k', (event: KeyboardEvent) => {
+    this.renderer.listen('document', 'keydown.control.k', (event: KeyboardEvent) => {
       let input = (document.querySelector('#searchbar') as HTMLInputElement)
       input.focus();
       input.setSelectionRange(0, input.value.length)
@@ -33,7 +34,27 @@ export class ProjectsComponent implements OnInit {
     })
 
     this.db.getProjects$().subscribe(data => {
+
       this.projects = data;
+
+      let keys = ['&', 'é', '"', "'", '(', '-', 'è', '_', 'ç']
+      let index = 0;
+      // remove any listeners
+      this.unlisten.forEach(item => item());
+      this.unlisten = [];
+
+      // Add a listener for each project
+      for (let project of this.projects) {
+        let key = keys[index];
+
+        let listener = this.renderer.listen('document', 'keydown.control.' + key, (event: KeyboardEvent) => {
+          this.router.navigate(['projects', project.id])
+          event.stopPropagation();
+          event.preventDefault();
+        });
+        this.unlisten.push(listener);
+        index++;
+      }
 
       let url = this.router.url;
       if (url === "/projects" && this.projects.length > 0) {
@@ -42,6 +63,8 @@ export class ProjectsComponent implements OnInit {
     })
 
   }
+
+
 
   addProject() {
     let proj = new Project();

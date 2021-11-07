@@ -83,6 +83,10 @@ async function _create() {
         2: (oldDoc: any) => {
           oldDoc.taskitems = []
           return oldDoc;
+        },
+        3: (oldDoc: any) => {
+          oldDoc.notes = []
+          return oldDoc;
         }
       }
     }

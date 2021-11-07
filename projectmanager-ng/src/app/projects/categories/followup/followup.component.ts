@@ -11,4 +11,9 @@ export class FollowupComponent extends CategoryComponent {
   ngOnInit(): void {
   }
 
+  toggle(rowid: string) {
+    document.querySelector('#' + rowid).classList.toggle('flex');
+    document.querySelector('#' + rowid).classList.toggle('hidden');
+  }
+
 }

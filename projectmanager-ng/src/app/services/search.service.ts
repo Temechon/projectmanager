@@ -8,28 +8,26 @@ import { Document } from 'flexsearch';
 })
 export class SearchService {
 
-  reportsIndex: Document<any, string[]>;
+  index: Document<any, string[]>;
 
   constructor() {
 
   }
 
   search(term: string): any[] {
-    return this.reportsIndex.search(term, { enrich: true })
+    return this.index.search(term, { enrich: true })
   }
 
   removeProject(p: Project) {
     for (let rep of p.reports) {
-      this.reportsIndex.remove(rep.id);
+      this.index.remove(rep.id);
     }
-    this.reportsIndex.remove(p.id);
-    // let removed = this.fuse.remove((doc: Project, index: number) => doc.id === p.id);
-    // console.log("Project removed", removed);
+    this.index.remove(p.id);
   }
 
   updateProject(proj: Project) {
     for (let report of proj.reports) {
-      this.reportsIndex.update(report.id,
+      this.index.update(report.id,
         {
           id: report.id,
           content: report.content,
@@ -41,10 +39,10 @@ export class SearchService {
           type: "report"
         });
     }
-    this.reportsIndex.update(proj.id, {
+    this.index.update(proj.id, {
       id: proj.id,
       content: proj.description,
-      title: proj.name,
+      title: proj.internalid + " - " + proj.name,
       p_id: proj.id,
       p_name: proj.name,
       p_internalid: proj.internalid,
@@ -67,27 +65,27 @@ export class SearchService {
         date: report.date,
         type: "report"
       }
-      this.reportsIndex.add(obj)
+      this.index.add(obj)
     }
 
     // Add project
     let obj = {
       id: proj.id,
       content: proj.description,
-      title: proj.name,
+      title: proj.internalid + " - " + proj.name,
       p_id: proj.id,
       p_name: proj.name,
       p_internalid: proj.internalid,
       type: "project"
     }
-    this.reportsIndex.add(obj)
+    this.index.add(obj)
   }
 
   async init(p: Project[]) {
 
     console.log("INDEX INIT --> all project from search service", p)
 
-    this.reportsIndex = new Document<string, string[]>({
+    this.index = new Document<string, string[]>({
       document: {
         id: "id",
         index: [
@@ -107,28 +105,6 @@ export class SearchService {
     for (let proj of p) {
       this.addProject(proj)
     }
-
-    // console.log("results à l'init", this.projectsIndex.search("cartma", { enrich: true }));
-    // console.log("results à l'init", this.reportsIndex.search("cartma", { enrich: true }));
-
-    // this.fuse = new Fuse(p, {
-    //   includeMatches: true,
-    //   includeScore: true,
-    //   threshold: 0.5,
-    //   keys: [
-    //     "internalid",
-    //     "name",
-    //     "description",
-
-    //     "actors.name",
-    //     "actors.dga",
-    //     "actors.comment",
-
-    //     "reports.content",
-    //     "reports.title"
-    //   ]
-    // })
-
   }
 }
 

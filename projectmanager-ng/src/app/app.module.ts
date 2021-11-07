@@ -14,6 +14,7 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { DatabaseService, initDatabase } from './services/database.service';
 import { SearchService } from './services/search.service';
+import { NotesComponent } from './projects/categories/notes/notes.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { SearchService } from './services/search.service';
     ReportViewComponent,
     StyleButtonComponent,
     FollowupComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,
