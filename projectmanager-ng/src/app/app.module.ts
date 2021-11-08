@@ -15,6 +15,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { DatabaseService, initDatabase } from './services/database.service';
 import { SearchService } from './services/search.service';
 import { NotesComponent } from './projects/categories/notes/notes.component';
+import { AcceptanceComponent } from './projects/categories/acceptance/acceptance.component';
+import { HotTableModule } from '@handsontable/angular';
 
 
 @NgModule({
@@ -29,12 +31,14 @@ import { NotesComponent } from './projects/categories/notes/notes.component';
     StyleButtonComponent,
     ActivityComponent,
     SearchResultsComponent,
-    NotesComponent
+    NotesComponent,
+    AcceptanceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GuiModule
+    GuiModule,
+    HotTableModule
   ],
   providers: [
     SearchService,
