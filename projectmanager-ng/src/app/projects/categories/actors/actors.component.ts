@@ -11,22 +11,14 @@ export class ActorsComponent extends CategoryComponent {
 
   sortAttribute: string = 'name';
   sortOrder = 1;
-  newactor = {
-    name: '',
-    dga: '',
-    comment: ''
-  }
 
   add() {
-    if (this.newactor.name || this.newactor.dga) {
-      this.project.actors.push({
-        name: this.newactor.name,
-        dga: this.newactor.dga,
-        comment: this.newactor.comment
-      });
-      this.newactor = _.mapObject(this.newactor, () => "")
-      this.save();
-    }
+    this.project.actors.push({
+      name: "",
+      dga: "",
+      comment: ""
+    });
+    this.save();
   }
 
   delete(index: number) {

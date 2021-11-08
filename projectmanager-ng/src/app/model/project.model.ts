@@ -15,13 +15,11 @@ export type Report = {
     date: string
 }
 
-export type TaskItem = {
+export type Activity = {
+    id: string,
     date: string,
-    title: string,
-    enddate: string,
+    content: string,
     status: string,
-    actor: string,
-    comment: string
 }
 
 export type Note = {
@@ -48,7 +46,7 @@ export abstract class IProject {
     /** Tous les comptes-rendus du projet */
     reports: Array<Report>;
     /** Tous les items dans le suivi du projet */
-    taskitems: Array<TaskItem>;
+    activities: Array<Activity>;
     /** All quick notes */
     notes: Array<Note>;
 
@@ -69,7 +67,7 @@ export class Project extends IProject {
         this.description = rxdoc.description;
         this.reports = rxdoc.reports?.slice().map(_.clone) || [];
         this.folder = rxdoc.folder;
-        this.taskitems = rxdoc.taskitems?.slice().map(_.clone) || [];
+        this.activities = rxdoc.activities?.slice().map(_.clone) || [];
         this.notes = rxdoc.notes?.slice().map(_.clone) || [];
     }
 
@@ -98,7 +96,7 @@ export function TEST_PROJECT(): IProject {
         description: "description du projet",
         reports: [],
         folder: "",
-        taskitems: [],
+        activities: [],
         notes: []
     }
 }

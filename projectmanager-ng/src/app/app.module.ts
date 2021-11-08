@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GuiModule } from './gui/gui.module';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
-import { FollowupComponent } from './projects/categories/followup/followup.component';
+import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { ReportViewComponent } from './projects/categories/reports/report-view/report-view.component';
 import { StyleButtonComponent } from './projects/categories/reports/report-view/style-button/style-button.component';
@@ -27,7 +27,7 @@ import { NotesComponent } from './projects/categories/notes/notes.component';
     ReportsComponent,
     ReportViewComponent,
     StyleButtonComponent,
-    FollowupComponent,
+    ActivityComponent,
     SearchResultsComponent,
     NotesComponent
   ],

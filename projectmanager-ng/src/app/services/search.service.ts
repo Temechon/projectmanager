@@ -29,6 +29,9 @@ export class SearchService {
     for (let note of p.notes) {
       this.index.remove(note.id);
     }
+    for (let act of p.activities) {
+      this.index.remove(act.id);
+    }
     this.index.remove(p.id);
   }
 
@@ -60,6 +63,19 @@ export class SearchService {
           p_internalid: proj.internalid,
           date: note.date,
           type: "note"
+        });
+    }
+    for (let act of proj.activities) {
+      this.index.update(act.id,
+        {
+          id: act.id,
+          content: act.content,
+          title: "",
+          p_id: proj.id,
+          p_name: proj.name,
+          p_internalid: proj.internalid,
+          date: act.date,
+          type: "activity"
         });
     }
 
@@ -101,6 +117,21 @@ export class SearchService {
         p_internalid: proj.internalid,
         date: note.date,
         type: "note"
+      }
+      this.index.add(obj)
+    }
+
+    // and activities
+    for (let act of proj.activities) {
+      let obj = {
+        id: act.id,
+        content: act.content,
+        title: "",
+        p_id: proj.id,
+        p_name: proj.name,
+        p_internalid: proj.internalid,
+        date: act.date,
+        type: "activity"
       }
       this.index.add(obj)
     }

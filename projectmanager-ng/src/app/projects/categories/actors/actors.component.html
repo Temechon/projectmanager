@@ -40,24 +40,16 @@
 
                     </td>
                 </tr>
-                <tr>
-                    <td class=" table-cell ">
-                        <editable-text [(text)]="newactor.name" placeholder="Nom" (enterPressed)="add()">
-                        </editable-text>
-                    </td>
-                    <td class=" table-cell ">
-                        <editable-text [(text)]="newactor.dga" placeholder="DGA" (enterPressed)="add()"></editable-text>
-                    </td>
-                    <td class=" table-cell ">
-                        <editable-text [(text)]="newactor.comment" (enterPressed)="add()">
-                        </editable-text>
-                    </td>
-                </tr>
             </tbody>
         </table>
 
-        <div class="flex flex-row mb-2 mt-8 ">
-            <div class="w-52 flex items-center justify-start">
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                </action-button>
+            </div>
+            <div class="flex items-center justify-start mr-4">
                 <action-button text="Copier les noms" (onClick)="copyAll()" icon="fa-copy">
                 </action-button>
             </div>

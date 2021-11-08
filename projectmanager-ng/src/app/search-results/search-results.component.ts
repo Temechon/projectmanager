@@ -47,6 +47,9 @@ export class SearchResultsComponent implements OnInit {
             else if (firstRes.doc.type === 'note') {
               this.goToNote(firstRes.doc.p_id, firstRes.id);
             }
+            else if (firstRes.doc.type === 'activity') {
+              this.goToActivity(firstRes.doc.p_id, firstRes.id);
+            }
           }
         }
       }
@@ -68,6 +71,11 @@ export class SearchResultsComponent implements OnInit {
   goToNote(pid: string, noteid: string) {
     this.router.navigate(['/projects', pid, 'notes'], { queryParams: { id: noteid } });
   }
+
+  goToActivity(pid: string, activityid: string) {
+    this.router.navigate(['/projects', pid, 'activities'], { queryParams: { id: activityid } });
+  }
+
 
   snippet(_content: string) {
 

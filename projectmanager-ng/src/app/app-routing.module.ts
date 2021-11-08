@@ -7,7 +7,7 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectResolver } from './resolver/projects.resolver';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { FollowupComponent } from './projects/categories/followup/followup.component';
+import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { NotesComponent } from './projects/categories/notes/notes.component';
 
 
@@ -40,8 +40,8 @@ const routes: Routes = [
             component: ReportsComponent,
           },
           {
-            path: 'followup',
-            component: FollowupComponent,
+            path: 'activities',
+            component: ActivityComponent,
           },
           {
             path: 'notes',
