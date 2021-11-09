@@ -38,7 +38,7 @@ import { HotTableModule } from '@handsontable/angular';
     BrowserModule,
     AppRoutingModule,
     GuiModule,
-    HotTableModule
+    HotTableModule.forRoot()
   ],
   providers: [
     SearchService,

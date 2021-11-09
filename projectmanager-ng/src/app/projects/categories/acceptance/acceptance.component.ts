@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import Handsontable from 'handsontable';
+import { HotTableRegisterer } from '@handsontable/angular';
+
 
 @Component({
   selector: 'app-acceptance',
@@ -31,14 +34,37 @@ export class AcceptanceComponent implements OnInit {
       test: "Nom du test ici",
       testdata: "Jeu de données utilisés",
       date: "23/10/2021",
-      result: "Résultat attendu",
+      resultexpected: "Résultat attendu",
+      result: 'ici',
       comment: "Commentaire ici"
     }
+
   ];
+  hotSettings: Handsontable.GridSettings = {
+    contextMenu: true,
+    colHeaders: this.colHeaders,
+    hiddenColumns: {
+      columns: [0],
+    },
+    colWidths: [
+      0,
+      250,
+      175,
+      150,
+      75, // date
+      150,
+      250
+    ],
+    rowHeaders: true,
+    width: '100%',
+    data: this.dataset,
+    manualColumnResize: true,
+    licenseKey: 'non-commercial-and-evaluation',
+  }
 
   ngOnInit(): void {
 
-    for (let i in [2, 3, 4, 5, 6, 7])
+    for (let i of [2, 3, 4, 5, 6, 7])
       this.dataset.push({
         id: i,
         test: null,
@@ -47,6 +73,22 @@ export class AcceptanceComponent implements OnInit {
         result: null,
         comment: null
       });
+  }
+
+  private hotRegisterer = new HotTableRegisterer();
+
+  ngAfterViewInit() {
+
+    let instance = this.hotRegisterer.getInstance("hotInstance")
+    console.log(instance);
+
+    instance.addHook('afterColumnResize', (newSize, column) => {
+      console.log("newSize", newSize, "column", column);
+    })
+  }
+
+  onAfterInit() {
+    console.log("init finished");
   }
 
 }
