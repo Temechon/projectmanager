@@ -3,9 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GuiModule } from './gui/gui.module';
-import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { ActivityComponent } from './projects/categories/activity/activity.component';
+import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
+import { NotesComponent } from './projects/categories/notes/notes.component';
 import { ReportViewComponent } from './projects/categories/reports/report-view/report-view.component';
 import { StyleButtonComponent } from './projects/categories/reports/report-view/style-button/style-button.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
@@ -14,9 +15,6 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { DatabaseService, initDatabase } from './services/database.service';
 import { SearchService } from './services/search.service';
-import { NotesComponent } from './projects/categories/notes/notes.component';
-import { AcceptanceComponent } from './projects/categories/acceptance/acceptance.component';
-import { HotTableModule } from '@handsontable/angular';
 
 
 @NgModule({
@@ -31,14 +29,12 @@ import { HotTableModule } from '@handsontable/angular';
     StyleButtonComponent,
     ActivityComponent,
     SearchResultsComponent,
-    NotesComponent,
-    AcceptanceComponent
+    NotesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GuiModule,
-    HotTableModule.forRoot()
+    GuiModule
   ],
   providers: [
     SearchService,

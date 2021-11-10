@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
+import { NotesComponent } from './projects/categories/notes/notes.component';
+import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
-import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectResolver } from './resolver/projects.resolver';
 import { SearchResultsComponent } from './search-results/search-results.component';
-import { ActivityComponent } from './projects/categories/activity/activity.component';
-import { NotesComponent } from './projects/categories/notes/notes.component';
-import { AcceptanceComponent } from './projects/categories/acceptance/acceptance.component';
 
 
 const routes: Routes = [
@@ -43,10 +42,6 @@ const routes: Routes = [
           {
             path: 'activities',
             component: ActivityComponent,
-          },
-          {
-            path: 'acceptance',
-            component: AcceptanceComponent,
           },
           {
             path: 'notes',

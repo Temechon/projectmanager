@@ -1,5 +1,4 @@
 import _ from "underscore";
-import { RxProject } from "../services/dbmodel";
 
 export function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
