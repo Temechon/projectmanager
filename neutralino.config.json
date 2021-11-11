@@ -1,6 +1,6 @@
 {
   "applicationId": "com.pixelcodr.projectmanager",
-  "defaultMode": "window",
+  "defaultMode": "browser",
   "port": 0,
   "url": "/resources/",
   "enableServer": true,

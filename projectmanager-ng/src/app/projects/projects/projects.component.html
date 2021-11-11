@@ -7,10 +7,20 @@
             <i class="fas fa-chevron-left"></i>
         </div>
 
-        <h1 id="project-label" class="text-gray-400 mb-8 pl-4 pt-12">Projets</h1>
+
+        <div class="action mt-20 w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-secondary cursor-pointer select-none"
+            routerLinkActive="bg-primary-50 text-secondary font-semibold" routerLink="todo">
+            <i class="fas fa-columns mr-3"></i>
+            <span class="action-name">
+                To do
+            </span>
+        </div>
+
+
+        <h1 id="project-label" class="text-gray-400 mb-8 pl-4 pt-8">Projets</h1>
 
         <div id="project-list">
-            <div class="project w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer"
+            <div class="project w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
                 routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
                 *ngFor="let p of projects; trackBy:trackByProjectId">
                 <span class="project-id font-semibold mr-4">{{p.internalid}}</span>
@@ -30,16 +40,16 @@
     <!-- Content -->
     <div id="content" class="w-[calc(100%-20rem)] relative transition-all">
 
-        <!-- <div class="h-12 flex items-center justify-start border rounded-full w-[30%] mr-auto my-2 ml-12 ring-2">
-            <i class="fas fa-search text-xl px-4"></i>
-            <input type="text" class="w-4/5 outline-none py-2 px-3" placeholder="Chercher partout" id="searchbar"
-                (keydown.enter)="searchEverywhere($event)">
-        </div> -->
-        <div class="h-14 flex items-center justify-start relative pl-10">
-            <i class="fas fa-search text-xl text-gray-300 px-4 absolute left-12"></i>
-            <input type="text" class="w-4/6 outline-none py-2 px-3 rounded-full ml-2 pl-12 focus:ring-2 border"
-                placeholder="Chercher partout" id="searchbar" (keydown.enter)="searchEverywhere($event)">
+        <!-- Search bar -->
+        <div class="h-14 flex items-center justify-start absolute top-0 right-0 ">
+
+            <div class="relative flex items-center ml-auto w-80">
+                <i class="fas fa-search text-xl text-gray-300 px-4 absolute left-1"></i>
+                <input type="text" class="w-5/6 outline-none py-2 px-3 rounded-full ml-2 pl-12 focus:ring-2 border"
+                    placeholder="Chercher partout" id="searchbar" (keydown.enter)="searchEverywhere($event)">
+            </div>
         </div>
+
         <router-outlet></router-outlet>
     </div>
 </div>

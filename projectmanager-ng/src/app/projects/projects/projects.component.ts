@@ -116,6 +116,15 @@ export class ProjectsComponent implements OnInit {
     let button = document.querySelector('#button');
     button.classList.toggle('hidden')
 
+    // Toolbar
+    let actionNames = document.querySelectorAll('.action-name');
+    actionNames.forEach(item => item.classList.toggle('hidden'));
+    let actions = document.querySelectorAll('.action');
+    actions.forEach(item => item.classList.toggle('justify-center'));
+
+
+
+
   }
 
 

@@ -9,6 +9,7 @@ import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectResolver } from './resolver/projects.resolver';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { TodoComponent } from './todo/todo.component';
 
 
 const routes: Routes = [
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchResultsComponent
+      },
+      {
+        path: 'todo',
+        component: TodoComponent
       },
       {
         path: ':id',

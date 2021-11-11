@@ -15,6 +15,9 @@ import { ProjectsComponent } from './projects/projects/projects.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { DatabaseService, initDatabase } from './services/database.service';
 import { SearchService } from './services/search.service';
+import { TodoComponent } from './todo/todo.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 @NgModule({
@@ -29,12 +32,14 @@ import { SearchService } from './services/search.service';
     StyleButtonComponent,
     ActivityComponent,
     SearchResultsComponent,
-    NotesComponent
+    NotesComponent,
+    TodoComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    GuiModule
+    GuiModule,
+    DragDropModule
   ],
   providers: [
     SearchService,
