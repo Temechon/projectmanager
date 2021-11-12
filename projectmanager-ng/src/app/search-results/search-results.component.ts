@@ -105,6 +105,9 @@ export class SearchResultsComponent implements OnInit {
       case "note":
         classname = "border-accent ";
         break;
+      case "activity":
+        classname = "border-darker ";
+        break;
       default:
         classname = "border-white ";
     }

@@ -1,15 +1,47 @@
 import { RxCollection, RxDatabase, RxDocument, RxJsonSchema } from "rxdb";
 import { IProject } from "../model/project.model";
-
-export type RxProject = RxDocument<IProject>;
+import { ITask } from "../model/task.model";
 
 export type RxProjectCollection = RxCollection<IProject>;
+export type RxTaskCollection = RxCollection<ITask>;
 
 export type PMCollections = {
-    projects: RxProjectCollection
+    projects: RxProjectCollection,
+    tasks: RxTaskCollection
 }
 
 export type PMDatabase = RxDatabase<PMCollections>;
+
+
+export const taskSchema: RxJsonSchema<ITask> = {
+    title: 'tasks schema',
+    description: 'describes a todo task',
+    version: 0,
+    keyCompression: true,
+    primaryKey: 'id',
+    type: 'object',
+    required: ['id'],
+    properties: {
+        id: {
+            type: 'string'
+        },
+        content: {
+            type: 'string'
+        },
+        projectid: {
+            type: 'string'
+        },
+        projectinternalid: {
+            type: 'string'
+        },
+        status: {
+            type: 'string'
+        },
+        date: {
+            type: 'string'
+        }
+    }
+}
 
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',

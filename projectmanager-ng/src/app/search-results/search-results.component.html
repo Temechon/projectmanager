@@ -9,7 +9,7 @@
 
         <div *ngFor="let res of results">
             <div *ngFor="let r of res.result" [ngClass]="getColorForType(r.doc.type)"
-                class="hover:bg-gray-50 p-4 cursor-pointer border-l-4 mb-4">
+                class="hover:bg-gray-50 p-4 cursor-pointer border-l-[6px] mb-4">
 
                 <!-- If the result is a project -->
                 <div *ngIf="r.doc.type === 'project'" (click)="goTo(r.doc.p_id)">
@@ -50,6 +50,22 @@
 
                 <!-- If the result is a quick note -->
                 <div *ngIf="r.doc.type === 'note'" (click)="goToNote(r.doc.p_id, r.id)">
+                    <div class="flex items-center">
+                        <div
+                            class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                            {{r.doc.p_internalid}}
+                        </div>
+                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
+                    </div>
+                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                        <div>Contenu :</div>
+                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                            *ngIf="res.field === 'content'">
+                        </div>
+                    </div>
+                </div>
+                <!-- If the result is an activity -->
+                <div *ngIf="r.doc.type === 'activity'" (click)="goToActivity(r.doc.p_id, r.id)">
                     <div class="flex items-center">
                         <div
                             class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">

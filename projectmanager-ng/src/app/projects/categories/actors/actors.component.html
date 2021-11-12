@@ -28,10 +28,12 @@
                         <editable-text [(text)]="actor.name" (onFinished)="save()"></editable-text>
                     </td>
                     <td class="table-cell">
-                        <editable-text [(text)]="actor.dga" (onFinished)="save()"></editable-text>
+                        <editable-text [(text)]="actor.dga" (onFinished)="save()" (enterPressed)="add()">
+                        </editable-text>
                     </td>
                     <td class="table-cell">
-                        <editable-text [(text)]="actor.comment" (onFinished)="save()"></editable-text>
+                        <editable-text [(text)]="actor.comment" (onFinished)="save()" (enterPressed)="add()">
+                        </editable-text>
                     </td>
 
                     <td class="px-4 py-1 text-center">

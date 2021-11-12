@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { guid, Project } from '../model/project.model';
 import { Document } from 'flexsearch';
+import { Project } from '../model/project.model';
+import { Task } from '../model/task.model';
 
 
 @Injectable({
@@ -149,7 +150,7 @@ export class SearchService {
     this.index.add(obj)
   }
 
-  async init(p: Project[]) {
+  async init(p: Project[], tasks?: Task[]) {
 
     console.log("INDEX INIT --> all project from search service", p)
 
@@ -172,6 +173,10 @@ export class SearchService {
 
     for (let proj of p) {
       this.addProject(proj)
+    }
+    for (let task of tasks) {
+      // this.addTask(task);
+      // TODO here
     }
   }
 }

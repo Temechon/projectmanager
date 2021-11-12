@@ -48,7 +48,6 @@ export abstract class IProject {
     activities: Array<Activity>;
     /** All quick notes */
     notes: Array<Note>;
-
 }
 
 export class Project extends IProject {

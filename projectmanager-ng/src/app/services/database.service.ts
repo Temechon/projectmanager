@@ -3,7 +3,7 @@ import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDa
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { guid, IProject, Project, TEST_PROJECT } from '../model/project.model';
-import { PMCollections, PMDatabase, projectsSchema } from './dbmodel';
+import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { SearchService } from './search.service';
 
 declare let Neutralino: any;
@@ -73,9 +73,13 @@ async function _create() {
 
   projectsCollection = await db.addCollections({
     projects: {
-      schema: projectsSchema,
+      schema: projectsSchema
+    },
+    tasks: {
+      schema: taskSchema
     }
-  })
+  });
+
   let allprojects = await projectsCollection.projects.find().exec();
 
   if (allprojects.length === 0) {
@@ -83,11 +87,22 @@ async function _create() {
     if (environment.production) {
       // If production, load database from storage
       Neutralino.events.on('ready', () => {
+        // get projects
         Neutralino.storage.getData('PMDATABASE_PROJECTS').then(strdatabase => {
-          console.log("STRING database", strdatabase)
+          console.log("Projects database", strdatabase)
           if (strdatabase) {
             let jsondatabase = JSON.parse(strdatabase)
             projectsCollection.projects.importJSON(jsondatabase);
+          } else {
+
+          }
+        })
+        // get tasks
+        Neutralino.storage.getData('PMDATABASE_TASKS').then(strdatabase => {
+          console.log("Tasks database", strdatabase)
+          if (strdatabase) {
+            let jsondatabase = JSON.parse(strdatabase)
+            projectsCollection.tasks.importJSON(jsondatabase);
           } else {
 
           }
@@ -102,6 +117,12 @@ async function _create() {
       projectsCollection.projects.exportJSON().then((json) => {
         console.log("JSON", json);
         Neutralino.storage.setData('PMDATABASE_PROJECTS', JSON.stringify(json))
+      })
+    })
+    projectsCollection.tasks.$.subscribe(() => {
+      projectsCollection.tasks.exportJSON().then((json) => {
+        console.log("JSON", json);
+        Neutralino.storage.setData('PMDATABASE_TASKS', JSON.stringify(json))
       })
     })
   }
