@@ -1,24 +1,41 @@
 <div class="p-12 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">A faire</h1>
 
+    <select-list></select-list>
+
     <div class="flex h-[calc(100%-3rem)] overflow-x-au overflow-y-auto space-x-4" cdkDropListGroup>
-        <!-- Todo Column -->
-        <div class="relative bg-gray-50 p-4 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col space-y-2"
+        <!-- !! Todo Column -->
+        <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
             cdkDropList>
-            <div class="absolute bottom-5 left-2 text-gray-200 text-5xl select-none">
-                A faire
-            </div>
-            <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200"
-                *ngFor="let i of [1,2,3]">
-                <div
-                    class="inline-flex items-center justify-center rounded-full text-sm text-white px-3 mb-4 bg-primary-200">
-                    1734
+
+            <div class="flex items-center mb-4">
+                <div class="text-gray-400 font-semibold select-none">
+                    A faire
                 </div>
-                <textarea class="w-full outline-none px-2" resize placeholder="Ajouter une tâche"></textarea>
+                <div class="ml-auto flex items-center justify-center text-gray-500 border w-8 h-8 rounded-md shadow-sm cursor-pointer"
+                    (click)="add()">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+            </div>
+
+            <!-- !! Task -->
+            <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
+                *ngFor="let t of tasks">
+                <div class="flex items-center mb-4">
+                    <div class="flex items-center justify-center rounded-full text-sm text-white px-3 bg-primary-200">
+                        {{t.projectinternalid}}
+                    </div>
+                    <!-- !! delete task -->
+                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                        (click)="delete(t.id)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <textarea class="w-full outline-none px-2" resize placeholder="Description ici">{{t.content}}</textarea>
             </div>
         </div>
 
-        <!-- Running column -->
+        <!-- !! Running column -->
         <div class="relative bg-gray-50 p-4 border h-full w-96 min-w-[24rem]" cdkDropList>
             <div class="absolute bottom-5 left-2 text-gray-200 text-5xl select-none">
                 En cours

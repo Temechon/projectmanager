@@ -31,6 +31,9 @@ export const taskSchema: RxJsonSchema<ITask> = {
         projectid: {
             type: 'string'
         },
+        projectname: {
+            type: 'string'
+        },
         projectinternalid: {
             type: 'string'
         },

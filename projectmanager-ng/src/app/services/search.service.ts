@@ -150,7 +150,39 @@ export class SearchService {
     this.index.add(obj)
   }
 
-  async init(p: Project[], tasks?: Task[]) {
+  /**
+   * Add the given task to the index
+   * @param task 
+   */
+  addTask(task: Task) {
+    this.index.add({
+      id: task.id,
+      content: task.content,
+      title: "",
+      p_id: task.projectid,
+      p_name: task.projectname,
+      p_internalid: task.projectinternalid,
+      date: task.date,
+      type: "task"
+    })
+  }
+
+  updateTask(task: Task) {
+    this.index.update(task.id, {
+      id: task.id,
+      content: task.content,
+      title: "",
+      p_id: task.projectid,
+      p_name: task.projectname,
+      p_internalid: task.projectinternalid,
+      date: task.date,
+      type: "task"
+    })
+  }
+
+
+
+  async init(p: Project[], tasks: Task[] = []) {
 
     console.log("INDEX INIT --> all project from search service", p)
 
@@ -175,8 +207,7 @@ export class SearchService {
       this.addProject(proj)
     }
     for (let task of tasks) {
-      // this.addTask(task);
-      // TODO here
+      this.addTask(task);
     }
   }
 }

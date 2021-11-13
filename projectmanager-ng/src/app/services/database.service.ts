@@ -3,6 +3,7 @@ import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDa
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { guid, IProject, Project, TEST_PROJECT } from '../model/project.model';
+import { ITask, Task } from '../model/task.model';
 import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { SearchService } from './search.service';
 
@@ -37,6 +38,10 @@ export class DatabaseService {
     // return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
+  getTasks$(): Observable<Task[]> {
+    return projectsCollection.tasks.find().$.pipe(map(datarr => datarr.map(data => new Task(data))));
+  }
+
   getProjects(): Promise<Project[]> {
     return projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
   }
@@ -50,8 +55,20 @@ export class DatabaseService {
     }).remove()
   }
 
+  deleteTask(taskid: string): Promise<any> {
+    return projectsCollection.tasks.findOne({
+      selector: {
+        id: taskid
+      }
+    }).remove()
+  }
+
   saveProject(p: IProject) {
     return projectsCollection.projects.atomicUpsert(p);
+  }
+
+  saveTask(t: ITask) {
+    return projectsCollection.tasks.atomicUpsert(t);
   }
 
 }

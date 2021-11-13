@@ -5,6 +5,7 @@ import { AutosizeModule } from 'ngx-autosize';
 import { ActionButtonComponent } from './button/action-button.component';
 import { EditableAreaComponent } from './editable-area/editable-area.component';
 import { EditableTextComponent } from './editable-text/editable-text.component';
+import { SelectListComponent } from './select-list/select-list.component';
 
 
 
@@ -13,6 +14,7 @@ import { EditableTextComponent } from './editable-text/editable-text.component';
     ActionButtonComponent,
     EditableTextComponent,
     EditableAreaComponent,
+    SelectListComponent,
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { EditableTextComponent } from './editable-text/editable-text.component';
   exports: [
     ActionButtonComponent,
     EditableTextComponent,
-    EditableAreaComponent
+    EditableAreaComponent,
+    SelectListComponent
   ]
 })
 export class GuiModule { }
