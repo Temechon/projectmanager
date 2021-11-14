@@ -5,10 +5,10 @@ export abstract class ITask {
     id: string;
     content: string;
     projectid: string;
-    projectname: string;
     projectinternalid: string;
     status: string;
     date: string;
+    index: number;
 }
 
 export class Task extends ITask {
@@ -19,10 +19,10 @@ export class Task extends ITask {
         this.id = rxdoc.id || guid();
         this.content = rxdoc.content;
         this.projectid = rxdoc.projectid;
-        this.projectname = rxdoc.projectname;
         this.projectinternalid = rxdoc.projectinternalid;
         this.status = rxdoc.status;
         this.date = rxdoc.date;
+        this.index = rxdoc.index;
     }
 
     toObject(): ITask {

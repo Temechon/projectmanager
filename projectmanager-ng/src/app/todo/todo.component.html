@@ -1,51 +1,98 @@
 <div class="p-12 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">A faire</h1>
 
-    <select-list></select-list>
-
     <div class="flex h-[calc(100%-3rem)] overflow-x-au overflow-y-auto space-x-4" cdkDropListGroup>
         <!-- !! Todo Column -->
         <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
-            cdkDropList>
+            cdkDropListData="todo" (cdkDropListDropped)="drop($event)" cdkDropList>
 
             <div class="flex items-center mb-4">
                 <div class="text-gray-400 font-semibold select-none">
                     A faire
                 </div>
                 <div class="ml-auto flex items-center justify-center text-gray-500 border w-8 h-8 rounded-md shadow-sm cursor-pointer"
-                    (click)="add()">
+                    (click)="add('todo')">
                     <i class="fas fa-plus-circle"></i>
                 </div>
             </div>
 
             <!-- !! Task -->
             <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
-                *ngFor="let t of tasks">
+                [cdkDragData]="t" *ngFor="let t of todotasks">
                 <div class="flex items-center mb-4">
-                    <div class="flex items-center justify-center rounded-full text-sm text-white px-3 bg-primary-200">
-                        {{t.projectinternalid}}
-                    </div>
+                    <select-list [options]="options" [(value)]="t.projectinternalid"
+                        (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
                     <!-- !! delete task -->
                     <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
                         (click)="delete(t.id)">
                         <i class="fas fa-times"></i>
                     </div>
                 </div>
-                <textarea class="w-full outline-none px-2" resize placeholder="Description ici">{{t.content}}</textarea>
+                <editable-area custom="!outline-none !px-2 !border-none !pb-0 !ring-0" resize
+                    placeholder="Description..." [(text)]="t.content" (onFinished)="save(t)">
+                </editable-area>
             </div>
         </div>
 
         <!-- !! Running column -->
-        <div class="relative bg-gray-50 p-4 border h-full w-96 min-w-[24rem]" cdkDropList>
-            <div class="absolute bottom-5 left-2 text-gray-200 text-5xl select-none">
-                En cours
+        <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
+            cdkDropListData="running" (cdkDropListDropped)="drop($event)" cdkDropList>
+
+            <div class="flex items-center mb-4">
+                <div class="text-gray-400 font-semibold select-none">
+                    En cours
+                </div>
+                <div class="ml-auto flex items-center justify-center text-gray-500 border w-8 h-8 rounded-md shadow-sm cursor-pointer"
+                    (click)="add('running')">
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+            </div>
+
+            <!-- !! Task -->
+            <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
+                [cdkDragData]="t" *ngFor="let t of runningtasks">
+                <div class="flex items-center mb-4">
+                    <select-list [options]="options" [(value)]="t.projectinternalid"
+                        (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
+                    <!-- !! delete task -->
+                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                        (click)="delete(t.id)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+
+                <editable-area custom="!outline-none !px-2 !border-none !pb-0 !ring-0" resize
+                    placeholder="Description..." [(text)]="t.content" (onFinished)="save(t)">
+                </editable-area>
             </div>
         </div>
 
-        <!-- done column -->
-        <div class="relative bg-gray-50 p-4 border h-full w-96 min-w-[24rem]" cdkDropList>
-            <div class="absolute bottom-5 left-2 text-gray-200 text-5xl select-none">
-                Terminé
+        <!-- !! Done column -->
+        <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
+            cdkDropListData="done" (cdkDropListDropped)="drop($event)" cdkDropList>
+
+            <div class="flex items-center mb-4">
+                <div class="text-gray-400 font-semibold select-none">
+                    Terminé
+                </div>
+            </div>
+
+            <!-- !! Task -->
+            <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
+                [cdkDragData]="t" *ngFor="let t of donetasks">
+                <div class="flex items-center mb-4">
+                    <select-list [options]="options" [(value)]="t.projectinternalid"
+                        (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
+                    <!-- !! delete task -->
+                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                        (click)="delete(t.id)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+
+                <editable-area custom="!outline-none !px-2 !border-none !pb-0 !ring-0" resize
+                    placeholder="Description..." [(text)]="t.content" (onFinished)="save(t)">
+                </editable-area>
             </div>
         </div>
 

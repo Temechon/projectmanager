@@ -160,7 +160,7 @@ export class SearchService {
       content: task.content,
       title: "",
       p_id: task.projectid,
-      p_name: task.projectname,
+      p_name: "",
       p_internalid: task.projectinternalid,
       date: task.date,
       type: "task"
@@ -173,7 +173,7 @@ export class SearchService {
       content: task.content,
       title: "",
       p_id: task.projectid,
-      p_name: task.projectname,
+      p_name: "",
       p_internalid: task.projectinternalid,
       date: task.date,
       type: "task"

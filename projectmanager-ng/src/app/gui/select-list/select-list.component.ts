@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, ViewChild, Output, Input } from '@angular/core';
 import _ from 'underscore';
 
 @Component({
@@ -11,11 +11,16 @@ export class SelectListComponent implements OnInit {
   @ViewChild("list")
   private list: ElementRef;
 
-  options = [
-    { label: '1734', data: '' },
-    { label: '1631', data: '' },
-    { label: '2152', data: '' }
-  ];
+  @Input()
+  options: Array<{ label: string, data?: any }> = [];
+
+  @Input()
+  value: string;
+  /**
+   * Emits the label attribute of the selected option
+   */
+  @Output()
+  valueChange: EventEmitter<string> = new EventEmitter<string>();
 
   selected: number = 0;
 
@@ -28,7 +33,13 @@ export class SelectListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    // Update selected index according to the given value
+    if (this.value) {
+      this.selected = _.findIndex(this.options, (option) => option.label === this.value);
+    }
   }
+
+
 
 
   /**
@@ -54,14 +65,12 @@ export class SelectListComponent implements OnInit {
   select(index: number) {
     this.updateView(index);
     this.selected = index;
-    console.log(this.selected);
     this.onSelected.emit(this.options[index].data);
+    this.valueChange.emit(this.options[index].label);
   }
 
   updateView(size: number) {
     this.list.nativeElement.classList.add('hidden');
-    // this.styleSelected = this.styles[size - 1];
-
   }
 
   isSelected(index: number) {

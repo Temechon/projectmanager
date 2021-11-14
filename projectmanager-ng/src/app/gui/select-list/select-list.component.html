@@ -1,9 +1,14 @@
-<div class="relative -top-px" tabindex="-1" (focusout)="focusout($event)">
+<div class="relative -top-px" tabindex="-1" (focusout)="focusout($event)" *ngIf="options">
 
     <button (click)="toggleOptions()">
 
-        <div class="truncate text-white px-3 bg-primary-200 rounded-full text-sm">
+        <div class="truncate text-white px-3 bg-primary-200 rounded-full text-sm hover:bg-indigo-300"
+            *ngIf="options[selected]">
             {{options[selected].label}}
+        </div>
+        <div class="truncate text-white px-3 bg-yellow-200 rounded-full text-sm hover:bg-yellow -300"
+            *ngIf="!options[selected]">
+            Aucun projet
         </div>
     </button>
 

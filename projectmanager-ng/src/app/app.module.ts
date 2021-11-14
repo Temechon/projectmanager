@@ -17,6 +17,7 @@ import { DatabaseService, initDatabase } from './services/database.service';
 import { SearchService } from './services/search.service';
 import { TodoComponent } from './todo/todo.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -36,6 +37,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TodoComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     GuiModule,
