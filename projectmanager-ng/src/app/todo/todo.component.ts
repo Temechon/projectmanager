@@ -43,7 +43,6 @@ export class TodoComponent implements OnInit {
       this.projects.map(p => {
         this.options.push({ label: p.internalid, data: p.id });
       })
-      console.log("here", this.projects, this.options);
     });
 
     this.db.getTasks$().subscribe(tasks => {
@@ -64,17 +63,22 @@ export class TodoComponent implements OnInit {
       date: '12/11/2021',
       index: this.todotasks.length + 1
     })
-    this.save(t);
+    this.save(t)
   }
 
   linkTaskToProjectid(t: Task, $event: string) {
     t.projectid = $event;
-
+    this.update(t)
   }
 
   save(task: Task) {
     this.db.saveTask(task).then(d => {
       this.index.addTask(task);
+    })
+  }
+  update(task: Task) {
+    this.db.saveTask(task).then(d => {
+      this.index.updateTask(task);
     })
   }
 
@@ -120,16 +124,16 @@ export class TodoComponent implements OnInit {
 
     transferArrayItem(oldArray, array, event.previousIndex, event.currentIndex);
 
-    _.each(array, this.updateIndex.bind(this));
+    _.each(array, this.updateTaskOrder.bind(this));
 
     if (oldArray !== array) {
-      _.each(oldArray, this.updateIndex.bind(this));
+      _.each(oldArray, this.updateTaskOrder.bind(this));
     }
   }
 
-  private updateIndex(task, index) {
+  private updateTaskOrder(task, index) {
     task.index = index;
-    this.save(task);
+    this.update(task)
   }
 
 }
