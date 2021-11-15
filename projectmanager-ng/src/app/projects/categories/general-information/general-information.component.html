@@ -16,6 +16,15 @@
                 </editable-text>
             </div>
         </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Couleur</div>
+            <div class="w-full">
+                <div class="w-8 h-8 cursor-pointer" [ngStyle]="{'background-color':  project.color }"
+                    (click)="updateColor()">
+
+                </div>
+            </div>
+        </div>
 
         <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">Portefeuille projet</div>

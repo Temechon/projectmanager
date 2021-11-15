@@ -1,3 +1,4 @@
+import randomColor from "randomcolor";
 import _ from "underscore";
 
 export function guid() {
@@ -32,6 +33,8 @@ export abstract class IProject {
     id: string;
     name: string;
     internalid: string;
+    /** hex string of the project color */
+    color: string;
     /** Lien vers le portefeuille projet */
     pplink: string;
     folder: string;
@@ -58,6 +61,7 @@ export class Project extends IProject {
         this.id = rxdoc.id || guid();
         this.name = rxdoc.name;
         this.internalid = rxdoc.internalid;
+        this.color = rxdoc.color || randomColor({ format: 'hex' });
         this.pplink = rxdoc.pplink;
         this.actors = rxdoc.actors?.slice().map(_.clone) || []; // Clone because rxdb returns read only objects - why ??
         this.recette_date = rxdoc.recette_date;
@@ -78,23 +82,4 @@ export class Project extends IProject {
         return res;
     }
 
-}
-
-
-
-export function TEST_PROJECT(): IProject {
-    return {
-        id: guid(),
-        internalid: "1734",
-        name: 'Affichage mode connecté',
-        pplink: "",
-        actors: [],
-        recette_date: "30/10/2021",
-        prod_date: "24/11/2021",
-        description: "description du projet",
-        reports: [],
-        folder: "",
-        activities: [],
-        notes: []
-    }
 }

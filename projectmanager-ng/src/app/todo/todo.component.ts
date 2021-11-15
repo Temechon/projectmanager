@@ -5,6 +5,7 @@ import { guid, Project } from '../model/project.model';
 import { Task } from '../model/task.model';
 import { DatabaseService } from '../services/database.service';
 import { SearchService } from '../services/search.service';
+import { DateTime } from "luxon";
 
 
 export enum TASK_STATUS {
@@ -21,14 +22,15 @@ export enum TASK_STATUS {
 })
 export class TodoComponent implements OnInit {
 
+  private _allTasks: Task[] = [];
   todotasks: Task[] = [];
   runningtasks: Task[] = [];
   donetasks: Task[] = [];
 
-  test: string = "coucou"
+  filterLabel: string = ""
 
   projects: Project[] = [];
-  options: Array<{ label: string, data: string }> = [];
+  options: Array<{ label: string, data: Project }> = [];
 
   constructor(
     private db: DatabaseService,
@@ -41,33 +43,35 @@ export class TodoComponent implements OnInit {
 
       this.options = [];
       this.projects.map(p => {
-        this.options.push({ label: p.internalid, data: p.id });
+        this.options.push({ label: p.internalid, data: p });
       })
-    });
+    }).then(() => {
 
-    this.db.getTasks$().subscribe(tasks => {
+      this.db.getTasks$().subscribe(tasks => {
+        this._allTasks = tasks;
 
-      this.todotasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.todo), 'index');
-      this.runningtasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.running), 'index');
-      this.donetasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.done), 'index');
-    });
+        this.todotasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.todo), 'index');
+        this.runningtasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.running), 'index');
+        this.donetasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.done), 'index');
+      });
+    })
   }
 
   add(status: string) {
     let t = new Task({
       id: guid(),
       projectid: '',
-      projectinternalid: '1734',
+      projectinternalid: '',
       content: '',
       status: status,
-      date: '12/11/2021',
+      date: DateTime.local().toFormat('dd LLL yyyy - HH:mm'),
       index: this.todotasks.length + 1
     })
     this.save(t)
   }
 
-  linkTaskToProjectid(t: Task, $event: string) {
-    t.projectid = $event;
+  linkTaskToProjectid(t: Task, $event: Project) {
+    t.projectid = $event.id;
     this.update(t)
   }
 
@@ -134,6 +138,37 @@ export class TodoComponent implements OnInit {
   private updateTaskOrder(task, index) {
     task.index = index;
     this.update(task)
+  }
+
+  /**
+   * Filter task by project
+   * @param label 
+   */
+  toggleFilter($event, label: string) {
+    // remove class 'bg-secondary' from all options
+    document.querySelectorAll('.filter').forEach(e => {
+      e.classList.remove('active');
+    })
+
+
+    // reset filter
+    this.todotasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.todo), 'index');
+    this.runningtasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.running), 'index');
+    this.donetasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.done), 'index');
+
+    // If the given label is already selected, remove it
+    if (this.filterLabel === label) {
+      this.filterLabel = "";
+
+    } else {
+      // add class 'bg-secondary' to the selected option
+      $event.target.classList.add('active');
+
+      this.filterLabel = label;
+      this.todotasks = this.todotasks.filter(t => t.projectinternalid === label);
+      this.runningtasks = this.runningtasks.filter(t => t.projectinternalid === label);
+      this.donetasks = this.donetasks.filter(t => t.projectinternalid === label);
+    }
   }
 
 }

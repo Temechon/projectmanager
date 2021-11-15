@@ -1,0 +1,6 @@
+.active {
+    @apply bg-secondary;
+    &:hover {
+        @apply bg-red-400;
+    }
+}

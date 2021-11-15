@@ -1,6 +1,17 @@
 <div class="p-12 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">A faire</h1>
 
+
+    <!-- !! Filters -->
+    <div class="flex my-4 space-x-4" *ngIf="options.length > 0">
+        <h2 class="text-gray-400">Filtrer par projet</h2>
+        <div [ngStyle]="{'background-color':  opt.data.color }"
+            class="select-none filter truncate flex items-center justify-center text-white px-3 rounded-full text-sm hover:bg-indigo-300 cursor-pointer"
+            (click)="toggleFilter($event, opt.label)" *ngFor="let opt of options">
+            {{opt.label}}
+        </div>
+    </div>
+
     <div class="flex h-[calc(100%-3rem)] overflow-x-au overflow-y-auto space-x-4" cdkDropListGroup>
         <!-- !! Todo Column -->
         <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"

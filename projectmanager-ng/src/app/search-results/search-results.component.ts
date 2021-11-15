@@ -25,7 +25,6 @@ export class SearchResultsComponent implements OnInit {
 
     this.sub = this.route.queryParams.subscribe(params => {
       this.query = params.query;
-      console.log("query", this.query);
 
       if (this.query) {
         this.results = this.searchService.search(this.query);
@@ -72,17 +71,20 @@ export class SearchResultsComponent implements OnInit {
     this.router.navigate(['/projects', pid, 'notes'], { queryParams: { id: noteid } });
   }
 
+  goToTask(taskid: string) {
+    this.router.navigate(['/projects', 'todo'], { queryParams: { id: taskid } });
+  }
+
   goToActivity(pid: string, activityid: string) {
     this.router.navigate(['/projects', pid, 'activities'], { queryParams: { id: activityid } });
   }
 
 
-  snippet(_content: string) {
+  snippet(_content: string, nbchar: number = 100) {
 
     let content = _content.replace(/<\/p>/g, " ").replace(/<.*?>/g, "").trim();
     const find = new RegExp(this.query, "gmi");
 
-    const nbchar = 100;
     const match = find.exec(content);
     const first = match.index - nbchar >= 0 ? match.index - nbchar : 0;
     const last = match.index + match[0].length + nbchar;
@@ -107,6 +109,9 @@ export class SearchResultsComponent implements OnInit {
         break;
       case "activity":
         classname = "border-darker ";
+        break;
+      case "task":
+        classname = "border-mygreen";
         break;
       default:
         classname = "border-white ";

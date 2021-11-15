@@ -22,7 +22,7 @@ export class SelectListComponent implements OnInit {
   @Output()
   valueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  selected: number = 0;
+  selected: number = null;
 
   /**
    * Returns the data attribute attached to the selected option
@@ -65,8 +65,8 @@ export class SelectListComponent implements OnInit {
   select(index: number) {
     this.updateView(index);
     this.selected = index;
-    this.onSelected.emit(this.options[index].data);
     this.valueChange.emit(this.options[index].label);
+    this.onSelected.emit(this.options[index].data);
   }
 
   updateView(size: number) {

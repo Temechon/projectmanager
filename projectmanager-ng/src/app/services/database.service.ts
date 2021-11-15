@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { addPouchPlugin, createRxDatabase, getRxStoragePouch, RxCollection, RxDatabase } from 'rxdb';
+import { addPouchPlugin, createRxDatabase, getRxStoragePouch } from 'rxdb';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { guid, IProject, Project, TEST_PROJECT } from '../model/project.model';
+import { IProject, Project } from '../model/project.model';
 import { ITask, Task } from '../model/task.model';
 import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { SearchService } from './search.service';
@@ -161,6 +161,7 @@ export async function initDatabase(search: SearchService) {
   await initState;
   console.log("DB INIT --> ok")
   let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
+  let alltasks = await projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
 
-  await search.init(allp)
+  await search.init(allp, alltasks)
 }

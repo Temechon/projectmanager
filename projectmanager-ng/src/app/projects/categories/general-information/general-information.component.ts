@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import randomColor from 'randomcolor';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 
@@ -32,6 +33,11 @@ export class GeneralInformationComponent extends CategoryComponent {
     } else {
       console.log("Not in production")
     }
+  }
+
+  updateColor() {
+    this.project.color = randomColor({ format: 'hex' });
+    this.save();
   }
 
   openLink(link: string) {

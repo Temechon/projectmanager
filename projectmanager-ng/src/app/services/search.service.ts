@@ -158,7 +158,7 @@ export class SearchService {
     this.index.add({
       id: task.id,
       content: task.content,
-      title: "",
+      title: task.status, // Task status is the title
       p_id: task.projectid,
       p_name: "",
       p_internalid: task.projectinternalid,
@@ -171,7 +171,7 @@ export class SearchService {
     this.index.update(task.id, {
       id: task.id,
       content: task.content,
-      title: "",
+      title: task.status, // Task status is the title
       p_id: task.projectid,
       p_name: "",
       p_internalid: task.projectinternalid,

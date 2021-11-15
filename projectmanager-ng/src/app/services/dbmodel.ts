@@ -63,6 +63,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
         internalid: {
             type: 'string'
         },
+        color: {
+            type: 'string'
+        },
         pplink: {
             type: 'string'
         },

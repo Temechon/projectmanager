@@ -8,75 +8,123 @@
         </div>
 
         <div *ngFor="let res of results">
-            <div *ngFor="let r of res.result" [ngClass]="getColorForType(r.doc.type)"
-                class="hover:bg-gray-50 p-4 cursor-pointer border-l-[6px] mb-4">
+            <div *ngFor="let r of res.result" class="hover:bg-gray-50 p-4 cursor-pointer mb-4">
 
-                <!-- If the result is a project -->
-                <div *ngIf="r.doc.type === 'project'" (click)="goTo(r.doc.p_id)">
-                    <div class="flex items-center">
-                        <div
-                            class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
-                            {{r.doc.p_internalid}}
+                <!--!! If the result is a project -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'project'" (click)="goTo(r.doc.p_id)">
+                    <!-- Icon -->
+                    <i class="fas fa-project-diagram text-3xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
                         </div>
-                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
-                    </div>
-                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
-                        <div>Description :</div>
-                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
-                            *ngIf="res.field === 'content'">
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div>Description :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- If the result is a report -->
-                <div *ngIf="r.doc.type === 'report'" (click)="goToReport(r.doc.p_id, r.id)">
-                    <div class="flex items-center">
-                        <div
-                            class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
-                            {{r.doc.p_internalid}}
+                <!-- !! If the result is a report -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'report'"
+                    (click)="goToReport(r.doc.p_id, r.id)">
+                    <!-- Icon -->
+                    <i class="fas fa-file-alt text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">Compte-rendu</div>
+                            <span class="text-gray-400 text-sm ml-4">{{r.doc.title}} - {{r.doc.date}}</span>
                         </div>
-                        <div class="text-darker text-2xl font-bold">
-                            {{r.doc.title}}
-                            <span class="text-gray-400 text-sm ml-4">{{r.doc.date}}</span>
-                        </div>
-                    </div>
-                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
-                        <div>Description :</div>
-                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
-                            *ngIf="res.field === 'content'">
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div>Description :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- If the result is a quick note -->
-                <div *ngIf="r.doc.type === 'note'" (click)="goToNote(r.doc.p_id, r.id)">
-                    <div class="flex items-center">
-                        <div
-                            class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
-                            {{r.doc.p_internalid}}
+                <!--!!  If the result is a quick note -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'note'" (click)="goToNote(r.doc.p_id, r.id)">
+                    <!-- Icon -->
+                    <i class="fas fa-sticky-note text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">Note rapide</div>
                         </div>
-                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
-                    </div>
-                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
-                        <div>Contenu :</div>
-                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
-                            *ngIf="res.field === 'content'">
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div>Contenu :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- If the result is an activity -->
-                <div *ngIf="r.doc.type === 'activity'" (click)="goToActivity(r.doc.p_id, r.id)">
-                    <div class="flex items-center">
-                        <div
-                            class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
-                            {{r.doc.p_internalid}}
+
+                <!--!! If the result is an activity -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'activity'"
+                    (click)="goToActivity(r.doc.p_id, r.id)">
+                    <!-- Icon -->
+                    <i class="fas fa-chart-line text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">Activité</div>
                         </div>
-                        <div class="text-darker text-2xl font-bold">{{r.doc.p_name}}</div>
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div>Contenu :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
-                        <div>Contenu :</div>
-                        <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
-                            *ngIf="res.field === 'content'">
+                </div>
+
+                <!-- !! If the result is a task -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'task'" (click)="goToTask(r.id)">
+                    <!-- Icon -->
+                    <i class="fas fa-tasks text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">Tâche</div>
+                            <span class="text-gray-400 text-sm ml-4">{{r.doc.title}} - {{r.doc.date}}</span>
+                        </div>
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div class="mr-4"> Contenu :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
                         </div>
                     </div>
                 </div>
