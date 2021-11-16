@@ -28,6 +28,13 @@ export type Note = {
     content: string
 }
 
+export type Incident = {
+    id: string,
+    detail: string,
+    comment: string,
+    status: string
+}
+
 export abstract class IProject {
 
     id: string;
@@ -51,6 +58,8 @@ export abstract class IProject {
     activities: Array<Activity>;
     /** All quick notes */
     notes: Array<Note>;
+    /** All incidents */
+    incidents: Array<Incident>;
 }
 
 export class Project extends IProject {
@@ -71,6 +80,7 @@ export class Project extends IProject {
         this.folder = rxdoc.folder;
         this.activities = rxdoc.activities?.slice().map(_.clone) || [];
         this.notes = rxdoc.notes?.slice().map(_.clone) || [];
+        this.incidents = rxdoc.incidents?.slice().map(_.clone) || [];
     }
 
     toObject(): IProject {

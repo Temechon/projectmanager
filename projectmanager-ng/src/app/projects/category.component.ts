@@ -33,10 +33,8 @@ export class CategoryComponent implements OnInit {
     }
 
     save() {
-        console.log("Saving project", this.project);
         this.db.saveProject(this.project.toObject());
         this.index.updateProject(this.project);
-        console.log("Done!");
     }
 
     ngOnDestroy() {

@@ -49,7 +49,7 @@ export const taskSchema: RxJsonSchema<ITask> = {
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 0,
+    version: 1,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -150,6 +150,26 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                         type: 'string'
                     },
                     content: {
+                        type: 'string'
+                    }
+                }
+            }
+        },
+        incidents: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string'
+                    },
+                    detail: {
+                        type: 'string'
+                    },
+                    comment: {
+                        type: 'string'
+                    },
+                    status: {
                         type: 'string'
                     }
                 }

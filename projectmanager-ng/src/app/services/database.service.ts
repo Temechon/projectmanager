@@ -90,7 +90,14 @@ async function _create() {
 
   projectsCollection = await db.addCollections({
     projects: {
-      schema: projectsSchema
+      schema: projectsSchema,
+      migrationStrategies: {
+        // this transforms data from version 0 to version 1
+        1: (doc: Project) => {
+          doc.incidents = []
+          return doc;
+        }
+      }
     },
     tasks: {
       schema: taskSchema
