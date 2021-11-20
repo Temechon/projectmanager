@@ -5,7 +5,9 @@ import { environment } from 'src/environments/environment';
 import { IProject, Project } from '../model/project.model';
 import { ITask, Task } from '../model/task.model';
 import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
+import { IpcService } from './ipc.service';
 import { SearchService } from './search.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -133,28 +135,13 @@ async function _create() {
     }
 
   }
-
-  if (environment.production) {
-    projectsCollection.projects.$.subscribe(() => {
-      projectsCollection.projects.exportJSON().then((json) => {
-        console.log("JSON", json);
-        // Neutralino.storage.setData('PMDATABASE_PROJECTS', JSON.stringify(json))
-      })
-    })
-    projectsCollection.tasks.$.subscribe(() => {
-      projectsCollection.tasks.exportJSON().then((json) => {
-        console.log("JSON", json);
-        // Neutralino.storage.setData('PMDATABASE_TASKS', JSON.stringify(json))
-      })
-    })
-  }
 }
 
 /**
  * This is run via APP_INITIALIZER in app.module.ts
  * to ensure the database exists before the angular-app starts up
  */
-export async function initDatabase(search: SearchService) {
+export async function initDatabase(search: SearchService, ipc: IpcService) {
 
   /**
    * When server side rendering is used,
@@ -167,6 +154,25 @@ export async function initDatabase(search: SearchService) {
   console.log("DB INIT --> ok")
   let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
   let alltasks = await projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
+
+  // Load database from disk
+  console.log("read-data", ipc.sendSync('read-data', "ping"));
+
+
+  // Save all projects to disk when an update is done
+  projectsCollection.projects.$.subscribe(() => {
+    projectsCollection.projects.exportJSON().then((json) => {
+      console.log("JSON", json);
+      ipc.send('async-save', json);
+    })
+  })
+  projectsCollection.tasks.$.subscribe(() => {
+    projectsCollection.tasks.exportJSON().then((json) => {
+      console.log("JSON", json);
+      ipc.send('async-save', json);
+    })
+  })
+
 
   await search.init(allp, alltasks)
 }

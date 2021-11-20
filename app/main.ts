@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -19,7 +19,8 @@ function createWindow() {
         width: size.width,
         height: size.height,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     })
     mainWindow.maximize();
@@ -54,4 +55,13 @@ app.on('window-all-closed', function () {
 
 app.on('activate', function () {
     if (mainWindow === null) createWindow()
+})
+
+ipcMain.on('async-save', (event, arg) => {
+    console.log("async-save", arg);
+})
+
+ipcMain.on('read-data', (event, arg) => {
+    console.log("read-data", "pouet", arg);
+    event.returnValue = "pouet";
 })

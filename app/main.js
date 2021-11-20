@@ -16,7 +16,8 @@ function createWindow() {
         width: size.width,
         height: size.height,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
     mainWindow.maximize();
@@ -46,5 +47,12 @@ electron_1.app.on('window-all-closed', function () {
 electron_1.app.on('activate', function () {
     if (mainWindow === null)
         createWindow();
+});
+electron_1.ipcMain.on('async-save', function (event, arg) {
+    console.log("async-save", arg);
+});
+electron_1.ipcMain.on('read-data', function (event, arg) {
+    console.log("read-data", "pouet", arg);
+    event.returnValue = "pouet";
 });
 //# sourceMappingURL=main.js.map

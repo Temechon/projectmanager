@@ -19,6 +19,7 @@ import { TodoComponent } from './todo/todo.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance-tests/acceptance-tests.component';
+import { IpcService } from './services/ipc.service';
 
 
 
@@ -47,11 +48,12 @@ import { AcceptanceTestsComponent } from './projects/categories/acceptance-tests
   ],
   providers: [
     SearchService,
+    IpcService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (s: SearchService) => () => initDatabase(s),
+      useFactory: (s: SearchService, ipc: IpcService) => () => initDatabase(s, ipc),
       multi: true,
-      deps: [SearchService]
+      deps: [SearchService, IpcService]
     },
     DatabaseService,
   ],
