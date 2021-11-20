@@ -10,7 +10,9 @@
     "build": "ng build --base-href ./",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "electron": "electron .",
+    "electron:serve-tsc": "tsc -p tsconfig.serve.json",
+    "electron:build": "npm run build && npm run electron",
+    "electron": "npm run electron:serve-tsc && electron .",
     "package": "electron-forge package",
     "make": "electron-forge make"
   },
@@ -74,7 +76,7 @@
         {
           "name": "@electron-forge/maker-squirrel",
           "config": {
-            "name": "electar"
+            "name": "projectmanager"
           }
         },
         {

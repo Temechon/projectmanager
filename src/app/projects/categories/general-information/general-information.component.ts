@@ -3,8 +3,6 @@ import randomColor from 'randomcolor';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 
-declare var Neutralino: any;
-
 @Component({
   selector: 'app-general-information',
   templateUrl: './general-information.component.html',
@@ -29,7 +27,7 @@ export class GeneralInformationComponent extends CategoryComponent {
 
   openFolder(folder: string) {
     if (environment.production) {
-      Neutralino.os.execCommand('explorer ' + folder)
+      // Neutralino.os.execCommand('explorer ' + folder)
     } else {
       console.log("Not in production")
     }
@@ -42,7 +40,7 @@ export class GeneralInformationComponent extends CategoryComponent {
 
   openLink(link: string) {
     if (environment.production) {
-      Neutralino.os.execCommand('start ' + link)
+      // Neutralino.os.execCommand('start ' + link)
     } else {
       window.open(link, "_blank");
     }

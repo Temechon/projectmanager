@@ -7,8 +7,6 @@ import { ITask, Task } from '../model/task.model';
 import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { SearchService } from './search.service';
 
-declare let Neutralino: any;
-
 @Injectable({
   providedIn: 'root'
 })
@@ -140,13 +138,13 @@ async function _create() {
     projectsCollection.projects.$.subscribe(() => {
       projectsCollection.projects.exportJSON().then((json) => {
         console.log("JSON", json);
-        Neutralino.storage.setData('PMDATABASE_PROJECTS', JSON.stringify(json))
+        // Neutralino.storage.setData('PMDATABASE_PROJECTS', JSON.stringify(json))
       })
     })
     projectsCollection.tasks.$.subscribe(() => {
       projectsCollection.tasks.exportJSON().then((json) => {
         console.log("JSON", json);
-        Neutralino.storage.setData('PMDATABASE_TASKS', JSON.stringify(json))
+        // Neutralino.storage.setData('PMDATABASE_TASKS', JSON.stringify(json))
       })
     })
   }
