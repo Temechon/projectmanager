@@ -9,12 +9,12 @@ declare let Neutralino: any;
 if (environment.production) {
   enableProdMode();
 
-  console.log("NEUTRALINO INIT")
-  Neutralino.init();
+  // console.log("NEUTRALINO INIT")
+  // Neutralino.init();
 
-  Neutralino.events.on("windowClose", () => {
-    Neutralino.app.exit();
-  });
+  // Neutralino.events.on("windowClose", () => {
+  //   Neutralino.app.exit();
+  // });
 
 }
 

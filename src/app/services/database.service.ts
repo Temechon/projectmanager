@@ -110,28 +110,28 @@ async function _create() {
     // If no projects found on database, check if this is prod environment
     if (environment.production) {
       // If production, load database from storage
-      Neutralino.events.on('ready', () => {
-        // get projects
-        Neutralino.storage.getData('PMDATABASE_PROJECTS').then(strdatabase => {
-          console.log("Projects database", strdatabase)
-          if (strdatabase) {
-            let jsondatabase = JSON.parse(strdatabase)
-            projectsCollection.projects.importJSON(jsondatabase);
-          } else {
+      // Neutralino.events.on('ready', () => {
+      //   // get projects
+      //   Neutralino.storage.getData('PMDATABASE_PROJECTS').then(strdatabase => {
+      //     console.log("Projects database", strdatabase)
+      //     if (strdatabase) {
+      //       let jsondatabase = JSON.parse(strdatabase)
+      //       projectsCollection.projects.importJSON(jsondatabase);
+      //     } else {
 
-          }
-        })
-        // get tasks
-        Neutralino.storage.getData('PMDATABASE_TASKS').then(strdatabase => {
-          console.log("Tasks database", strdatabase)
-          if (strdatabase) {
-            let jsondatabase = JSON.parse(strdatabase)
-            projectsCollection.tasks.importJSON(jsondatabase);
-          } else {
+      //     }
+      //   })
+      //   // get tasks
+      //   Neutralino.storage.getData('PMDATABASE_TASKS').then(strdatabase => {
+      //     console.log("Tasks database", strdatabase)
+      //     if (strdatabase) {
+      //       let jsondatabase = JSON.parse(strdatabase)
+      //       projectsCollection.tasks.importJSON(jsondatabase);
+      //     } else {
 
-          }
-        })
-      })
+      //     }
+      //   })
+      // })
     }
 
   }
