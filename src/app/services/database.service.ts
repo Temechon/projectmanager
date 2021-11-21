@@ -103,38 +103,6 @@ async function _create() {
       schema: taskSchema
     }
   });
-
-  let allprojects = await projectsCollection.projects.find().exec();
-
-  if (allprojects.length === 0) {
-    // If no projects found on database, check if this is prod environment
-    if (environment.production) {
-      // If production, load database from storage
-      // Neutralino.events.on('ready', () => {
-      //   // get projects
-      //   Neutralino.storage.getData('PMDATABASE_PROJECTS').then(strdatabase => {
-      //     console.log("Projects database", strdatabase)
-      //     if (strdatabase) {
-      //       let jsondatabase = JSON.parse(strdatabase)
-      //       projectsCollection.projects.importJSON(jsondatabase);
-      //     } else {
-
-      //     }
-      //   })
-      //   // get tasks
-      //   Neutralino.storage.getData('PMDATABASE_TASKS').then(strdatabase => {
-      //     console.log("Tasks database", strdatabase)
-      //     if (strdatabase) {
-      //       let jsondatabase = JSON.parse(strdatabase)
-      //       projectsCollection.tasks.importJSON(jsondatabase);
-      //     } else {
-
-      //     }
-      //   })
-      // })
-    }
-
-  }
 }
 
 /**
@@ -155,21 +123,38 @@ export async function initDatabase(search: SearchService, ipc: IpcService) {
   let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
   let alltasks = await projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
 
-  // Load database from disk
-  console.log("read-data", ipc.sendSync('read-data', "ping"));
+  // Load database from disk if any found
+  let projectsdatabase = ipc.sendSync('read-projects');
+  let tasksdatabase = ipc.sendSync('read-tasks');
+  console.log("Projects from disk", projectsdatabase);
+  console.log("Tasks from disk", tasksdatabase);
 
+  if (projectsdatabase) {
+    console.log("Loading projects!");
+    let jsondatabase = JSON.parse(projectsdatabase)
+    projectsCollection.projects.importJSON(jsondatabase);
+  }
+  if (tasksdatabase) {
+    console.log("Loading tasks!");
+    let jsondatabase = JSON.parse(tasksdatabase)
+    projectsCollection.tasks.importJSON(jsondatabase);
+  }
 
   // Save all projects to disk when an update is done
   projectsCollection.projects.$.subscribe(() => {
     projectsCollection.projects.exportJSON().then((json) => {
       console.log("JSON", json);
-      ipc.send('async-save', json);
+      ipc.send('async-save-projects', json);
     })
   })
   projectsCollection.tasks.$.subscribe(() => {
     projectsCollection.tasks.exportJSON().then((json) => {
       console.log("JSON", json);
-      ipc.send('async-save', json);
+      let objects = {
+        key: "PMDATABASE_TASKS",
+        data: json
+      }
+      ipc.send('async-save-tasks', objects);
     })
   })
 

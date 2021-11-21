@@ -10,21 +10,24 @@ let mainWindow: BrowserWindow;
 
 function createWindow() {
 
-    const electronScreen = screen;
-    const size = electronScreen.getPrimaryDisplay().workAreaSize;
-
     mainWindow = new BrowserWindow({
-        x: 0,
-        y: 0,
-        width: size.width,
-        height: size.height,
+        // frame: false,
+        autoHideMenuBar: true,
+        titleBarStyle: 'hidden',
+        titleBarOverlay: {
+            color: '#323659',
+            symbolColor: '#F3F6FF'
+        },
+        icon: '', // TODO
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     })
+    mainWindow.center();
+    mainWindow.removeMenu();
     mainWindow.maximize();
-    mainWindow.removeMenu()
+    mainWindow.focus();
 
     // Path when running electron executable
     let pathIndex = './index.html';
@@ -57,11 +60,44 @@ app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
 
-ipcMain.on('async-save', (event, arg) => {
-    console.log("async-save", arg);
+// Set disk path
+console.log("DISK PATH", app.getAppPath());
+
+ipcMain.on('async-save-projects', (event, arg) => {
+    // console.log("async-save", arg);
+    try {
+        fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'Failed to save the file !');
+    }
 })
 
-ipcMain.on('read-data', (event, arg) => {
-    console.log("read-data", "pouet", arg);
-    event.returnValue = "pouet";
+ipcMain.on('async-save-tasks', (event, arg) => {
+    // console.log("async-save", arg);
+    try {
+        fs.writeFileSync('projectmanager.tasks', JSON.stringify(arg), 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'Failed to save the file !');
+    }
+})
+
+ipcMain.on('read-projects', (event, arg) => {
+    let projects = null;
+    try {
+        projects = fs.readFileSync('projectmanager.projects', 'utf-8');
+    } catch (e) {
+        console.error(e, 'No file called projectmanager.projects');
+    }
+    event.returnValue = projects;
+})
+ipcMain.on('read-tasks', (event, arg) => {
+    let tasks = null;
+    try {
+        tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
+    } catch (e) {
+        console.error(e, 'No file called projectmanager.tasks');
+    }
+    event.returnValue = tasks;
 })

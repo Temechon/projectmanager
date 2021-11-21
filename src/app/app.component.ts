@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DatabaseService } from './services/database.service';
+import { IpcService } from './services/ipc.service';
 
 
 
@@ -10,8 +11,9 @@ import { DatabaseService } from './services/database.service';
 })
 export class AppComponent {
 
-  constructor(private db: DatabaseService) { }
+  constructor() { }
 
   ngOnInit() {
   }
+
 }

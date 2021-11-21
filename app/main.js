@@ -8,20 +8,24 @@ var mainWindow;
 // const args = process.argv.slice(1);
 // const serve = args.some(val => val === '--serve');
 function createWindow() {
-    var electronScreen = electron_1.screen;
-    var size = electronScreen.getPrimaryDisplay().workAreaSize;
     mainWindow = new electron_1.BrowserWindow({
-        x: 0,
-        y: 0,
-        width: size.width,
-        height: size.height,
+        // frame: false,
+        autoHideMenuBar: true,
+        titleBarStyle: 'hidden',
+        titleBarOverlay: {
+            color: '#323659',
+            symbolColor: '#F3F6FF'
+        },
+        icon: '',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
         }
     });
-    mainWindow.maximize();
+    mainWindow.center();
     mainWindow.removeMenu();
+    mainWindow.maximize();
+    mainWindow.focus();
     // Path when running electron executable
     var pathIndex = './index.html';
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
@@ -48,11 +52,44 @@ electron_1.app.on('activate', function () {
     if (mainWindow === null)
         createWindow();
 });
-electron_1.ipcMain.on('async-save', function (event, arg) {
-    console.log("async-save", arg);
+// Set disk path
+console.log("DISK PATH", electron_1.app.getAppPath());
+electron_1.ipcMain.on('async-save-projects', function (event, arg) {
+    // console.log("async-save", arg);
+    try {
+        fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'Failed to save the file !');
+    }
 });
-electron_1.ipcMain.on('read-data', function (event, arg) {
-    console.log("read-data", "pouet", arg);
-    event.returnValue = "pouet";
+electron_1.ipcMain.on('async-save-tasks', function (event, arg) {
+    // console.log("async-save", arg);
+    try {
+        fs.writeFileSync('projectmanager.tasks', JSON.stringify(arg), 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'Failed to save the file !');
+    }
+});
+electron_1.ipcMain.on('read-projects', function (event, arg) {
+    var projects = null;
+    try {
+        projects = fs.readFileSync('projectmanager.projects', 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'No file called projectmanager.projects');
+    }
+    event.returnValue = projects;
+});
+electron_1.ipcMain.on('read-tasks', function (event, arg) {
+    var tasks = null;
+    try {
+        tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
+    }
+    catch (e) {
+        console.error(e, 'No file called projectmanager.tasks');
+    }
+    event.returnValue = tasks;
 });
 //# sourceMappingURL=main.js.map
