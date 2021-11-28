@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AcceptanceTestsComponent } from './projects/categories/acceptance-tests/acceptance-tests.component';
+import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
 import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';

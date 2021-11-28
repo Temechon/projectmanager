@@ -96,6 +96,10 @@ async function _create() {
         1: (doc: Project) => {
           doc.incidents = []
           return doc;
+        },
+        2: (doc: Project) => {
+          doc.acceptanceComponents = []
+          return doc;
         }
       }
     },
