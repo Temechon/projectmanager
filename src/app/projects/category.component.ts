@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import _ from "underscore";
 import { Project } from "../model/project.model";
 import { DatabaseService } from "../services/database.service";
+import { IpcService } from "../services/ipc.service";
 import { SearchService } from "../services/search.service";
 
 @Directive()
@@ -14,7 +15,8 @@ export class CategoryComponent implements OnInit {
         protected db: DatabaseService,
         protected router: Router,
         protected index: SearchService,
-        protected renderer: Renderer2
+        protected renderer: Renderer2,
+        protected ipcService: IpcService
     ) { }
 
     project: Project

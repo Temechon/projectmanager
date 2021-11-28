@@ -25,7 +25,7 @@ export class ProjectsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.renderer.listen('document', 'keydown.control.k', (event: KeyboardEvent) => {
+    this.renderer.listen('document', 'keydown.control.f', (event: KeyboardEvent) => {
       let input = (document.querySelector('#searchbar') as HTMLInputElement)
       input.focus();
       input.setSelectionRange(0, input.value.length)
@@ -98,6 +98,10 @@ export class ProjectsComponent implements OnInit {
 
     let projectNames = document.querySelectorAll('.project-name');
     projectNames.forEach(item => item.classList.toggle('hidden'))
+
+    // hide all project-tags
+    let projectTags = document.querySelectorAll('.project-tag');
+    projectTags.forEach(item => item.classList.toggle('hidden'))
 
     let projectIds = document.querySelectorAll('.project-id');
     projectIds.forEach(item => item.classList.toggle('mr-4'))

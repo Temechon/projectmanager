@@ -23,7 +23,9 @@
             <div class="project w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
                 routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
                 *ngFor="let p of projects; trackBy:trackByProjectId">
-                <span class="project-id font-semibold mr-4">{{p.internalid}}</span>
+
+                <span class="project-tag w-3 h-3 rounded-full mr-2" [ngStyle]="{'background-color':  p.color }"></span>
+                <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
                 <div class="truncate project-name">{{p.name}}</div>
             </div>
         </div>
@@ -38,7 +40,7 @@
     </div>
 
     <!-- Content -->
-    <div id="content" class="w-[calc(100%-20rem)] relative transition-all">
+    <div id="content" class="w-[calc(100%-20rem)] relative transition-all overflow-auto">
 
         <!-- Search bar -->
         <div class="h-14 flex items-center justify-start absolute top-0 right-0 ">

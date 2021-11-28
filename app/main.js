@@ -9,23 +9,18 @@ var mainWindow;
 // const serve = args.some(val => val === '--serve');
 function createWindow() {
     mainWindow = new electron_1.BrowserWindow({
-        // frame: false,
         autoHideMenuBar: true,
         titleBarStyle: 'hidden',
-        titleBarOverlay: {
-            color: '#323659',
-            symbolColor: '#F3F6FF'
-        },
         icon: '',
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
-        }
+        },
+        show: false
     });
     mainWindow.center();
     mainWindow.removeMenu();
-    mainWindow.maximize();
-    mainWindow.focus();
     // Path when running electron executable
     var pathIndex = './index.html';
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
@@ -38,9 +33,13 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function () {
         mainWindow = null;
+    });
+    mainWindow.once('ready-to-show', function () {
+        mainWindow.maximize();
+        mainWindow.show();
     });
 }
 electron_1.app.on('ready', createWindow);
@@ -52,7 +51,7 @@ electron_1.app.on('activate', function () {
     if (mainWindow === null)
         createWindow();
 });
-// Set disk path
+// Display disk path
 console.log("DISK PATH", electron_1.app.getAppPath());
 electron_1.ipcMain.on('async-save-projects', function (event, arg) {
     // console.log("async-save", arg);
@@ -91,5 +90,22 @@ electron_1.ipcMain.on('read-tasks', function (event, arg) {
         console.error(e, 'No file called projectmanager.tasks');
     }
     event.returnValue = tasks;
+});
+electron_1.ipcMain.on('minimize', function (event, arg) {
+    mainWindow.minimize();
+});
+electron_1.ipcMain.on('maximize', function (event, arg) {
+    mainWindow.maximize();
+});
+electron_1.ipcMain.on('close', function (event, arg) {
+    mainWindow.close();
+});
+electron_1.ipcMain.on('open-link', function (event, arg) {
+    console.log("LINK TO OPEN", arg);
+    electron_1.shell.openExternal(arg);
+});
+electron_1.ipcMain.on('open-folder', function (event, arg) {
+    console.log("FOLDER TO OPEN", arg);
+    electron_1.shell.openPath(arg);
 });
 //# sourceMappingURL=main.js.map

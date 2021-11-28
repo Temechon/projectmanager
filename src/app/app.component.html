@@ -1,7 +1,25 @@
 <div class="pt-8 h-full">
-    <div class="w-full h-8 bg-darker flex items-center justify-center drag select-none fixed top-0 z-10">
-        <div class="text-sm text-white">
+    <div class="w-full h-8 bg-darker flex items-center justify-center fixed top-0 z-10">
+
+        <div class="text-sm text-white flex-1 text-center drag select-none">
             Project Manager
+        </div>
+
+        <div class="text-white flex items-center justify-center ml-auto">
+
+            <div class=" cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-gray-100 hover:text-darker"
+                (click)="minimize()">
+                <i class="fas fa-window-minimize"></i>
+            </div>
+
+            <div class=" cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-gray-100 hover:text-darker"
+                (click)="maximize()">
+                <i class="fas fa-window-maximize"></i>
+            </div>
+
+            <div class=" cursor-pointer w-8 h-8 flex items-center justify-center hover:bg-red-500" (click)="close()">
+                <i class="fas fa-times"></i>
+            </div>
         </div>
     </div>
 

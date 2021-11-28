@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { DatabaseService } from './services/database.service';
 import { IpcService } from './services/ipc.service';
-
 
 
 @Component({
@@ -11,9 +9,25 @@ import { IpcService } from './services/ipc.service';
 })
 export class AppComponent {
 
-  constructor() { }
+  constructor(private ipcService: IpcService) { }
 
   ngOnInit() {
+  }
+
+  // USe ipcservice to minimize the electron window
+  minimize() {
+    console.log("Minimize window");
+    this.ipcService.send('minimize');
+  }
+
+  maximize() {
+    console.log("Maximize window");
+    this.ipcService.send('maximize');
+  }
+
+  close() {
+    console.log("Close window");
+    this.ipcService.send('close');
   }
 
 }

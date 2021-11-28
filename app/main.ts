@@ -1,7 +1,8 @@
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
+
 
 let mainWindow: BrowserWindow;
 
@@ -11,23 +12,18 @@ let mainWindow: BrowserWindow;
 function createWindow() {
 
     mainWindow = new BrowserWindow({
-        // frame: false,
         autoHideMenuBar: true,
         titleBarStyle: 'hidden',
-        titleBarOverlay: {
-            color: '#323659',
-            symbolColor: '#F3F6FF'
-        },
         icon: '', // TODO
+        frame: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false
-        }
+        },
+        show: false
     })
     mainWindow.center();
     mainWindow.removeMenu();
-    mainWindow.maximize();
-    mainWindow.focus();
 
     // Path when running electron executable
     let pathIndex = './index.html';
@@ -43,10 +39,15 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', function () {
         mainWindow = null
+    })
+
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.maximize();
+        mainWindow.show();
     })
 }
 
@@ -60,7 +61,7 @@ app.on('activate', function () {
     if (mainWindow === null) createWindow()
 })
 
-// Set disk path
+// Display disk path
 console.log("DISK PATH", app.getAppPath());
 
 ipcMain.on('async-save-projects', (event, arg) => {
@@ -100,4 +101,21 @@ ipcMain.on('read-tasks', (event, arg) => {
         console.error(e, 'No file called projectmanager.tasks');
     }
     event.returnValue = tasks;
+})
+ipcMain.on('minimize', (event, arg) => {
+    mainWindow.minimize();
+})
+ipcMain.on('maximize', (event, arg) => {
+    mainWindow.maximize();
+})
+ipcMain.on('close', (event, arg) => {
+    mainWindow.close();
+})
+ipcMain.on('open-link', (event, arg) => {
+    console.log("LINK TO OPEN", arg);
+    shell.openExternal(arg);
+})
+ipcMain.on('open-folder', (event, arg) => {
+    console.log("FOLDER TO OPEN", arg);
+    shell.openPath(arg);
 })

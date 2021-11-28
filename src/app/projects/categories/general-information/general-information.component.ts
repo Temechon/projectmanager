@@ -27,7 +27,8 @@ export class GeneralInformationComponent extends CategoryComponent {
 
   openFolder(folder: string) {
     if (environment.production) {
-      // Neutralino.os.execCommand('explorer ' + folder)
+      // Use ipc service to open the folder
+      this.ipcService.send('open-folder', folder);
     } else {
       console.log("Not in production")
     }
@@ -40,7 +41,8 @@ export class GeneralInformationComponent extends CategoryComponent {
 
   openLink(link: string) {
     if (environment.production) {
-      // Neutralino.os.execCommand('start ' + link)
+      // Use ipc service to open the link
+      this.ipcService.send('open-link', link);
     } else {
       window.open(link, "_blank");
     }

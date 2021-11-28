@@ -150,11 +150,7 @@ export async function initDatabase(search: SearchService, ipc: IpcService) {
   projectsCollection.tasks.$.subscribe(() => {
     projectsCollection.tasks.exportJSON().then((json) => {
       console.log("JSON", json);
-      let objects = {
-        key: "PMDATABASE_TASKS",
-        data: json
-      }
-      ipc.send('async-save-tasks', objects);
+      ipc.send('async-save-tasks', json);
     })
   })
 
