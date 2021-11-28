@@ -20,6 +20,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
 import { IpcService } from './services/ipc.service';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
@@ -37,7 +38,8 @@ import { IpcService } from './services/ipc.service';
     SearchResultsComponent,
     NotesComponent,
     TodoComponent,
-    AcceptanceTestsComponent
+    AcceptanceTestsComponent,
+    CalendarComponent
   ],
   imports: [
     FormsModule,

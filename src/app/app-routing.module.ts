@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CalendarComponent } from './calendar/calendar.component';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
 import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
@@ -25,6 +26,10 @@ const routes: Routes = [
       {
         path: 'todo',
         component: TodoComponent
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent
       },
       {
         path: ':id',
