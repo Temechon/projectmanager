@@ -1,5 +1,6 @@
 import randomColor from "randomcolor";
 import _ from "underscore";
+import { DateTime } from "luxon";
 
 export function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
@@ -101,6 +102,37 @@ export class Project extends IProject {
         });
 
         return res;
+    }
+
+    /**
+     * Returns a date time object corresponding to the given string. The first part of the string corresponding to a date is given into account.
+     */
+    private _getDate(str): DateTime {
+        // Use regexp to extract date from string
+        // format dd/MM or dd-MM
+        let ddmm = /\d{2}[-\/]\d{2}\s?/;
+        const dateDdmm = ddmm.exec(str);
+        if (dateDdmm) {
+            // Get separator
+            const sep = dateDdmm[0].indexOf('/') > -1 ? '/' : '-';
+            return DateTime.fromFormat(dateDdmm[0].trim(), `dd${sep}MM`);
+        }
+        // format dd/MM/YY or dd-MM-YY
+        const ddmmYY = /\d{2}[-\/]\d{2}[-\/]\d{2}\s?/;
+        const dateDdmmYY = ddmmYY.exec(str);
+        if (dateDdmmYY) {
+            // Get separator
+            const sep = dateDdmmYY[0].indexOf('/') > -1 ? '/' : '-';
+            return DateTime.fromFormat(dateDdmmYY[0].trim(), `dd${sep}MM${sep}YY`);
+        }
+    }
+
+    get prodDate(): DateTime {
+        return this._getDate(this.prod_date);
+    }
+
+    get recetteDate(): DateTime {
+        return this._getDate(this.recette_date);
     }
 
 }
