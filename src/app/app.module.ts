@@ -21,6 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
 import { IpcService } from './services/ipc.service';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ProjectInfoComponent } from './calendar/project-info/project-info.component';
+import { NgxTippyModule } from 'ngx-tippy-wrapper';
 
 
 
@@ -39,14 +41,16 @@ import { CalendarComponent } from './calendar/calendar.component';
     NotesComponent,
     TodoComponent,
     AcceptanceTestsComponent,
-    CalendarComponent
+    CalendarComponent,
+    ProjectInfoComponent
   ],
   imports: [
     FormsModule,
     BrowserModule,
     AppRoutingModule,
     GuiModule,
-    DragDropModule
+    DragDropModule,
+    NgxTippyModule
   ],
   providers: [
     SearchService,

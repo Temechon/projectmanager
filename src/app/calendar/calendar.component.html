@@ -3,40 +3,63 @@
 
     <div class="w-full">
         <!-- Calendar on 3 months -->
-        <table class="border-collapse border" *ngIf="today">
+        <table class="border-collapse border h-[1px]" *ngIf="today">
             <tbody>
                 <tr>
                     <td></td>
-                    <td class="border" [attr.colspan]="today.daysInMonth">{{today.monthLong}}</td>
+                    <td class="border text-center first-letter:capitalize" [attr.colspan]="today.daysInMonth">
+                        {{today.monthLong}}</td>
                 </tr>
                 <tr>
                     <!--  semaines -->
                     <td></td>
-                    <td class="border" *ngFor="let w of weeks" [attr.colspan]="w.length">
+                    <td class="border text-center" *ngFor="let w of weeks" [attr.colspan]="w.length">
                         {{w[0].weekNumber}}
                     </td>
                 </tr>
                 <tr>
                     <td></td>
                     <ng-container *ngFor="let w of weeks">
-                        <td *ngFor="let day of w" class="border">
+                        <td *ngFor="let day of w" class="border text-center">
                             {{day.day}}
                         </td>
                     </ng-container>
 
                 </tr>
-                <tr *ngFor="let project of projects">
+                <tr>
+                    <td></td>
+                    <ng-container *ngFor="let w of weeks">
+                        <td *ngFor="let day of w" class="border text-center text-xs text-gray-200">
+                            {{day.weekdayShort}}
+                        </td>
+                    </ng-container>
+
+                </tr>
+                <tr *ngFor="let project of projects" class="h-[1px]">
                     <td class="border w-52">{{project.name}}</td>
                     <ng-container *ngFor="let w of weeks">
-                        <td *ngFor="let day of w" class="border w-7">
-                            <ng-container *ngIf="hasDelivery(project, day)">
-                                <div class="bg-secondary rounded-full w-2 h-2"></div>
-                            </ng-container>
+                        <td *ngFor="let day of w" class="border w-7 p-0"
+                            [ngClass]="{'bg-gray-100 border-none':isWeekend(day)}">
+                            <project-info [project]="project" [day]="day"></project-info>
                         </td>
                     </ng-container>
                 </tr>
             </tbody>
         </table>
+
+
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Mois précédent" (onClick)="previousMonth()" icon="fa-arrow-left">
+                </action-button>
+            </div>
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Mois prochain" (onClick)="nextMonth()" icon="fa-arrow-right">
+                </action-button>
+            </div>
+        </div>
+
     </div>
 
 </div>

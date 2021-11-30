@@ -1,0 +1,30 @@
+<div class="flex items-center justify-center h-full">
+    <!-- Delivery date  -->
+    <ng-container *ngIf="isSameDate(project.prodDate, day)">
+        <div class="bg-secondary rounded-full w-2 h-2"></div>
+    </ng-container>
+    <!-- Recette date -->
+    <ng-container *ngIf="isSameDate(project.recetteDate, day)">
+        <div class="bg-primary rounded-full w-2 h-2"></div>
+    </ng-container>
+
+    <!-- Component date -->
+    <div *ngFor="let c of components" class="w-full h-full flex items-center justify-center flex-col"
+        (click)="goToComponent(c)">
+
+        <!-- Integration -->
+        <ng-container *ngIf="isSameDateFromString(c.integration_date, day)">
+            <div ngxTippy [tippyProps]="{content:c.title}">
+                <!-- Component title -->
+                <div class="bg-accent rounded-full w-2 h-2 cursor-pointer"></div>
+            </div>
+        </ng-container>
+
+        <!-- Recette -->
+        <ng-container *ngIf="isSameDateFromString(c.recette_date, day)">
+            <div ngxTippy [tippyProps]="{content:c.title}">
+                <div class="bg-secondary rounded-full w-2 h-2 cursor-pointer"></div>
+            </div>
+        </ng-container>
+    </div>
+</div>

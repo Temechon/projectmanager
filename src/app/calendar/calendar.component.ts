@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DateTime } from "luxon";
-import { Project } from '../model/project.model';
+import { getDateFromString, Project } from '../model/project.model';
 import { DatabaseService } from '../services/database.service';
 
 @Component({
@@ -28,11 +28,20 @@ export class CalendarComponent {
     // Retrieve all projects from database
     this.db.getProjects().then(projects => {
       this.projects = projects;
-      console.log("prod date",);
+      console.log("prod date", projects);
 
     });
+  }
 
-
+  nextMonth() {
+    this.today = this.today.plus({ months: 1 });
+    this.weeks = [];
+    this._getAllWeeksInMonth();
+  }
+  previousMonth() {
+    this.today = this.today.minus({ months: 1 });
+    this.weeks = [];
+    this._getAllWeeksInMonth();
   }
 
   /**
@@ -50,12 +59,9 @@ export class CalendarComponent {
     }
   }
 
-  hasDelivery(project: Project, day: DateTime) {
-    if (project.prodDate) {
-      return project.prodDate.toISODate() === day.toISODate();
-    }
 
-    return false;
+  isWeekend(day: DateTime) {
+    return day.weekday === 6 || day.weekday === 7
   }
 
 }

@@ -38,6 +38,7 @@
     "flexsearch": "^0.7.21",
     "luxon": "^2.0.2",
     "ngx-autosize": "^1.8.4",
+    "ngx-tippy-wrapper": "^4.0.1",
     "pouchdb-adapter-indexeddb": "^7.2.2",
     "randomcolor": "^0.6.2",
     "rxdb": "^10.2.1",

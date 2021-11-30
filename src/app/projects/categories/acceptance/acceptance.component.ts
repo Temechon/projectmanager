@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AcceptanceComponent, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
+import _ from 'underscore';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-acceptance',
@@ -27,6 +30,22 @@ export class AcceptanceTestsComponent extends CategoryComponent {
     }
   ]
 
+  sub: Subscription;
+  selectedindex: number;
+
+  ngOnInit() {
+    super.ngOnInit();
+
+    this.sub = this.route.queryParams.subscribe((data) => {
+      let componentid = data.id;
+      if (componentid) {
+        // Select this component
+        this.selectedindex = _.findIndex(this.project.acceptanceComponents, p => p.id === componentid);
+      }
+    })
+
+  }
+
   add() {
     this.project.incidents.push({
       id: "",
@@ -39,7 +58,7 @@ export class AcceptanceTestsComponent extends CategoryComponent {
 
   addComponent() {
     this.project.acceptanceComponents.push({
-      id: "",
+      id: guid(),
       title: "",
       integration_date: "",
       recette_date: "",
@@ -93,6 +112,10 @@ export class AcceptanceTestsComponent extends CategoryComponent {
     // set the selected tab as active
     $event.currentTarget.classList.add('bg-darker');
     $event.currentTarget.classList.add('text-white');
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

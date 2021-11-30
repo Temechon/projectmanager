@@ -104,35 +104,54 @@ export class Project extends IProject {
         return res;
     }
 
-    /**
-     * Returns a date time object corresponding to the given string. The first part of the string corresponding to a date is given into account.
-     */
-    private _getDate(str): DateTime {
-        // Use regexp to extract date from string
-        // format dd/MM or dd-MM
-        let ddmm = /\d{2}[-\/]\d{2}\s?/;
-        const dateDdmm = ddmm.exec(str);
-        if (dateDdmm) {
-            // Get separator
-            const sep = dateDdmm[0].indexOf('/') > -1 ? '/' : '-';
-            return DateTime.fromFormat(dateDdmm[0].trim(), `dd${sep}MM`);
-        }
-        // format dd/MM/YY or dd-MM-YY
-        const ddmmYY = /\d{2}[-\/]\d{2}[-\/]\d{2}\s?/;
-        const dateDdmmYY = ddmmYY.exec(str);
-        if (dateDdmmYY) {
-            // Get separator
-            const sep = dateDdmmYY[0].indexOf('/') > -1 ? '/' : '-';
-            return DateTime.fromFormat(dateDdmmYY[0].trim(), `dd${sep}MM${sep}YY`);
-        }
-    }
-
     get prodDate(): DateTime {
-        return this._getDate(this.prod_date);
+        return getDateFromString(this.prod_date);
     }
 
     get recetteDate(): DateTime {
-        return this._getDate(this.recette_date);
+        return getDateFromString(this.recette_date);
     }
 
+}
+
+/**
+ * Returns a date time object corresponding to the given string. The first part of the string corresponding to a date is given into account.
+ */
+export function getDateFromString(str: string): DateTime {
+    if (!str) {
+        return null;
+    }
+    // Use regexp to extract date from string
+    // format dd/MM or dd-MM
+    let ddmm = /\d{1,2}[-\/]\d{1,2}\s?/;
+    const dateDdmm = ddmm.exec(str);
+    if (dateDdmm) {
+        let date = dateDdmm[0].trim();
+        // Get separator
+        const sep = date.indexOf('/') > -1 ? '/' : '-';
+        // extract day and month from date
+        let day = date.split(sep)[0];
+        let month = date.split(sep)[1];
+        // Add 0 if day or month is only one digit
+        day = day.padStart(2, '0');
+        month = month.padStart(2, '0');
+        return DateTime.fromFormat(`${day}${sep}${month}`, `dd${sep}MM`);
+    }
+    // format dd/MM/YY or dd-MM-YY
+    const ddmmYY = /\d{1,2}[-\/]\d{1,2}[-\/]\d{2}\s?/;
+    const dateDdmmYY = ddmmYY.exec(str);
+    if (dateDdmmYY) {
+        let date = dateDdmm[0].trim();
+        // Get separator
+        const sep = date.indexOf('/') > -1 ? '/' : '-';
+        // extract day and month from date
+        let day = date.split(sep)[0];
+        let month = date.split(sep)[1];
+        let year = date.split(sep)[2];
+        // Add 0 if day or month is only one digit
+        day = day.padStart(2, '0');
+        month = month.padStart(2, '0');
+
+        return DateTime.fromFormat(`${day}${sep}${month}${sep}${year}`, `dd${sep}MM${sep}YY`);
+    }
 }
