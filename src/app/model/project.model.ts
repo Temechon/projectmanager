@@ -123,7 +123,7 @@ export function getDateFromString(str: string): DateTime {
     }
     // Use regexp to extract date from string
     // format dd/MM or dd-MM
-    let ddmm = /\d{1,2}[-\/]\d{1,2}\s?/;
+    let ddmm = /^\d{1,2}[-\/]\d{1,2}\s/;
     const dateDdmm = ddmm.exec(str);
     if (dateDdmm) {
         let date = dateDdmm[0].trim();
@@ -138,10 +138,10 @@ export function getDateFromString(str: string): DateTime {
         return DateTime.fromFormat(`${day}${sep}${month}`, `dd${sep}MM`);
     }
     // format dd/MM/YY or dd-MM-YY
-    const ddmmYY = /\d{1,2}[-\/]\d{1,2}[-\/]\d{2}\s?/;
+    const ddmmYY = /^\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4}\s?/;
     const dateDdmmYY = ddmmYY.exec(str);
     if (dateDdmmYY) {
-        let date = dateDdmm[0].trim();
+        let date = dateDdmmYY[0].trim();
         // Get separator
         const sep = date.indexOf('/') > -1 ? '/' : '-';
         // extract day and month from date
@@ -151,7 +151,11 @@ export function getDateFromString(str: string): DateTime {
         // Add 0 if day or month is only one digit
         day = day.padStart(2, '0');
         month = month.padStart(2, '0');
+        year = year.padStart(4, '20');
 
-        return DateTime.fromFormat(`${day}${sep}${month}${sep}${year}`, `dd${sep}MM${sep}YY`);
+        const dated = DateTime.fromFormat(`${day}${sep}${month}${sep}${year}`, `dd${sep}MM${sep}yyyy`);
+        console.log("DATE FROM DD/MM/YYYY", dated);
+        return dated
+
     }
 }
