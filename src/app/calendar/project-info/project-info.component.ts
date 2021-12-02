@@ -49,10 +49,10 @@ export class ProjectInfoComponent implements OnInit {
         let intdate = getDateFromString(component.integration_date);
         let recettedate = getDateFromString(component.recette_date);
 
-        if (intdate.toISODate() === day.toISODate()) {
+        if (intdate?.toISODate() === day.toISODate()) {
           components.push(component);
         }
-        else if (recettedate.toISODate() === day.toISODate()) {
+        else if (recettedate?.toISODate() === day.toISODate()) {
           components.push(component);
         }
       });

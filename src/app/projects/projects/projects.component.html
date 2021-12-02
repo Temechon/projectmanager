@@ -27,7 +27,7 @@
 
         <h1 id="project-label" class="text-gray-400 mb-8 pl-4 pt-8">Projets</h1>
 
-        <div id="project-list relative">
+        <div id="project-list">
             <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
                 routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
                 *ngFor="let p of projects; trackBy:trackByProjectId">
