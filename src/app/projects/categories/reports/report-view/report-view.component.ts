@@ -39,7 +39,6 @@ export class ReportViewComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log("cc", changes.note.currentValue);
     this.note = changes.note.currentValue;
     this.editor?.commands.setContent(this.note.content)
   }
@@ -72,7 +71,6 @@ export class ReportViewComponent implements OnInit, OnChanges {
     fromEvent(this.editor, 'update').pipe(
       debounceTime(delay)
     ).subscribe((a: any) => {
-      console.log('saving')
       this.note.content = this.editor.getHTML();
       this.onUpdate.emit({
         content: this.note.content

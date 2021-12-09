@@ -108,11 +108,11 @@ export class ProjectsComponent implements OnInit {
 
 
     let sidebar = document.querySelector('#sidebar');
-    sidebar.classList.toggle('w-80')
+    sidebar.classList.toggle('w-[15%]')
     sidebar.classList.toggle('w-14');
 
     let content = document.querySelector('#content');
-    content.classList.toggle('w-[calc(100%-20rem)]')
+    content.classList.toggle('w-[calc(100%-15%)]')
     content.classList.toggle('w-[calc(100%-3.5rem)]')
 
     let buttonWide = document.querySelector('#button-wide');

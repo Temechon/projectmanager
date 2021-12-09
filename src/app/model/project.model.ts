@@ -123,10 +123,10 @@ export function getDateFromString(str: string): DateTime {
     }
     // Use regexp to extract date from string
     // format dd/MM or dd-MM
-    let ddmm = /^\d{1,2}[-\/]\d{1,2}\s/;
-    const dateDdmm = ddmm.exec(str);
-    if (dateDdmm) {
-        let date = dateDdmm[0].trim();
+    const ddmmYY = /^\d{1,2}[-\/]\d{1,2}(?:[-\/]\d{2,4})?/;
+    const dateDdmmyy = ddmmYY.exec(str);
+    if (dateDdmmyy) {
+        let date = dateDdmmyy[0].trim();
         // Get separator
         const sep = date.indexOf('/') > -1 ? '/' : '-';
         // extract day and month from date
@@ -135,27 +135,17 @@ export function getDateFromString(str: string): DateTime {
         // Add 0 if day or month is only one digit
         day = day.padStart(2, '0');
         month = month.padStart(2, '0');
-        return DateTime.fromFormat(`${day}${sep}${month}`, `dd${sep}MM`);
-    }
-    // format dd/MM/YY or dd-MM-YY
-    const ddmmYY = /^\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4}\s?/;
-    const dateDdmmYY = ddmmYY.exec(str);
-    if (dateDdmmYY) {
-        let date = dateDdmmYY[0].trim();
-        // Get separator
-        const sep = date.indexOf('/') > -1 ? '/' : '-';
-        // extract day and month from date
-        let day = date.split(sep)[0];
-        let month = date.split(sep)[1];
-        let year = date.split(sep)[2];
-        // Add 0 if day or month is only one digit
-        day = day.padStart(2, '0');
-        month = month.padStart(2, '0');
-        year = year.padStart(4, '20');
+        // Check if year is present
+        let year = date.split(sep).length > 2 ? date.split(sep)[2] : null;
+        if (year) {
+            year = year.padStart(4, '20');
 
-        const dated = DateTime.fromFormat(`${day}${sep}${month}${sep}${year}`, `dd${sep}MM${sep}yyyy`);
-        console.log("DATE FROM DD/MM/YYYY", dated);
-        return dated
-
+            const dated = DateTime.fromFormat(`${day}${sep}${month}${sep}${year}`, `dd${sep}MM${sep}yyyy`);
+            return dated
+        } else {
+            const dated = DateTime.fromFormat(`${day}${sep}${month}`, `dd${sep}MM`);
+            return dated
+        }
     }
+    return null;
 }

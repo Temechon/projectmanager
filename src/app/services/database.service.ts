@@ -147,13 +147,13 @@ export async function initDatabase(search: SearchService, ipc: IpcService) {
   // Save all projects to disk when an update is done
   projectsCollection.projects.$.subscribe(() => {
     projectsCollection.projects.exportJSON().then((json) => {
-      console.log("JSON", json);
+      // console.log("JSON", json);
       ipc.send('async-save-projects', json);
     })
   })
   projectsCollection.tasks.$.subscribe(() => {
     projectsCollection.tasks.exportJSON().then((json) => {
-      console.log("JSON", json);
+      // console.log("JSON", json);
       ipc.send('async-save-tasks', json);
     })
   })
