@@ -3,7 +3,7 @@
 
     <div class="flex w-full mr-auto h-[calc(100%-40px)]">
 
-        <div class="w-80 flex flex-col relative h-full">
+        <div class="w-60 flex flex-col relative h-full">
 
             <div [ngClass]="{'active':isSelected(p.id)}"
                 class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
@@ -18,7 +18,7 @@
         </div>
 
 
-        <div class="w-[calc(100%-20rem)] pl-8" *ngIf="selected">
+        <div class="w-[calc(100%-15rem)] pl-8" *ngIf="selected">
             <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)"
                 (onUpdate)="updateReport($event)">
             </report-view>
