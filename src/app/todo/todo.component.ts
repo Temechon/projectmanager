@@ -47,14 +47,14 @@ export class TodoComponent implements OnInit {
       })
     }).then(() => {
 
-      this.db.getTasks$().subscribe(tasks => {
-        this._allTasks = tasks;
+      return this.db.getTasks();
+    }).then(tasks => {
+      this._allTasks = tasks;
 
-        this.todotasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.todo), 'index');
-        this.runningtasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.running), 'index');
-        this.donetasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.done), 'index');
-      });
-    })
+      this.todotasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.todo), 'index');
+      this.runningtasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.running), 'index');
+      this.donetasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.done), 'index');
+    });
   }
 
   add(status: string) {
@@ -67,7 +67,14 @@ export class TodoComponent implements OnInit {
       date: DateTime.local().toFormat('dd LLL yyyy - HH:mm'),
       index: this.todotasks.length + 1
     })
-    this.save(t)
+    this.save(t);
+    this._allTasks.push(t);
+    if (status === 'todo') {
+      this.todotasks.push(t);
+    }
+    if (status === 'running') {
+      this.runningtasks.push(t);
+    }
   }
 
   linkTaskToProjectid(t: Task, $event: Project) {
@@ -88,6 +95,13 @@ export class TodoComponent implements OnInit {
 
   delete(taskid: string) {
     this.db.deleteTask(taskid).then(d => {
+      this._allTasks.splice(this._allTasks.findIndex(t => t.id === taskid), 1);
+
+      this.todotasks = this._allTasks.filter(t => t.status === TASK_STATUS.todo);
+      this.runningtasks = this._allTasks.filter(t => t.status === TASK_STATUS.running);
+      this.donetasks = this._allTasks.filter(t => t.status === TASK_STATUS.done);
+
+
       this.index.removeObject(taskid);
     })
   }

@@ -38,8 +38,8 @@ export class DatabaseService {
     // return DB_INSTANCE.getCollection('projects').find() as Doc<Project>[];
   }
 
-  getTasks$(): Observable<Task[]> {
-    return projectsCollection.tasks.find().$.pipe(map(datarr => datarr.map(data => new Task(data))));
+  getTasks(): Promise<Task[]> {
+    return projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
   }
 
   getProjects(): Promise<Project[]> {
