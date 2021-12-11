@@ -3,6 +3,7 @@ import { AcceptanceComponent, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 import _ from 'underscore';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-acceptance',
@@ -74,6 +75,16 @@ export class AcceptanceTestsComponent extends CategoryComponent {
   delete(index: number) {
     this.project.incidents.splice(index, 1);
     this.save();
+  }
+  goToSpira(index: number) {
+    let incident = this.project.incidents[index].id;
+    let link = "" + incident;
+    if (environment.production) {
+      // Use ipc service to open the link
+      this.ipcService.send('open-link', link);
+    } else {
+      window.open(link, "_blank");
+    }
   }
 
   /**

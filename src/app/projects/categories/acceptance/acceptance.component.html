@@ -6,17 +6,17 @@
         <!-- Tabs bar -->
         <div class="flex items-center justify-start space-x-1">
             <div class="tab text-white bg-darker rounded-t-md px-3 py-2 hover:bg-darker hover:text-white cursor-pointer transition-all border"
-                (click)="switchTab($event, dates)">
-                Dates
-            </div>
-            <div class="tab text-darker rounded-t-md px-3 py-2 hover:bg-darker hover:text-white cursor-pointer transition-all border"
                 (click)="switchTab($event, incidents)">
                 Liste des incidents
+            </div>
+            <div class="tab text-darker rounded-t-md px-3 py-2 hover:bg-darker hover:text-white cursor-pointer transition-all border"
+                (click)="switchTab($event, dates)">
+                Dates
             </div>
         </div>
 
         <!-- Dates -->
-        <div class="w-full shadow-md rounded-b-md p-4 tabcontent" #dates>
+        <div class="w-full shadow-md rounded-b-md p-4 tabcontent hidden" #dates>
             <div class="shadow-sm p-2 pt-1" [ngClass]="{'ring': index==selectedindex}"
                 *ngFor="let c of project.acceptanceComponents; let index=index">
 
@@ -60,7 +60,7 @@
         </div>
 
         <!-- Incidents -->
-        <div class="w-full shadow-md rounded-b-md p-4 tabcontent hidden" #incidents>
+        <div class="w-full shadow-md rounded-b-md p-4 tabcontent" #incidents>
 
             <table class="w-full border-collapse table-fixed">
                 <thead>
@@ -97,9 +97,12 @@
                             </select-list>
                         </td>
 
-                        <td class="px-4 py-1 text-center">
-                            <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer"
+                        <td class="table-cell text-center">
+                            <i class="fas fa-times-circle text-xl text-red-500 mx-1 cursor-pointer"
                                 (click)="delete(index)"></i>
+
+                            <i class="fas fa-external-link-alt mx-1 cursor-pointer relative -top-0.5"
+                                (click)="goToSpira(index)"></i>
 
                         </td>
                     </tr>
