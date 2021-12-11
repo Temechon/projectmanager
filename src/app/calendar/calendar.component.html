@@ -5,27 +5,31 @@
         <!-- Calendar on 3 months -->
         <table class="border-collapse border h-[1px]" *ngIf="today">
             <tbody>
+                <!-- Month -->
                 <tr>
                     <td></td>
                     <td class="border text-center first-letter:capitalize" [attr.colspan]="today.daysInMonth">
                         {{today.monthLong}} {{today.year}}</td>
                 </tr>
+                <!--  week number -->
                 <tr>
-                    <!--  semaines -->
                     <td></td>
                     <td class="border text-center" *ngFor="let w of weeks" [attr.colspan]="w.length">
                         {{w[0].weekNumber}}
                     </td>
                 </tr>
+                <!-- Day number -->
                 <tr>
                     <td></td>
                     <ng-container *ngFor="let w of weeks">
-                        <td *ngFor="let day of w" class="border text-center">
+                        <td *ngFor="let day of w" class="border text-center"
+                            [ngClass]="{'bg-primary-200 text-primary':isToday(day)}">
                             {{day.day}}
                         </td>
                     </ng-container>
 
                 </tr>
+                <!-- day name -->
                 <tr>
                     <td></td>
                     <ng-container *ngFor="let w of weeks">

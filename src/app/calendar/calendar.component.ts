@@ -64,4 +64,8 @@ export class CalendarComponent {
     return day.weekday === 6 || day.weekday === 7
   }
 
+  isToday(day: DateTime) {
+    return day.toISODate() === DateTime.local().toISODate();
+  }
+
 }
