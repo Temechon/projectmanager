@@ -50,13 +50,31 @@ export class CalendarComponent {
    */
   private _getAllWeeksInMonth() {
     const firstDay = this.today.startOf('month');
+    // Get all days from the first day of the month to the last day of the month
     const days = [];
     for (let i = 0; i < firstDay.daysInMonth; i++) {
       days.push(firstDay.plus({ days: i }));
     }
-    while (days.length > 0) {
-      this.weeks.push(days.splice(0, 7));
+
+    // Order days by week
+    let weeks = [];
+    this.weeks = [];
+
+    let currentweeknumber = days[0].weekNumber;
+    let weekindex = 0;
+    for (let d of days) {
+      if (d.weekNumber !== currentweeknumber) {
+        currentweeknumber = d.weekNumber;
+        weekindex++;
+      }
+      if (!weeks[weekindex]) {
+        weeks[weekindex] = [];
+      }
+      weeks[weekindex].push(d);
     }
+    this.weeks = weeks;
+
+
   }
 
 
