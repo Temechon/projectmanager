@@ -78,7 +78,7 @@ export class AcceptanceTestsComponent extends CategoryComponent {
   }
   goToSpira(index: number) {
     let incident = this.project.incidents[index].id;
-    let link = "" + incident;
+    let link = `http://intraspiraprd.matmut.fr/SpiraTest/${this.project.spira_projectid}/Incident/${incident}.aspx`;
     if (environment.production) {
       // Use ipc service to open the link
       this.ipcService.send('open-link', link);

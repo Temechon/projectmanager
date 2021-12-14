@@ -100,6 +100,10 @@ async function _create() {
         2: (doc: Project) => {
           doc.acceptanceComponents = []
           return doc;
+        },
+        3: (doc: Project) => {
+          doc.spira_projectid = "";
+          return doc;
         }
       }
     },

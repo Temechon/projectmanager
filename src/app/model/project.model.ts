@@ -71,6 +71,9 @@ export abstract class IProject {
     /** All components to be tested */
     acceptanceComponents: Array<AcceptanceComponent>;
 
+    /** The project id in spira test */
+    spira_projectid: string;
+
 }
 
 export class Project extends IProject {
@@ -93,6 +96,7 @@ export class Project extends IProject {
         this.notes = rxdoc.notes?.slice().map(_.clone) || [];
         this.incidents = rxdoc.incidents?.slice().map(_.clone) || [];
         this.acceptanceComponents = rxdoc.acceptanceComponents?.slice().map(_.clone) || [];
+        this.spira_projectid = rxdoc.spira_projectid;
     }
 
     toObject(): IProject {

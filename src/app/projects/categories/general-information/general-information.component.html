@@ -17,16 +17,6 @@
             </div>
         </div>
         <div class="flex flex-row mb-2">
-            <div class="w-52 pl-4 flex items-center justify-start">Couleur</div>
-            <div class="w-full">
-                <div class="w-8 h-8 cursor-pointer rounded-full" [ngStyle]="{'background-color':  project.color }"
-                    (click)="updateColor()">
-
-                </div>
-            </div>
-        </div>
-
-        <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">Portefeuille projet</div>
             <div class="w-[calc(100%-4rem)]">
                 <editable-text placeholder="Lien vers le portefeuille projet" [(text)]="project.pplink"
@@ -44,6 +34,22 @@
             </div>
             <div class="w-16 flex items-center justify-center cursor-pointer" (click)="openFolder(project.folder)">
                 <i class="fas fa-external-link-alt"></i>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">ID projet Spira</div>
+            <div class="w-full">
+                <editable-text placeholder="Nom" [(text)]="project.spira_projectid" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Couleur</div>
+            <div class="w-full">
+                <div class="w-8 h-8 cursor-pointer rounded-full" [ngStyle]="{'background-color':  project.color }"
+                    (click)="updateColor()">
+
+                </div>
             </div>
         </div>
 
