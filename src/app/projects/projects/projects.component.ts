@@ -19,6 +19,9 @@ export class ProjectsComponent implements OnInit {
   ) { }
 
   projects: Project[];
+  runningProjects: Project[] = [];
+  waitingProjects: Project[] = [];
+
   sidebarCollapsed = false;
 
   unlisten: Array<() => void> = [];
@@ -36,6 +39,19 @@ export class ProjectsComponent implements OnInit {
     this.db.getProjects$().subscribe(data => {
 
       this.projects = data;
+      this.runningProjects = data.filter(d => d.status == 'En cours');
+      this.waitingProjects = data.filter(d => d.status == 'En attente');
+      // Sort projects list by project internal id
+      this.runningProjects.sort((a: Project, b: Project) => {
+        let internalid = Number.parseInt(a.internalid);
+        let internalid2 = Number.parseInt(b.internalid);
+        return internalid - internalid2;
+      });
+      this.waitingProjects.sort((a: Project, b: Project) => {
+        let internalid = Number.parseInt(a.internalid);
+        let internalid2 = Number.parseInt(b.internalid);
+        return internalid - internalid2;
+      });
 
       let keys = ['&', 'é', '"', "'", '(', '-', 'è', '_', 'ç']
       let index = 0;
