@@ -10,6 +10,23 @@ import { CategoryComponent } from '../../category.component';
 })
 export class GeneralInformationComponent extends CategoryComponent {
 
+
+  status = [
+    {
+      label: 'En cours',
+      data: { color: '#37BA83' }
+    },
+    {
+      label: 'En attente',
+      data: { color: '#ffaa00' }
+    },
+    {
+      label: 'Archivé',
+      data: { color: '#0095ff' }
+    }
+  ]
+
+
   delete() {
     let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
     if (res) {

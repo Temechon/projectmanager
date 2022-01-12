@@ -17,6 +17,15 @@
             </div>
         </div>
         <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Statut</div>
+            <div class="w-full">
+                <select-list [options]="status" [(value)]="project.status" (onSelected)="save()">
+                </select-list>
+            </div>
+        </div>
+
+        <h2 class="text-gray-400 mt-8 mb-4">Répertoires</h2>
+        <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">Portefeuille projet</div>
             <div class="w-[calc(100%-4rem)]">
                 <editable-text placeholder="Lien vers le portefeuille projet" [(text)]="project.pplink"
@@ -36,20 +45,21 @@
                 <i class="fas fa-external-link-alt"></i>
             </div>
         </div>
+
+        <h2 class="text-gray-400 mt-8 mb-4">Domaine</h2>
         <div class="flex flex-row mb-2">
-            <div class="w-52 pl-4 flex items-center justify-start">ID projet Spira</div>
+            <div class="w-52 pl-4 flex items-center justify-start">Domaine</div>
             <div class="w-full">
-                <editable-text placeholder="Nom" [(text)]="project.spira_projectid" (onFinished)="save()">
+                <editable-text placeholder="Domaine" [(text)]="project.domain" (onFinished)="save()">
                 </editable-text>
             </div>
         </div>
         <div class="flex flex-row mb-2">
-            <div class="w-52 pl-4 flex items-center justify-start">Couleur</div>
+            <div class="w-52 pl-4 flex items-center justify-start">Responsable de domaine</div>
             <div class="w-full">
-                <div class="w-8 h-8 cursor-pointer rounded-full" [ngStyle]="{'background-color':  project.color }"
-                    (click)="updateColor()">
-
-                </div>
+                <editable-text placeholder="Responsable de domaine" [(text)]="project.domain_manager"
+                    (onFinished)="save()">
+                </editable-text>
             </div>
         </div>
 
@@ -74,6 +84,24 @@
             <div class="w-52 pl-4 flex items-center justify-start">Description</div>
             <div class="w-full">
                 <editable-area [(text)]="project.description" (onFinished)="save()"></editable-area>
+            </div>
+        </div>
+
+        <h2 class="text-gray-400 mt-8 mb-4">Divers</h2>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">ID projet Spira</div>
+            <div class="w-full">
+                <editable-text placeholder="Nom" [(text)]="project.spira_projectid" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Couleur</div>
+            <div class="w-full">
+                <div class="w-8 h-8 cursor-pointer rounded-full" [ngStyle]="{'background-color':  project.color }"
+                    (click)="updateColor()">
+
+                </div>
             </div>
         </div>
 

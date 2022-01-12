@@ -39,8 +39,12 @@ export class SelectListComponent implements OnInit {
     }
   }
 
-
-
+  ngOnChanges() {
+    // Update selected index according to the given value
+    if (this.value) {
+      this.selected = _.findIndex(this.options, (option) => option.label === this.value);
+    }
+  }
 
   /**
    * Toggles the options panel

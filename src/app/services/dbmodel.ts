@@ -49,7 +49,7 @@ export const taskSchema: RxJsonSchema<ITask> = {
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 3,
+    version: 4,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -197,7 +197,34 @@ export const projectsSchema: RxJsonSchema<IProject> = {
         },
         spira_projectid: {
             type: 'string'
+        },
+        domain: {
+            type: 'string'
+        },
+        domain_manager: {
+            type: 'string'
+        },
+        status: {
+            type: 'string'
+        },
+        milestones: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string'
+                    },
+                    name: {
+                        type: 'string'
+                    },
+                    date: {
+                        type: 'string'
+                    }
+                }
+            }
         }
+
     },
     required: ['id']
 };

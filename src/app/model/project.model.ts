@@ -43,6 +43,12 @@ export type AcceptanceComponent = {
     recette_date: string
 }
 
+export type Milestone = {
+    id: string,
+    name: string,
+    date: string
+}
+
 export abstract class IProject {
 
     id: string;
@@ -74,6 +80,17 @@ export abstract class IProject {
     /** The project id in spira test */
     spira_projectid: string;
 
+    /** The project domain */
+    domain: string;
+    /** The domain manager */
+    domain_manager: string;
+
+    /** Project status - running, waiting, archived */
+    status: string;
+
+    /** The list of all milestone for this project */
+    milestones: Array<Milestone>;
+
 }
 
 export class Project extends IProject {
@@ -97,6 +114,11 @@ export class Project extends IProject {
         this.incidents = rxdoc.incidents?.slice().map(_.clone) || [];
         this.acceptanceComponents = rxdoc.acceptanceComponents?.slice().map(_.clone) || [];
         this.spira_projectid = rxdoc.spira_projectid;
+
+        this.domain = rxdoc.domain;
+        this.domain_manager = rxdoc.domain_manager;
+        this.status = rxdoc.status;
+        this.milestones = rxdoc.milestones?.slice().map(_.clone) || [];
     }
 
     toObject(): IProject {

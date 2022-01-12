@@ -104,6 +104,13 @@ async function _create() {
         3: (doc: Project) => {
           doc.spira_projectid = "";
           return doc;
+        },
+        4: (doc: Project) => {
+          doc.milestones = [];
+          doc.status = '';
+          doc.domain = '';
+          doc.domain_manager = '';
+          return doc;
         }
       }
     },
