@@ -21,6 +21,7 @@ export class ProjectsComponent implements OnInit {
   projects: Project[];
   runningProjects: Project[] = [];
   waitingProjects: Project[] = [];
+  archivedProjects: Project[] = [];
 
   sidebarCollapsed = false;
 
@@ -41,6 +42,7 @@ export class ProjectsComponent implements OnInit {
       this.projects = data;
       this.runningProjects = data.filter(d => d.status == 'En cours');
       this.waitingProjects = data.filter(d => d.status == 'En attente');
+      this.archivedProjects = data.filter(d => d.status == 'Archivé');
       // Sort projects list by project internal id
       this.runningProjects.sort((a: Project, b: Project) => {
         let internalid = Number.parseInt(a.internalid);
@@ -48,6 +50,11 @@ export class ProjectsComponent implements OnInit {
         return internalid - internalid2;
       });
       this.waitingProjects.sort((a: Project, b: Project) => {
+        let internalid = Number.parseInt(a.internalid);
+        let internalid2 = Number.parseInt(b.internalid);
+        return internalid - internalid2;
+      });
+      this.archivedProjects.sort((a: Project, b: Project) => {
         let internalid = Number.parseInt(a.internalid);
         let internalid2 = Number.parseInt(b.internalid);
         return internalid - internalid2;
@@ -100,8 +107,8 @@ export class ProjectsComponent implements OnInit {
     let chevron = document.querySelector('#chevron');
     chevron.classList.toggle('rotate-180')
 
-    let projectLabel = document.querySelector('#project-label');
-    projectLabel.classList.toggle('hidden')
+    let projectLabel = document.querySelectorAll('.project-label');
+    projectLabel.forEach(item => item.classList.toggle('hidden'))
 
     let projectLists = document.querySelector('#project-list');
     projectLists.classList.toggle('mt-16')
