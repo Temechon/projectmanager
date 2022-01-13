@@ -5,6 +5,7 @@ import { AcceptanceTestsComponent } from './projects/categories/acceptance/accep
 import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
+import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { NotesComponent } from './projects/categories/notes/notes.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { ProjectComponent } from './projects/project/project.component';
@@ -61,6 +62,10 @@ const routes: Routes = [
           {
             path: 'notes',
             component: NotesComponent,
+          },
+          {
+            path: 'milestones',
+            component: MilestonesComponent,
           },
           {
             path: '',

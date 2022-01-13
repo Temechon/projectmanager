@@ -23,6 +23,7 @@ import { IpcService } from './services/ipc.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectInfoComponent } from './calendar/project-info/project-info.component';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
+import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 
 
 
@@ -42,7 +43,8 @@ import { NgxTippyModule } from 'ngx-tippy-wrapper';
     TodoComponent,
     AcceptanceTestsComponent,
     CalendarComponent,
-    ProjectInfoComponent
+    ProjectInfoComponent,
+    MilestonesComponent
   ],
   imports: [
     FormsModule,
