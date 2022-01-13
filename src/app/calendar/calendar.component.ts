@@ -10,6 +10,22 @@ import { DatabaseService } from '../services/database.service';
 })
 export class CalendarComponent {
 
+  status = [
+    {
+      label: 'En cours',
+      data: { color: '#37BA83' }
+    },
+    {
+      label: 'En attente',
+      data: { color: '#ffaa00' }
+    },
+    {
+      label: 'Archivé',
+      data: { color: '#0095ff' }
+    }
+  ]
+  selectedStatus = "En cours";
+
   today: DateTime;
 
   weeks = [];
@@ -25,12 +41,16 @@ export class CalendarComponent {
     // Get all days indexed by week
     this._getAllWeeksInMonth();
 
+    this.updateCalendar();
+
+  }
+
+  updateCalendar() {
     // Retrieve all projects from database
     this.db.getProjects().then(projects => {
-      this.projects = projects;
-      console.log("prod date", projects);
-
+      this.projects = projects.filter(p => p.status === this.selectedStatus);
     });
+
   }
 
   nextMonth() {

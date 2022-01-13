@@ -1,8 +1,18 @@
 <div class="p-12 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">Calendrier</h1>
 
+    <div class="flex my-8">
+        <div class="mr-2">
+            Afficher les projets
+        </div>
+        <div>
+            <select-list [options]="status" [(value)]="selectedStatus" (onSelected)="updateCalendar()">
+            </select-list>
+        </div>
+    </div>
+
     <div class="w-full">
-        <!-- Calendar on 3 months -->
+        <!-- Calendar on 1 month only -->
         <table class="border-collapse border h-[1px]" *ngIf="today">
             <tbody>
                 <!-- Month -->
@@ -40,8 +50,9 @@
                     </ng-container>
 
                 </tr>
+
                 <tr *ngFor="let project of projects" class="h-[1px]">
-                    <td class="border w-52">{{project.name}}</td>
+                    <td class="border min-w-[13rem] w-1/4">{{project.name}}</td>
                     <ng-container *ngFor="let w of weeks">
                         <td *ngFor="let day of w" class="border w-7 p-0" [ngClass]="{'bg-gray-100 border-none':isWeekend(day),
                             'bg-primary-200 text-primary border-none':isToday(day)}">
