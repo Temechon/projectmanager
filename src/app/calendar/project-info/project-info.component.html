@@ -31,4 +31,14 @@
             </div>
         </ng-container>
     </div>
+
+    <!-- Milestone date -->
+    <div *ngFor="let c of milestones" class="w-full h-full flex items-center justify-center flex-col">
+
+        <ng-container *ngIf="isSameDateFromString(c.date, day)">
+            <div ngxTippy [tippyProps]="{content:c.name}">
+                <div class="bg-mygreen rounded-full w-2 h-2"></div>
+            </div>
+        </ng-container>
+    </div>
 </div>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AcceptanceComponent, getDateFromString, Project } from 'src/app/model/project.model';
+import { AcceptanceComponent, getDateFromString, Milestone, Project } from 'src/app/model/project.model';
 import { DateTime } from "luxon";
 import { Router } from '@angular/router';
 
@@ -19,9 +19,11 @@ export class ProjectInfoComponent implements OnInit {
   day: DateTime;
 
   components: Array<AcceptanceComponent> = [];
+  milestones: Array<Milestone> = [];
 
   ngOnInit(): void {
     this.components = this.getComponentForThisDay(this.project, this.day);
+    this.milestones = this.getMilestonesForThisDay(this.project, this.day);
   }
 
   // Returns true if the two given dates are the same
@@ -59,6 +61,20 @@ export class ProjectInfoComponent implements OnInit {
     }
     return components;
   }
+
+  getMilestonesForThisDay(project: Project, day: DateTime): Array<Milestone> {
+    let milestones = [];
+    if (project.milestones) {
+      project.milestones.some(milestone => {
+        let date = getDateFromString(milestone.date);
+        if (date?.toISODate() === day.toISODate()) {
+          milestones.push(milestone);
+        }
+      });
+    }
+    return milestones;
+  }
+
 
   /**
    * Forward to the given acceptance component

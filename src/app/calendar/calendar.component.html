@@ -33,7 +33,8 @@
                 <tr>
                     <td></td>
                     <ng-container *ngFor="let w of weeks">
-                        <td *ngFor="let day of w" class="border text-center text-xs text-gray-200">
+                        <td *ngFor="let day of w" class="border text-center text-xs text-gray-200"
+                            [ngClass]="{'bg-primary-200 text-primary':isToday(day)}">
                             {{day.weekdayShort}}
                         </td>
                     </ng-container>
@@ -42,8 +43,8 @@
                 <tr *ngFor="let project of projects" class="h-[1px]">
                     <td class="border w-52">{{project.name}}</td>
                     <ng-container *ngFor="let w of weeks">
-                        <td *ngFor="let day of w" class="border w-7 p-0"
-                            [ngClass]="{'bg-gray-100 border-none':isWeekend(day)}">
+                        <td *ngFor="let day of w" class="border w-7 p-0" [ngClass]="{'bg-gray-100 border-none':isWeekend(day),
+                            'bg-primary-200 text-primary border-none':isToday(day)}">
                             <project-info [project]="project" [day]="day"></project-info>
                         </td>
                     </ng-container>
