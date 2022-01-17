@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
+import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
 import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent
+      },
+      {
+        path: 'projectlist',
+        component: ProjectlistComponent
       },
       {
         path: ':id',

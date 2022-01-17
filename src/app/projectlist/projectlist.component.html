@@ -1,0 +1,16 @@
+<div class="p-12 h-full bg-white">
+    <h1 class="text-4xl font-bold text-darker mb-8">Tous les projets</h1>
+
+    <div class="w-full">
+        <div class="w-full flex" *ngFor="let p of projects">
+            <div class="w-1/2 truncate">
+                {{p.name}}
+            </div>
+            <div>
+                <select-list [options]="status" [(value)]="p.status" (onSelected)="save(p)">
+                </select-list>
+            </div>
+        </div>
+    </div>
+
+</div>

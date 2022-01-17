@@ -24,6 +24,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectInfoComponent } from './calendar/project-info/project-info.component';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
+import { ProjectlistComponent } from './projectlist/projectlist.component';
 
 
 
@@ -44,7 +45,8 @@ import { MilestonesComponent } from './projects/categories/milestones/milestones
     AcceptanceTestsComponent,
     CalendarComponent,
     ProjectInfoComponent,
-    MilestonesComponent
+    MilestonesComponent,
+    ProjectlistComponent
   ],
   imports: [
     FormsModule,
