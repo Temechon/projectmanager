@@ -21,7 +21,6 @@ export class ProjectsComponent implements OnInit {
   projects: Project[];
   runningProjects: Project[] = [];
   waitingProjects: Project[] = [];
-  archivedProjects: Project[] = [];
 
   sidebarCollapsed = false;
 
@@ -42,7 +41,6 @@ export class ProjectsComponent implements OnInit {
       this.projects = data;
       this.runningProjects = data.filter(d => d.status == 'En cours');
       this.waitingProjects = data.filter(d => d.status == 'En attente');
-      this.archivedProjects = data.filter(d => d.status == 'Archivé');
       // Sort projects list by project internal id
       this.runningProjects.sort((a: Project, b: Project) => {
         let internalid = Number.parseInt(a.internalid);
@@ -50,11 +48,6 @@ export class ProjectsComponent implements OnInit {
         return internalid - internalid2;
       });
       this.waitingProjects.sort((a: Project, b: Project) => {
-        let internalid = Number.parseInt(a.internalid);
-        let internalid2 = Number.parseInt(b.internalid);
-        return internalid - internalid2;
-      });
-      this.archivedProjects.sort((a: Project, b: Project) => {
         let internalid = Number.parseInt(a.internalid);
         let internalid2 = Number.parseInt(b.internalid);
         return internalid - internalid2;
