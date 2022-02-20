@@ -80,5 +80,15 @@ export class ReportsComponent extends CategoryComponent {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  fullscreen(div: HTMLDivElement) {
+    div.classList.toggle("w-[calc(100%-15rem)]")
+    div.classList.toggle("pl-8")
+    div.classList.toggle("absolute")
+    div.classList.toggle("left-5");
+    div.classList.toggle("right-5");
+    div.classList.toggle("top-5");
+    div.classList.toggle("bottom-5");
+  }
 }
 

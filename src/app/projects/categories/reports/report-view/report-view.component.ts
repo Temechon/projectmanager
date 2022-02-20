@@ -28,6 +28,9 @@ export class ReportViewComponent implements OnInit, OnChanges {
   onDelete: EventEmitter<void> = new EventEmitter<void>();
 
   @Output()
+  onFullscreen: EventEmitter<void> = new EventEmitter<void>();
+
+  @Output()
   onUpdate: EventEmitter<Partial<Report>> = new EventEmitter<Partial<Report>>();
 
   @ViewChild('style')
@@ -127,6 +130,10 @@ export class ReportViewComponent implements OnInit, OnChanges {
     if (res) {
       this.onDelete.emit();
     }
+  }
+
+  fullscreen() {
+    this.onFullscreen.emit();
   }
 
   /**

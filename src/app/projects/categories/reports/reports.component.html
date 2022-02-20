@@ -1,4 +1,4 @@
-<div class="p-12 w-full h-full bg-white">
+<div class="p-12 w-full h-full bg-white relative">
     <h1 class="text-4xl font-bold text-darker mb-12">Comptes-rendus</h1>
 
     <div class="flex w-full mr-auto h-[calc(100%-40px)]">
@@ -18,9 +18,9 @@
         </div>
 
 
-        <div class="w-[calc(100%-15rem)] pl-8" *ngIf="selected">
+        <div #reportroot class="w-[calc(100%-15rem)] pl-8" *ngIf="selected">
             <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)"
-                (onUpdate)="updateReport($event)">
+                (onUpdate)="updateReport($event)" (onFullscreen)="fullscreen(reportroot)">
             </report-view>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <!-- The whole container -->
-<div class="w-full bg-white h-full relative -top-12">
+<div class="w-full bg-white h-full relative">
 
     <div class="h-full flex flex-col">
 
@@ -110,13 +110,13 @@
     <div class="absolute bottom-6 right-12 flex flex-col-reverse">
 
         <div (click)="deleteNote()"
-            class="bg-secondary  cursor-pointer text-white text-lg w-10 h-10 rounded-full flex items-center justify-center my-2">
+            class="bg-secondary  cursor-pointer text-white text-xs w-7 h-7 rounded-full flex items-center justify-center my-0.5">
             <i class="fas fa-trash-alt"></i>
         </div>
-        <!-- <div
-            class="bg-mygreen hover:bg-green-400 cursor-pointer text-white text-lg w-10 h-10 rounded-full flex items-center justify-center my-2">
-            <i class="fas fa-file-export"></i>
-        </div> -->
+        <div (click)="fullscreen()"
+            class="bg-darker cursor-pointer text-white text-xs w-7 h-7 rounded-full flex items-center justify-center my-0.5">
+            <i class="fas fa-expand"></i>
+        </div>
     </div>
 
 </div>
