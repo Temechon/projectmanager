@@ -2,8 +2,11 @@
     <h1 class="text-4xl font-bold text-darker mb-8">Tous les projets</h1>
 
     <div class="w-full">
-        <div class="w-full flex" *ngFor="let p of projects">
-            <div class="w-1/2 truncate">
+        <div class="w-full flex border-b py-2" *ngFor="let p of projects">
+            <div class="w-48 truncate font-bold" [ngStyle]="{'color':  p.color }" [routerLink]="['/projects', p.id]">
+                {{p.internalid}}
+            </div>
+            <div class="w-1/2 truncate" [routerLink]="['/projects', p.id]">
                 {{p.name}}
             </div>
             <div>

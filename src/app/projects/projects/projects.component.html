@@ -35,51 +35,54 @@
 
         <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets en cours</h1>
 
-        <div id="project-list">
-            <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
-                routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
-                *ngFor="let p of runningProjects; trackBy:trackByProjectId">
+        <div class="overflow-y-auto overflow-x-hidden">
+            <div id="project-list">
+                <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
+                    routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
+                    *ngFor="let p of runningProjects; trackBy:trackByProjectId">
 
-                <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
-                    [ngStyle]="{'background-color':  p.color }"></span>
-                <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
-                <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                    <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
+                        [ngStyle]="{'background-color':  p.color }"></span>
+                    <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
+                    <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                </div>
             </div>
-        </div>
 
-        <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets en attente</h1>
+            <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets en attente</h1>
 
-        <div id="project-list">
-            <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
-                routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
-                *ngFor="let p of waitingProjects; trackBy:trackByProjectId">
+            <div id="project-list">
+                <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
+                    routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
+                    *ngFor="let p of waitingProjects; trackBy:trackByProjectId">
 
-                <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
-                    [ngStyle]="{'background-color':  p.color }"></span>
-                <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
-                <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                    <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
+                        [ngStyle]="{'background-color':  p.color }"></span>
+                    <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
+                    <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                </div>
             </div>
-        </div>
-        <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets archivés</h1>
+            <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets archivés</h1>
 
-        <div id="project-list">
-            <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
-                routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
-                *ngFor="let p of archivedProjects; trackBy:trackByProjectId">
+            <div id="project-list">
+                <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
+                    routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
+                    *ngFor="let p of archivedProjects; trackBy:trackByProjectId">
 
-                <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
-                    [ngStyle]="{'background-color':  p.color }"></span>
-                <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
-                <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                    <span class="project-tag w-3 h-3 rounded-full mr-2 flex-shrink-0"
+                        [ngStyle]="{'background-color':  p.color }"></span>
+                    <span class="project-id font-semibold mr-4" [ngStyle]="{'color':  p.color }">{{p.internalid}}</span>
+                    <div class="truncate project-name max-w-[200px]">{{p.name}}</div>
+                </div>
             </div>
-        </div>
 
-        <div id="button-wide" class="absolute left-0 bottom-20 w-full text-center">
-            <action-button (onClick)="addProject()" text="Ajouter un projet" icon="fa-plus-circle"></action-button>
-        </div>
 
-        <div id="button" class="hidden absolute left-0 bottom-20 w-full text-center">
-            <action-button (onClick)="addProject()" icon="fa-plus-circle"></action-button>
+            <div id="button-wide" class="my-4 w-full text-center">
+                <action-button (onClick)="addProject()" text="Ajouter un projet" icon="fa-plus-circle"></action-button>
+            </div>
+
+            <div id="button" class="my-4 hidden w-full text-center">
+                <action-button (onClick)="addProject()" icon="fa-plus-circle"></action-button>
+            </div>
         </div>
     </div>
 

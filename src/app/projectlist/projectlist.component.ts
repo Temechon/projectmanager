@@ -36,6 +36,12 @@ export class ProjectlistComponent implements OnInit {
     this.db.getProjects$().subscribe(data => {
       this.projects = data;
 
+      this.projects.sort((a: Project, b: Project) => {
+        let status = a.status;
+        let status2 = b.status;
+        return status.localeCompare(status2) * -1;
+      });
+
     })
   }
 
