@@ -6,9 +6,8 @@
         <div class="w-60 flex flex-col relative h-full">
 
             <div [ngClass]="{'active':isSelected(p.id)}"
-                class="w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
+                class="w-full truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
                 (click)="select(index)" *ngFor="let p of project.reports; let index=index">
-                <span class="font-semibold mr-4">{{p.date}}</span>
                 <div class="truncate">{{p.title}}</div>
             </div>
 
