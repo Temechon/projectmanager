@@ -24,4 +24,17 @@ export class MilestonesComponent extends CategoryComponent {
     this.save();
   }
 
+  orderAndSave() {
+    this.project.milestones.sort((a, b) => {
+      if (a.date < b.date) {
+        return -1;
+      }
+      if (a.date > b.date) {
+        return 1;
+      }
+      return 0;
+    });
+    this.save();
+  }
+
 }

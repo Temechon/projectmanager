@@ -17,11 +17,11 @@
                 <tr *ngFor="let milestone of project.milestones; let index=index">
 
                     <td class="table-cell">
-                        <editable-text [(text)]="milestone.date" (onFinished)="save()">
+                        <editable-text [(text)]="milestone.date" (onFinished)="orderAndSave()">
                         </editable-text>
                     </td>
                     <td class="table-cell">
-                        <editable-text [(text)]="milestone.name" (onFinished)="save()"></editable-text>
+                        <editable-text [(text)]="milestone.name" (onFinished)="orderAndSave()"></editable-text>
                     </td>
 
                     <td class="table-cell text-center">
