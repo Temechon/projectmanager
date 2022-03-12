@@ -41,7 +41,7 @@ export class NotesComponent extends CategoryComponent {
 
   }
   ngAfterViewInit() {
-    console.log(this.editableAreas);
+    // console.log(this.editableAreas);
     if (this.selectedIndex !== null) {
       this._focus(this.selectedIndex);
     }

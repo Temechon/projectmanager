@@ -176,15 +176,15 @@ export async function initDatabase(search: SearchService, ipc: IpcService, sync:
    * Action done when the save status is returned by electron window
    */
   ipc.on('save-status', (evt, message: { status: boolean }) => {
-    console.log("Message reçu d'electron", message);
+    // console.log("Message reçu d'electron", message);
 
     // Update the sync status
     if (message.status) {
       sync.syncStatus.next(SyncService.STATUS_SYNCED);
-      console.log("tout est synchro ! On envoie au service");
+      // console.log("tout est synchro ! On envoie au service");
     } else {
       sync.syncStatus.next(SyncService.STATUS_ERROR);
-      console.log("Ya une erreur");
+      // console.log("Ya une erreur");
     }
   });
 
