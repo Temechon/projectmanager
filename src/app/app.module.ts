@@ -25,6 +25,7 @@ import { ProjectInfoComponent } from './calendar/project-info/project-info.compo
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { ProjectlistComponent } from './projectlist/projectlist.component';
+import { SyncService } from './services/sync.service';
 
 
 
@@ -61,9 +62,9 @@ import { ProjectlistComponent } from './projectlist/projectlist.component';
     IpcService,
     {
       provide: APP_INITIALIZER,
-      useFactory: (s: SearchService, ipc: IpcService) => () => initDatabase(s, ipc),
+      useFactory: (s: SearchService, ipc: IpcService, sync: SyncService) => () => initDatabase(s, ipc, sync),
       multi: true,
-      deps: [SearchService, IpcService]
+      deps: [SearchService, IpcService, SyncService]
     },
     DatabaseService,
   ],

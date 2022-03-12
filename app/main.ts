@@ -39,7 +39,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -68,9 +68,11 @@ ipcMain.on('async-save-projects', (event, arg) => {
     // console.log("async-save", arg);
     try {
         fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+        mainWindow.webContents.send('save-status', { status: true });
     }
     catch (e) {
         console.error(e, 'Failed to save the file !');
+        mainWindow.webContents.send('save-status', { status: false });
     }
 })
 
@@ -78,6 +80,7 @@ ipcMain.on('async-save-tasks', (event, arg) => {
     // console.log("async-save", arg);
     try {
         fs.writeFileSync('projectmanager.tasks', JSON.stringify(arg), 'utf-8');
+
     }
     catch (e) {
         console.error(e, 'Failed to save the file !');

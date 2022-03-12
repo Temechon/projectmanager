@@ -1,3 +1,9 @@
-<div class="ml-4 text-xs text-gray-400 ">
+<div class="ml-4 text-xs text-gray-400 " *ngIf="isSynced===status_ok">
     <i class="fas fa-check text-mygreen"></i> Sauvegardé !
+</div>
+<div class="ml-4 text-xs text-gray-400 " *ngIf="isSynced===status_error">
+    <i class="fas fa-times text-red-500"></i> Erreur de synchronisation
+</div>
+<div class="ml-4 text-xs text-gray-400 " *ngIf="isSynced===status_syncing">
+    <i class="fas fa-sync text-red-500"></i> En cours
 </div>

@@ -6,8 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SyncService {
 
-  isSaving = new BehaviorSubject(false);
-  isOk = new BehaviorSubject(false);
+  syncStatus = new BehaviorSubject(SyncService.STATUS_SYNCED);
+  static STATUS_SYNCING = "syncing";
+  static STATUS_SYNCED = "ok";
+  static STATUS_ERROR = "error";
 
   constructor() { }
 }

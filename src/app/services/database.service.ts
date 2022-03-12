@@ -7,6 +7,7 @@ import { ITask, Task } from '../model/task.model';
 import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { IpcService } from './ipc.service';
 import { SearchService } from './search.service';
+import { SyncService } from './sync.service';
 
 
 @Injectable({
@@ -124,7 +125,7 @@ async function _create() {
  * This is run via APP_INITIALIZER in app.module.ts
  * to ensure the database exists before the angular-app starts up
  */
-export async function initDatabase(search: SearchService, ipc: IpcService) {
+export async function initDatabase(search: SearchService, ipc: IpcService, sync: SyncService) {
 
   /**
    * When server side rendering is used,
@@ -157,6 +158,8 @@ export async function initDatabase(search: SearchService, ipc: IpcService) {
 
   // Save all projects to disk when an update is done
   projectsCollection.projects.$.subscribe(() => {
+    console.log("On se met en statut syncing");
+    sync.syncStatus.next(SyncService.STATUS_SYNCING);
     projectsCollection.projects.exportJSON().then((json) => {
       // console.log("JSON", json);
       ipc.send('async-save-projects', json);
@@ -168,6 +171,22 @@ export async function initDatabase(search: SearchService, ipc: IpcService) {
       ipc.send('async-save-tasks', json);
     })
   })
+
+  /**
+   * Action done when the save status is returned by electron window
+   */
+  ipc.on('save-status', (evt, message: { status: boolean }) => {
+    console.log("Message reçu d'electron", message);
+
+    // Update the sync status
+    if (message.status) {
+      sync.syncStatus.next(SyncService.STATUS_SYNCED);
+      console.log("tout est synchro ! On envoie au service");
+    } else {
+      sync.syncStatus.next(SyncService.STATUS_ERROR);
+      console.log("Ya une erreur");
+    }
+  });
 
 
   await search.init(allp, alltasks)

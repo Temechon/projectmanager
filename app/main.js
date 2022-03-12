@@ -33,7 +33,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
@@ -57,9 +57,11 @@ electron_1.ipcMain.on('async-save-projects', function (event, arg) {
     // console.log("async-save", arg);
     try {
         fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+        mainWindow.webContents.send('save-status', { status: true });
     }
     catch (e) {
         console.error(e, 'Failed to save the file !');
+        mainWindow.webContents.send('save-status', { status: false });
     }
 });
 electron_1.ipcMain.on('async-save-tasks', function (event, arg) {
