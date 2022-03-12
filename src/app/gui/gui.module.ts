@@ -6,6 +6,7 @@ import { ActionButtonComponent } from './button/action-button.component';
 import { EditableAreaComponent } from './editable-area/editable-area.component';
 import { EditableTextComponent } from './editable-text/editable-text.component';
 import { SelectListComponent } from './select-list/select-list.component';
+import { SyncComponent } from './sync/sync.component';
 
 
 
@@ -15,6 +16,7 @@ import { SelectListComponent } from './select-list/select-list.component';
     EditableTextComponent,
     EditableAreaComponent,
     SelectListComponent,
+    SyncComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { SelectListComponent } from './select-list/select-list.component';
     ActionButtonComponent,
     EditableTextComponent,
     EditableAreaComponent,
-    SelectListComponent
+    SelectListComponent,
+    SyncComponent
   ]
 })
 export class GuiModule { }
