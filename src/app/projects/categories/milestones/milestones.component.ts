@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { guid } from 'src/app/model/project.model';
+import { getDateFromString, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
+import { DateTime } from "luxon";
 
 @Component({
   selector: 'app-milestones',
@@ -26,13 +27,12 @@ export class MilestonesComponent extends CategoryComponent {
 
   orderAndSave() {
     this.project.milestones.sort((a, b) => {
-      if (a.date < b.date) {
-        return -1;
-      }
-      if (a.date > b.date) {
-        return 1;
-      }
-      return 0;
+      // convert a and b in datetime and sort them
+      let date1 = getDateFromString(a.date);
+      let date2 = getDateFromString(b.date);
+      console.log("diff", date1.diff(date2).toObject().milliseconds);
+
+      return date1.diff(date2).toObject().milliseconds;
     });
     this.save();
   }
