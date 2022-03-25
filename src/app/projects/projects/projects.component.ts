@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Project } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { SearchService } from 'src/app/services/search.service';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-projects',
@@ -73,7 +74,12 @@ export class ProjectsComponent implements OnInit {
       }
 
       let url = this.router.url;
-      if (url === "/projects" && this.projects.length > 0) {
+      if (url === "/projects" && this.runningProjects.length > 0) {
+        // order running project by internal id and use the first one
+        let firstId = _.sortBy(this.runningProjects, 'internalid')[0].id;
+        this.router.navigate(['projects', firstId])
+      } else {
+        // Display the first project
         this.router.navigate(['projects', this.projects[0].id])
       }
     })
