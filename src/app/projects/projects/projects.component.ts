@@ -74,13 +74,15 @@ export class ProjectsComponent implements OnInit {
       }
 
       let url = this.router.url;
-      if (url === "/projects" && this.runningProjects.length > 0) {
-        // order running project by internal id and use the first one
-        let firstId = _.sortBy(this.runningProjects, 'internalid')[0].id;
-        this.router.navigate(['projects', firstId])
-      } else {
-        // Display the first project
-        this.router.navigate(['projects', this.projects[0].id])
+      if (url === "/projects") {
+        if (this.runningProjects.length > 0) {
+          // order running project by internal id and use the first one
+          let firstId = _.sortBy(this.runningProjects, 'internalid')[0].id;
+          this.router.navigate(['projects', firstId])
+        } else {
+          // Display the first project
+          this.router.navigate(['projects', this.projects[0].id])
+        }
       }
     })
 
