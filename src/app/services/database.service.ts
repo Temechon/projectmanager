@@ -112,6 +112,10 @@ async function _create() {
           doc.domain = '';
           doc.domain_manager = '';
           return doc;
+        },
+        5: (doc: Project) => {
+          doc.actors.map(a => a.type = '');
+          return doc;
         }
       }
     },

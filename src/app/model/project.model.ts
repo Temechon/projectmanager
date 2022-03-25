@@ -66,7 +66,7 @@ export abstract class IProject {
     /** Lien vers le portefeuille projet */
     pplink: string;
     folder: string;
-    actors: Array<{ name: string, dga: string, comment: string }>;
+    actors: Array<{ name: string, dga: string, type: string, comment: string }>;
     /** Date de la recette prévue */
     recette_date: string;
     /** Date de la VP */

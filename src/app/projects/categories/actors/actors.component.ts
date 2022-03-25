@@ -12,10 +12,26 @@ export class ActorsComponent extends CategoryComponent {
   sortAttribute: string = 'name';
   sortOrder = 1;
 
+  actorsType = [
+    {
+      label: "Matmut",
+      data: { color: '#3366FF' }
+    },
+    {
+      label: "Prestataire",
+      data: { color: '#37BA83' }
+    },
+    {
+      label: "Equipe projet",
+      data: { color: '#F80A50' }
+    }
+  ];
+
   add() {
     this.project.actors.push({
       name: "",
       dga: "",
+      type: "",
       comment: ""
     });
     this.save();
@@ -36,7 +52,7 @@ export class ActorsComponent extends CategoryComponent {
   }
 
   sort() {
-    this.project.actors.sort((a: { name: string, dga: string }, b: { name: string, dga: string }) => {
+    this.project.actors.sort((a, b) => {
       if (this.sortAttribute === 'name') {
         if (!a.name) {
           return -1 * this.sortOrder;
@@ -45,6 +61,15 @@ export class ActorsComponent extends CategoryComponent {
           return 1 * this.sortOrder;
         }
         return a.name.localeCompare(b.name) * this.sortOrder;
+      }
+      if (this.sortAttribute === 'type') {
+        if (!a.type) {
+          return -1 * this.sortOrder;
+        }
+        if (!b.type) {
+          return 1 * this.sortOrder;
+        }
+        return a.type.localeCompare(b.type) * this.sortOrder;
       }
       if (this.sortAttribute === 'dga') {
         if (!a.dga) {
@@ -71,6 +96,11 @@ export class ActorsComponent extends CategoryComponent {
       console.log("Written into clipbaord!");
 
     })
+  }
+
+  setTypeToActor(t, $event) {
+    console.log(t, $event);
+
   }
 
 }
