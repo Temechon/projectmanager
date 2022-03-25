@@ -36,6 +36,9 @@ export class TodoComponent implements OnInit {
     private db: DatabaseService,
     private index: SearchService) { }
 
+  /**
+   * It gets all the projects from the database and then gets all the tasks from the database.
+   */
   ngOnInit(): void {
     // Build a list with all proects internalid available in database
     this.db.getProjects().then(d => {
@@ -57,6 +60,10 @@ export class TodoComponent implements OnInit {
     });
   }
 
+  /**
+   * It adds a new task to the list of tasks.
+   * @param {string} status - string
+   */
   add(status: string) {
     let t = new Task({
       id: guid(),
@@ -65,12 +72,16 @@ export class TodoComponent implements OnInit {
       content: '',
       status: status,
       date: DateTime.local().toFormat('dd LLL yyyy - HH:mm'),
-      index: this.todotasks.length + 1
+      index: 0
     })
     this.save(t);
     this._allTasks.push(t);
+
     if (status === 'todo') {
-      this.todotasks.push(t);
+      this.todotasks.unshift(t);
+      _.each(this.todotasks, t => t.index++);
+      _.each(this.todotasks, this.updateTaskOrder.bind(this));
+
     }
     if (status === 'running') {
       this.runningtasks.push(t);
@@ -93,13 +104,17 @@ export class TodoComponent implements OnInit {
     })
   }
 
+  /**
+   * Delete a task from the database and remove it from the list of all tasks
+   * @param {string} taskid - string
+   */
   delete(taskid: string) {
     this.db.deleteTask(taskid).then(d => {
       this._allTasks.splice(this._allTasks.findIndex(t => t.id === taskid), 1);
 
-      this.todotasks = this._allTasks.filter(t => t.status === TASK_STATUS.todo);
-      this.runningtasks = this._allTasks.filter(t => t.status === TASK_STATUS.running);
-      this.donetasks = this._allTasks.filter(t => t.status === TASK_STATUS.done);
+      this.todotasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.todo).sortBy('index').value();
+      this.runningtasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.running).sortBy('index').value();
+      this.donetasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.done).sortBy('index').value();
 
 
       this.index.removeObject(taskid);
@@ -107,6 +122,10 @@ export class TodoComponent implements OnInit {
   }
 
 
+  /**
+   * Move the task from the old array to the new array
+   * @param event - CdkDragDrop<string>
+   */
   drop(event: CdkDragDrop<string>) {
     const task = event.item.data as Task;
     const oldStatus = event.previousContainer.data as TASK_STATUS;
