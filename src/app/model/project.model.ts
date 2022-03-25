@@ -49,7 +49,14 @@ export type Milestone = {
     date: string
 }
 
+
 export abstract class IProject {
+
+    static STATUS = {
+        "running": "En cours",
+        "waiting": "En attente",
+        "archived": "Archivé"
+    };
 
     id: string;
     name: string;

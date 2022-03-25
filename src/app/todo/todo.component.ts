@@ -42,7 +42,7 @@ export class TodoComponent implements OnInit {
       this.projects = d;
 
       this.options = [];
-      this.projects.map(p => {
+      this.projects.filter(p => p.status !== Project.STATUS.archived).map(p => {
         this.options.push({ label: p.internalid, data: p });
       })
     }).then(() => {

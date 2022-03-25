@@ -1,17 +1,55 @@
 <div class="p-12 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">Tous les projets</h1>
 
+
+    <!-- !! Filters -->
+    <div class="flex my-4 space-x-4" *ngIf="filters.length > 0">
+        <h2 class="text-gray-400">Filtrer par domaine</h2>
+        <div [ngClass]="{'!bg-primary': opt.label === filterLabel}"
+            class="bg-indigo-200 select-none filter truncate flex items-center justify-center text-white px-3 rounded-full text-sm hover:bg-indigo-300 cursor-pointer"
+            (click)="toggleFilter(opt.label)" *ngFor="let opt of filters">
+            {{opt.label}}
+        </div>
+    </div>
+    <div class="flex my-4 space-x-4 items-center">
+        <h2 class="text-gray-400">Afficher les projets archivés</h2>
+        <!-- input checkbox -->
+        <div class="inline-flex items-center">
+            <input type="checkbox" class="h-4 w-4 cursor-pointer" checked (click)="toggleArchived()">
+        </div>
+    </div>
+
     <div class="w-full">
-        <div class="w-full flex border-b py-2" *ngFor="let p of projects">
-            <div class="w-48 truncate font-bold" [ngStyle]="{'color':  p.color }" [routerLink]="['/projects', p.id]">
-                {{p.internalid}}
+
+        <div class="w-full flex border-b-2  py-2 font-bold">
+            <div class="w-48">
+                ID
             </div>
-            <div class="w-1/2 truncate" [routerLink]="['/projects', p.id]">
-                {{p.name}}
+            <div class="w-1/4">
+                Nom
+            </div>
+            <div class="w-48">
+                Domaine
             </div>
             <div>
-                <select-list [options]="status" [(value)]="p.status" (onSelected)="save(p)">
-                </select-list>
+                Statut
+            </div>
+        </div>
+        <div class="w-full flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
+            *ngFor="let p of projects" [routerLink]="['/projects', p.id]">
+            <div class=" w-48 truncate font-bold" [ngStyle]="{'color':  p.color }">
+                {{p.internalid}}
+            </div>
+            <div class="w-1/4 truncate">
+                {{p.name}}
+            </div>
+            <div class="w-48 truncate">
+                {{p.domain}}
+            </div>
+            <div>
+                <span
+                    [ngClass]="{'bg-[#37BA83]': p.status === 'En cours', 'bg-[#ffaa00]': p.status === 'En attente','bg-[#0095ff]': p.status === 'Archivé'}"
+                    class="px-3 rounded-full text-sm text-white">{{p.status}}</span>
             </div>
         </div>
     </div>

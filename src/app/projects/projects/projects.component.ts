@@ -39,8 +39,8 @@ export class ProjectsComponent implements OnInit {
     this.db.getProjects$().subscribe(data => {
 
       this.projects = data;
-      this.runningProjects = data.filter(d => d.status == 'En cours');
-      this.waitingProjects = data.filter(d => d.status == 'En attente');
+      this.runningProjects = data.filter(d => d.status == Project.STATUS.running);
+      this.waitingProjects = data.filter(d => d.status == Project.STATUS.waiting);
       // Sort projects list by project internal id
       this.runningProjects.sort((a: Project, b: Project) => {
         let internalid = Number.parseInt(a.internalid);

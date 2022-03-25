@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import randomColor from 'randomcolor';
+import { Project } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 
@@ -13,15 +14,15 @@ export class GeneralInformationComponent extends CategoryComponent {
 
   status = [
     {
-      label: 'En cours',
+      label: Project.STATUS.running,
       data: { color: '#37BA83' }
     },
     {
-      label: 'En attente',
+      label: Project.STATUS.waiting,
       data: { color: '#ffaa00' }
     },
     {
-      label: 'Archivé',
+      label: Project.STATUS.archived,
       data: { color: '#0095ff' }
     }
   ]
