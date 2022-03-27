@@ -25,6 +25,7 @@ import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { SyncService } from './services/sync.service';
+import { TestCasesComponent } from './projects/categories/test-cases/test-cases.component';
 
 
 
@@ -45,7 +46,8 @@ import { SyncService } from './services/sync.service';
     CalendarComponent,
     ProjectInfoComponent,
     MilestonesComponent,
-    ProjectlistComponent
+    ProjectlistComponent,
+    TestCasesComponent
   ],
   imports: [
     FormsModule,

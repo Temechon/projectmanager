@@ -8,6 +8,7 @@ import { GeneralInformationComponent } from './projects/categories/general-infor
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { NotesComponent } from './projects/categories/notes/notes.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
+import { TestCasesComponent } from './projects/categories/test-cases/test-cases.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectResolver } from './resolver/projects.resolver';
@@ -54,6 +55,10 @@ const routes: Routes = [
           {
             path: 'acceptanceTests',
             component: AcceptanceTestsComponent,
+          },
+          {
+            path: 'testCases',
+            component: TestCasesComponent,
           },
           {
             path: 'reports',
