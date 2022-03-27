@@ -14,7 +14,7 @@
 
     <!-- !! POPUP DISPLAYED WHEN CLICKED -->
     <ul #list
-        class="absolute hidden z-10 mt-1 w-48 bg-white shadow-sm max-h-64 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+        class="absolute hidden z-10 mt-1 w-48 bg-white shadow-sm rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
 
         <li class="option cursor-pointer py-1 pl-3 hover:text-primary hover:bg-primary-50" (click)="select(index)"
             [ngClass]="{'bg-primary-50 text-primary':isSelected(index)}" tabindex="-1"
