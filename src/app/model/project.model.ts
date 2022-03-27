@@ -16,13 +16,6 @@ export type Report = {
     date: string
 }
 
-export type Activity = {
-    id: string,
-    date: string,
-    content: string,
-    status: string,
-}
-
 export type Note = {
     id: string,
     date: string,
@@ -75,8 +68,6 @@ export abstract class IProject {
     description: string;
     /** Tous les comptes-rendus du projet */
     reports: Array<Report>;
-    /** Tous les items dans le suivi du projet */
-    activities: Array<Activity>;
     /** All quick notes */
     notes: Array<Note>;
     /** All incidents */
@@ -116,7 +107,6 @@ export class Project extends IProject {
         this.description = rxdoc.description;
         this.reports = rxdoc.reports?.slice().map(_.clone) || [];
         this.folder = rxdoc.folder;
-        this.activities = rxdoc.activities?.slice().map(_.clone) || [];
         this.notes = rxdoc.notes?.slice().map(_.clone) || [];
         this.incidents = rxdoc.incidents?.slice().map(_.clone) || [];
         this.acceptanceComponents = rxdoc.acceptanceComponents?.slice().map(_.clone) || [];

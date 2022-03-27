@@ -116,6 +116,9 @@ async function _create() {
         5: (doc: Project) => {
           doc.actors.map(a => a.type = '');
           return doc;
+        },
+        6: (doc: any) => {
+          return new Project(doc);
         }
       }
     },

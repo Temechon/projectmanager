@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GuiModule } from './gui/gui.module';
-import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { NotesComponent } from './projects/categories/notes/notes.component';
@@ -39,7 +38,6 @@ import { SyncService } from './services/sync.service';
     ReportsComponent,
     ReportViewComponent,
     StyleButtonComponent,
-    ActivityComponent,
     SearchResultsComponent,
     NotesComponent,
     TodoComponent,

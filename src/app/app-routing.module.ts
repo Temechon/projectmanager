@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
-import { ActivityComponent } from './projects/categories/activity/activity.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
@@ -59,10 +58,6 @@ const routes: Routes = [
           {
             path: 'reports',
             component: ReportsComponent,
-          },
-          {
-            path: 'activities',
-            component: ActivityComponent,
           },
           {
             path: 'notes',

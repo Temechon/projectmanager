@@ -81,30 +81,6 @@
                     </div>
                 </div>
 
-                <!--!! If the result is an activity -->
-                <div class="flex items-center group" *ngIf="r.doc.type === 'activity'"
-                    (click)="goToActivity(r.doc.p_id, r.id)">
-                    <!-- Icon -->
-                    <i class="fas fa-chart-line text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
-
-                    <!-- Results -->
-                    <div class="flex flex-col flex-grow">
-                        <div class="flex items-center">
-                            <div
-                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
-                                {{r.doc.p_internalid}}
-                            </div>
-                            <div class="text-darker text-2xl font-bold">Activité</div>
-                        </div>
-                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
-                            <div>Contenu :</div>
-                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
-                                *ngIf="res.field === 'content'">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- !! If the result is a task -->
                 <div class="flex items-center group" *ngIf="r.doc.type === 'task'" (click)="goToTask(r.id)">
                     <!-- Icon -->
