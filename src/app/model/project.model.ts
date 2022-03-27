@@ -42,6 +42,16 @@ export type Milestone = {
     date: string
 }
 
+export type TestCase = {
+    id: string,
+    name: string,
+    category: string,
+    test_date: string,
+    expected_result: string,
+    status: string,
+    comments: string;
+}
+
 
 export abstract class IProject {
 
@@ -86,6 +96,9 @@ export abstract class IProject {
     /** Project status - running, waiting, archived */
     status: string;
 
+    /** Test cases */
+    testCasesList: Array<{ id: string, version: string, testCases: Array<TestCase> }>;
+
     /** The list of all milestone for this project */
     milestones: Array<Milestone>;
 
@@ -111,11 +124,11 @@ export class Project extends IProject {
         this.incidents = rxdoc.incidents?.slice().map(_.clone) || [];
         this.acceptanceComponents = rxdoc.acceptanceComponents?.slice().map(_.clone) || [];
         this.spira_projectid = rxdoc.spira_projectid;
-
         this.domain = rxdoc.domain;
         this.domain_manager = rxdoc.domain_manager;
         this.status = rxdoc.status;
         this.milestones = rxdoc.milestones?.slice().map(_.clone) || [];
+        this.testCasesList = rxdoc.testCasesList?.slice().map(_.clone) || [];
     }
 
     toObject(): IProject {

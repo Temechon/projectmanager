@@ -25,7 +25,8 @@ import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { SyncService } from './services/sync.service';
-import { TestCasesComponent } from './projects/categories/test-cases/test-cases.component';
+import { TestCasesListComponent } from './projects/categories/test-cases-list/test-cases-list.component';
+import { TestCasesComponent } from './projects/categories/test-cases-list/test-cases/test-cases.component';
 
 
 
@@ -47,6 +48,7 @@ import { TestCasesComponent } from './projects/categories/test-cases/test-cases.
     ProjectInfoComponent,
     MilestonesComponent,
     ProjectlistComponent,
+    TestCasesListComponent,
     TestCasesComponent
   ],
   imports: [

@@ -1,0 +1,74 @@
+<div class="p-12 pr-4 w-full bg-white">
+    <div class="flex items-baseline mb-12">
+        <h1 class="text-4xl font-bold text-darker">Jeux de tests</h1>
+        <sync></sync>
+    </div>
+
+    <div class="w-full mr-auto">
+
+        <div class="py-4">
+            <table class="w-full border-collapse table-fixed">
+                <thead>
+                    <th class="font-normal text-sm text-primary">
+                        Catégorie
+                    </th>
+                    <th class="font-normal text-sm text-primary">
+                        Cas testé
+                    </th>
+                    <th class="font-normal text-sm text-primary">
+                        Date
+                    </th>
+                    <th class="font-normal text-sm text-primary">
+                        Résultat attendu
+                    </th>
+                    <th class="font-normal text-sm text-primary">
+                        Status
+                    </th>
+                    <th class="w-12"></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="table-cell">
+                            <editable-text>
+                            </editable-text>
+                        </td>
+                        <td class="table-cell">
+                            <editable-text>
+                            </editable-text>
+                        </td>
+                        <td class="table-cell">
+                            <editable-text>
+                            </editable-text>
+                        </td>
+                        <td class="table-cell">
+                            <editable-text>
+                            </editable-text>
+                        </td>
+                        <td class="table-cell">
+                            <editable-text>
+                            </editable-text>
+                        </td>
+                        <td class="w-12"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="flex flex-row mb-2 mt-8">
+                <div class="flex items-center justify-start mr-4">
+                    <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                    </action-button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Exporter" (onClick)="export()" icon="fa-file-export"
+                    custom="bg-green-500 hover:bg-green-700">
+                </action-button>
+            </div>
+        </div>
+    </div>
+</div>

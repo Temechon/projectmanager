@@ -119,7 +119,11 @@ async function _create() {
         },
         6: (doc: any) => {
           return new Project(doc);
-        }
+        },
+        7: (doc: Project) => {
+          doc.testCasesList = [];
+          return doc;
+        },
       }
     },
     tasks: {

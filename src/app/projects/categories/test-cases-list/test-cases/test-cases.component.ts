@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryComponent } from '../../category.component';
+import { CategoryComponent } from 'src/app/projects/category.component';
 
 @Component({
   selector: 'app-test-cases',
@@ -8,5 +8,25 @@ import { CategoryComponent } from '../../category.component';
 })
 export class TestCasesComponent extends CategoryComponent {
 
+
+  ngOnInit(): void {
+    super.ngOnInit();
+
+
+  }
+
+  /**
+   * Export all incident to excel
+   */
+  export() {
+
+  }
+
+  /**
+   * Add a test case
+   */
+  add() {
+
+  }
 
 }

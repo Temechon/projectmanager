@@ -24,11 +24,6 @@ export class CategoryComponent implements OnInit {
 
     ngOnInit(): void {
 
-        // save into local storage the last route
-        let url = this.router.url;
-        let path = url.substr(_.lastIndexOf(url, '/') + 1, url.length);
-        localStorage.setItem('PM_PROJECT_PATH', path);
-
         this.routesub = this.route.parent.data.subscribe(data => {
             this.project = data.project
         })

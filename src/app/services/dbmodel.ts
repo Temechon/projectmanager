@@ -49,7 +49,7 @@ export const taskSchema: RxJsonSchema<ITask> = {
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 6,
+    version: 7,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -203,6 +203,49 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                     },
                     date: {
                         type: 'string'
+                    }
+                }
+            }
+        },
+        testCasesList: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string'
+                    },
+                    version: {
+                        type: 'string'
+                    },
+                    testCases: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                id: {
+                                    type: 'string'
+                                },
+                                name: {
+                                    type: 'string'
+                                },
+                                category: {
+                                    type: 'string'
+                                },
+                                test_date: {
+                                    type: 'string'
+                                },
+                                expected_result: {
+                                    type: 'string'
+                                },
+                                status: {
+                                    type: 'string'
+                                },
+                                comments: {
+                                    type: 'string'
+                                }
+                            }
+                        }
                     }
                 }
             }
