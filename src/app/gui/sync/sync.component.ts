@@ -18,7 +18,6 @@ export class SyncComponent implements OnInit {
 
   ngOnInit(): void {
     this.syncService.syncStatus.subscribe(status => {
-      console.log("ici ca sync", status);
       this.isSynced = status
     });
   }

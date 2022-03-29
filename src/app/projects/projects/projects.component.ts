@@ -1,9 +1,10 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from 'src/app/model/project.model';
+import { Pin, Project } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { SearchService } from 'src/app/services/search.service';
 import _ from 'underscore';
+
 
 @Component({
   selector: 'app-projects',
@@ -23,6 +24,9 @@ export class ProjectsComponent implements OnInit {
   runningProjects: Project[] = [];
   waitingProjects: Project[] = [];
 
+  /** The list of element pinned on the top of the window */
+  pins: Array<Pin> = [];
+
   sidebarCollapsed = false;
 
   unlisten: Array<() => void> = [];
@@ -35,6 +39,10 @@ export class ProjectsComponent implements OnInit {
       input.setSelectionRange(0, input.value.length)
       event.stopPropagation();
       event.preventDefault();
+    })
+
+    this.db.getPins$().subscribe(d => {
+      this.pins = d;
     })
 
     this.db.getProjects$().subscribe(data => {
@@ -105,8 +113,18 @@ export class ProjectsComponent implements OnInit {
 
   toggleSidebar() {
 
+    // Remove searchbar
+    let searchbar = document.querySelector('#searchbar') as HTMLInputElement;
+    searchbar.classList.toggle('hidden')
+
     let chevron = document.querySelector('#chevron');
     chevron.classList.toggle('rotate-180')
+    chevron.classList.toggle('right-3.5')
+    chevron.classList.toggle('right-5')
+
+    let todo = document.querySelector('#todo') as HTMLInputElement;
+    todo.classList.toggle('mt-4')
+    todo.classList.toggle('mt-16')
 
     let projectLabel = document.querySelectorAll('.project-label');
     projectLabel.forEach(item => item.classList.toggle('hidden'))
@@ -160,6 +178,10 @@ export class ProjectsComponent implements OnInit {
     let searchTerm = ($event.target as HTMLInputElement).value;
     // Display search component
     this.router.navigate(['projects', 'search'], { queryParams: { query: searchTerm } })
+  }
+
+  goToPin(pin: any) {
+    this.router.navigate(['projects', pin.projectid, pin.category], { queryParams: pin.params });
   }
 
 }

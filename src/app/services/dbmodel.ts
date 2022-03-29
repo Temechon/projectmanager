@@ -1,17 +1,46 @@
-import { RxCollection, RxDatabase, RxDocument, RxJsonSchema } from "rxdb";
-import { IProject } from "../model/project.model";
+import { RxCollection, RxDatabase, RxJsonSchema } from "rxdb";
+import { IPin, IProject } from "../model/project.model";
 import { ITask } from "../model/task.model";
 
-export type RxProjectCollection = RxCollection<IProject>;
-export type RxTaskCollection = RxCollection<ITask>;
-
 export type PMCollections = {
-    projects: RxProjectCollection,
-    tasks: RxTaskCollection
+    projects: RxCollection<IProject>,
+    tasks: RxCollection<ITask>,
+    pins: RxCollection<IPin>
 }
 
 export type PMDatabase = RxDatabase<PMCollections>;
 
+
+export const pinSchema: RxJsonSchema<IPin> = {
+    title: 'pins schema',
+    description: 'describes all pins on the top of the window',
+    version: 0,
+    keyCompression: true,
+    primaryKey: 'id',
+    type: 'object',
+    required: ['id'],
+    properties: {
+        id: {
+            type: 'string'
+        },
+        projectid: {
+            type: 'string'
+        },
+        title: {
+            type: 'string'
+        },
+        projectinternalid: {
+            type: 'string'
+        },
+        category: {
+            type: 'string'
+        },
+        params: {
+            type: 'string'
+        },
+
+    }
+}
 
 export const taskSchema: RxJsonSchema<ITask> = {
     title: 'tasks schema',

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { addPouchPlugin, createRxDatabase, getRxStoragePouch } from 'rxdb';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IProject, Project } from '../model/project.model';
+import { IProject, Pin, Project } from '../model/project.model';
 import { ITask, Task } from '../model/task.model';
-import { PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
+import { pinSchema, PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { IpcService } from './ipc.service';
 import { SearchService } from './search.service';
 import { SyncService } from './sync.service';
@@ -72,6 +72,24 @@ export class DatabaseService {
     return projectsCollection.tasks.atomicUpsert(t);
   }
 
+  // PINS
+  getPins$(): Observable<Pin[]> {
+    return projectsCollection.pins.find().$.pipe(map(datarr => datarr.map(data => new Pin(data))));
+  }
+
+  savePin(pin: Pin) {
+    return projectsCollection.pins.atomicUpsert(pin.toObject());
+  }
+
+  deletePin(p: Pin): Promise<any> {
+    return projectsCollection.pins.findOne({
+      selector: {
+        id: p.id
+      }
+    }).remove()
+  }
+
+
 }
 
 let projectsCollection: PMCollections;
@@ -128,6 +146,9 @@ async function _create() {
     },
     tasks: {
       schema: taskSchema
+    },
+    pins: {
+      schema: pinSchema
     }
   });
 }

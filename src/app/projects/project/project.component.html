@@ -1,10 +1,10 @@
-<div class="flex flex-row w-full h-[calc(100%-3.5rem)]">
+<div class="flex flex-row w-full h-[calc(100%-3.5rem)] select-none">
     <!-- Content -->
     <div class="w-[calc(100%-15rem)]">
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
     </div>
     <!-- Sidebar -->
-    <div class="w-60 h-full text-gray-400 pt-20">
+    <div class="w-60 h-full text-gray-400 pt-4">
 
         <div class="w-full h-8 truncate flex items-center pl-4 hover:text-primary cursor-pointer border-l-4 border-transparent mb-2 transition-all"
             routerLinkActive="text-primary !border-primary font-semibold" routerLink="general">Informations générales
@@ -21,11 +21,25 @@
         <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2 transition-all"
             routerLinkActive="text-primary !border-primary font-semibold" routerLink="reports">Comptes-rendus
         </div>
-        <!-- <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2 transition-all"
+        <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2 transition-all"
             routerLinkActive="text-primary !border-primary font-semibold" routerLink="testCases">Jeux de test
-        </div> -->
+        </div>
         <div class="w-full h-8 truncate flex items-center pl-4  hover:text-primary cursor-pointer border-l-4 border-transparent mb-2 transition-all"
             routerLinkActive="text-primary !border-primary font-semibold" routerLink="acceptanceTests">Recette
+        </div>
+
+        <!-- Toolbar -->
+        <div class="mt-8 mr-4">
+
+            <div *ngIf="pinned" (click)="pin()"
+                class="border-primary-200 border border-transparent px-2 py-1 rounded-full text-primary transition-all cursor-pointer">
+                <i class="fas fa-thumbtack -rotate-12 mr-2"></i> <span class="">Désépingler</span>
+            </div>
+
+            <div *ngIf="!pinned" (click)="pin()"
+                class="hover:border-primary-200 border border-transparent px-2 py-1 rounded-full hover:text-primary transition-all cursor-pointer">
+                <i class="fas fa-thumbtack -rotate-12 mr-2"></i> <span class="">Epingler</span>
+            </div>
         </div>
     </div>
 

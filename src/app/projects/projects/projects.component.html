@@ -2,13 +2,27 @@
     <!-- Sidebar -->
     <div id="sidebar" class="w-[15%] bg-darker text-white h-full flex flex-col relative transition-all flex-1">
 
-        <div id="chevron" class="absolute top-5 right-5 text-2xl text-accent transition-all cursor-pointer transform"
+        <!-- Tool bar -->
+        <div class="h-10 flex items-center justify-start" id="searchbar">
+
+            <!-- search bar -->
+            <div class="relative flex items-center w-full text-darker">
+                <i class="fas fa-search text-xl text-gray-300 px-4 absolute left-1"></i>
+                <input type="text" class="w-full outline-none py-1 px-3 rounded-full mx-2 pl-12 focus:ring-2 border"
+                    placeholder="Chercher partout" id="searchbar" (keydown.enter)="searchEverywhere($event)">
+            </div>
+        </div>
+
+
+        <div id="chevron"
+            class="absolute bottom-3.5 right-3.5 text-2xl text-accent transition-all cursor-pointer transform"
             (click)="toggleSidebar()">
             <i class="fas fa-chevron-left"></i>
         </div>
 
 
-        <div class="action mt-20 mb-2 w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-secondary cursor-pointer select-none"
+        <div id="todo"
+            class="action mt-4 mb-2 w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-secondary cursor-pointer select-none"
             routerLinkActive="bg-primary-50 text-secondary font-semibold" routerLink="todo">
             <i class="fas fa-columns mr-5"></i>
             <span class="action-name">
@@ -77,14 +91,14 @@
     <!-- Content -->
     <div id="content" class="w-[calc(100%-15%)] relative transition-all overflow-auto">
 
-        <!-- Search bar -->
-        <div class="h-14 flex items-center justify-start absolute top-0 right-0 ">
+        <div class="w-full h-10 mb-4 flex items-center">
 
-            <div class="relative flex items-center ml-auto w-80">
-                <i class="fas fa-search text-xl text-gray-300 px-4 absolute left-1"></i>
-                <input type="text" class="w-5/6 outline-none py-2 px-3 rounded-full ml-2 pl-12 focus:ring-2 border"
-                    placeholder="Chercher partout" id="searchbar" (keydown.enter)="searchEverywhere($event)">
+            <div *ngFor="let pin of pins" (click)="goToPin(pin)"
+                class="text-xs max-w-[160px] truncate leading-6 rounded-full cursor-pointer px-2 mx-1 first-of-type:ml-12 border-2 border-gray-200 hover:text-primary hover:border-primary-200 text-gray-600">
+                <i class="fas fa-thumbtack text-xs -rotate-12 mr-2"></i>
+                <span class="font-semibold">{{pin.projectinternalid}}</span> | <span>{{pin.title}}</span>
             </div>
+
         </div>
 
         <router-outlet></router-outlet>
