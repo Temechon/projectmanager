@@ -13,32 +13,20 @@ import { CategoryComponent } from '../../category.component';
 })
 export class ReportsComponent extends CategoryComponent {
 
-  selected: any;
+  selected: boolean;
   selectedindex: number;
-  sub: Subscription;
 
   ngOnInit() {
     super.ngOnInit();
-
-    this.sub = this.route.queryParams.subscribe((data) => {
-      let reportid = data.id;
-      if (reportid) {
-        // Select this report
-        this.selected = _.find(this.project.reports, p => p.id === reportid);
-        this.selectedindex = _.indexOf(this.project.reports, this.selected);
-      } else {
-        if (this.project.reports.length > 0) {
-          this.selected = _.last(this.project.reports)
-          this.selectedindex = this.project.reports.length - 1
-        }
-      }
-    })
-
+    let url = this.route.snapshot.routeConfig.children?.length
+    if (url > 0) {
+      this.selected = true;
+    }
   }
+  goToReport(reportid: string) {
+    this.selected = true;
+    this.router.navigate(['projects', this.project.id, 'reports', reportid]);
 
-  select(index: number) {
-    this.selected = this.project.reports[index];
-    this.selectedindex = index;
   }
 
   addReport() {
@@ -48,38 +36,12 @@ export class ReportsComponent extends CategoryComponent {
       content: '',
       date: DateTime.now().toLocaleString(DateTime.DATE_SHORT)
     };
-    this.project.reports.push(note)
-    this.selected = _.last(this.project.reports)
-    this.selectedindex = this.project.reports.length - 1
-    this.save();
+    this.project.reports.push(note);
+    this.save().then(() => {
+      this.goToReport(note.id)
+    });
   }
 
-  deleteReport(index: number) {
-    this.selected = null;
-    this.selectedindex = -1;
-    let reports = this.project.reports.splice(index, 1);
-
-    this.selected = _.last(this.project.reports)
-    this.selectedindex = this.project.reports.length - 1
-    this.save();
-
-    this.index.removeObject(reports[0].id);
-  }
-
-  updateReport($event: Partial<Report>) {
-    for (let key in $event) {
-      this.select[key] = $event[key];
-    }
-    this.save();
-  }
-
-  isSelected(pid: string) {
-    return this.selected?.id === pid;
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
-  }
 
   fullscreen(div: HTMLDivElement) {
     div.classList.toggle("w-[calc(100%-15rem)]")

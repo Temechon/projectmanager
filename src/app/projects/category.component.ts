@@ -29,9 +29,10 @@ export class CategoryComponent implements OnInit {
         })
     }
 
-    save() {
-        this.db.saveProject(this.project.toObject());
-        this.index.updateProject(this.project);
+    save(): Promise<any> {
+        return this.db.saveProject(this.project.toObject()).then(() => {
+            this.index.updateProject(this.project);
+        })
     }
 
     ngOnDestroy() {

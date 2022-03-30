@@ -8,9 +8,9 @@
 
         <div class="w-60 flex flex-col relative h-full">
 
-            <div [ngClass]="{'active':isSelected(p.id)}"
-                class="w-full truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
-                (click)="select(index)" *ngFor="let p of project.reports; let index=index">
+            <div class="w-full truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
+                [routerLink]="p.id" (click)="goToReport(p.id)" routerLinkActive="text-primary bg-primary-50"
+                *ngFor="let p of project.reports; let index=index">
                 <div class="truncate">{{p.title}}</div>
             </div>
 
@@ -21,9 +21,7 @@
 
 
         <div #reportroot class="w-[calc(100%-15rem)] pl-8" *ngIf="selected">
-            <report-view [note]="project.reports[selectedindex]" (onDelete)="deleteReport(selectedindex)"
-                (onUpdate)="updateReport($event)" (onFullscreen)="fullscreen(reportroot)">
-            </report-view>
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

@@ -52,12 +52,12 @@ export class ProjectComponent implements OnInit {
       }
       // If more than one pin, check on report parameters
       if (pins.length > 1) {
-        let pin = pins.find(d => d.params?.id == (this.categoryComponent as ReportsComponent).selected?.id);
-        if (pin) {
-          this.pinned = true;
-        } else {
-          this.pinned = false;
-        }
+        // let pin = pins.find(d => d.params?.id == (this.categoryComponent as ReportsComponent).selected?.id);
+        // if (pin) {
+        //   this.pinned = true;
+        // } else {
+        //   this.pinned = false;
+        // }
       }
 
     })
@@ -80,11 +80,11 @@ export class ProjectComponent implements OnInit {
     switch (pin.category) {
       case "reports":
         // Get selected report
-        let report = (this.categoryComponent as ReportsComponent).selected;
-        pin.title = report.title;
+        // let report = (this.categoryComponent as ReportsComponent).selected;
+        // pin.title = report.title;
 
-        // Save report id in pin params
-        pin.params = { id: report.id };
+        // // Save report id in pin params
+        // pin.params = { id: report.id };
 
         break;
       case "general":

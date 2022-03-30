@@ -1,13 +1,18 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Editor } from '@tiptap/core';
 import Highlight from '@tiptap/extension-highlight';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
 import StarterKit from '@tiptap/starter-kit';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { Report } from 'src/app/model/project.model';
+import { Project, Report } from 'src/app/model/project.model';
+import { DatabaseService } from 'src/app/services/database.service';
+import { PinService } from 'src/app/services/pin.service';
+import { SearchService } from 'src/app/services/search.service';
+import _ from 'underscore';
 import { StyleButtonComponent } from './style-button/style-button.component';
 
 
@@ -17,21 +22,12 @@ import { StyleButtonComponent } from './style-button/style-button.component';
   templateUrl: './report-view.component.html',
   styleUrls: ['./report-view.component.scss']
 })
-export class ReportViewComponent implements OnInit, OnChanges {
+export class ReportViewComponent implements OnInit {
 
   public editor: Editor;
 
-  @Input()
   note: Report;
-
-  @Output()
-  onDelete: EventEmitter<void> = new EventEmitter<void>();
-
-  @Output()
-  onFullscreen: EventEmitter<void> = new EventEmitter<void>();
-
-  @Output()
-  onUpdate: EventEmitter<Partial<Report>> = new EventEmitter<Partial<Report>>();
+  project: Project;
 
   @ViewChild('style')
   style: StyleButtonComponent;
@@ -39,14 +35,32 @@ export class ReportViewComponent implements OnInit, OnChanges {
   @ViewChild('title', { static: true })
   title: ElementRef;
 
-  constructor() { }
+  constructor(
+    protected db: DatabaseService,
+    protected index: SearchService,
+    protected router: Router,
+    protected route: ActivatedRoute,
+    protected pinner: PinService
+  ) {
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.note = changes.note.currentValue;
-    this.editor?.commands.setContent(this.note.content)
+  }
+
+  routesub: Subscription;
+
+  ngOnDestroy() {
+    this.routesub?.unsubscribe();
   }
 
   ngOnInit(): void {
+
+    this.routesub = this.route.data.subscribe(data => {
+
+      let prr = this.route.parent.parent.snapshot.data;
+      this.project = prr.project;
+
+      this.note = data.report
+      this.editor?.commands.setContent(this.note.content)
+    })
 
     this.editor = new Editor({
       element: document.querySelector('.element') as Element,
@@ -75,9 +89,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
       debounceTime(delay)
     ).subscribe((a: any) => {
       this.note.content = this.editor.getHTML();
-      this.onUpdate.emit({
-        content: this.note.content
-      })
+      this.save();
     });
 
     fromEvent(this.title.nativeElement, 'keyup').pipe(
@@ -85,10 +97,7 @@ export class ReportViewComponent implements OnInit, OnChanges {
     ).subscribe(() => {
       this.note.title = this.title.nativeElement.textContent;
       this.placeCaretAtEnd(this.title.nativeElement)
-      this.onUpdate.emit({
-        title: this.note.title
-      })
-      // this.noteService.save(this.note);
+      this.save();
     })
 
     // Update the style button according to the selected line
@@ -110,30 +119,24 @@ export class ReportViewComponent implements OnInit, OnChanges {
     this.editor.chain().focus().toggleHeading({ level: headinglevel as any }).run()
   }
 
-  // addTag($event: any) {
-  //   const tag = $event.target.value;
-  //   if (_.contains(this.note.tags, tag)) {
-  //     return;
-  //   }
-
-  //   this.note.tags.push($event.target.value);
-  //   $event.target.value = "";
-  //   // this.noteService.save(this.note);
-  // }
-  // removeTag(tag: string) {
-  //   this.note.tags = _.without(this.note.tags, tag)
-  //   // this.noteService.save(this.note);
-  // }
-
+  /**
+   * Delete a report from the project
+   */
   deleteNote() {
     let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce compte-rendu ?");
     if (res) {
-      this.onDelete.emit();
-    }
-  }
+      let reportIndex = this.project.reports.findIndex(r => r.id === this.note.id);
+      let reports = this.project.reports.splice(reportIndex, 1);
 
-  fullscreen() {
-    this.onFullscreen.emit();
+      this.index.removeObject(reports[0].id);
+      this.db.saveProject(this.project.toObject());
+      this.index.updateProject(this.project);
+
+      this.pinner.unpinReport(reports[0].id);
+
+      this.router.navigate(['projects', this.project.id, 'reports']);
+
+    }
   }
 
   /**
@@ -150,6 +153,17 @@ export class ReportViewComponent implements OnInit, OnChanges {
       sel?.removeAllRanges();
       sel?.addRange(range);
     }
+  }
+
+  save() {
+
+    // Find the same report by its id
+    let report = _.find(this.project.reports, r => r.id === this.note.id) as Report;
+    report.title = this.note.title;
+    report.content = this.note.content;
+
+    this.db.saveProject(this.project.toObject());
+    this.index.updateProject(this.project);
   }
 
 }

@@ -7,12 +7,14 @@ import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
 import { NotesComponent } from './projects/categories/notes/notes.component';
+import { ReportViewComponent } from './projects/categories/reports/report-view/report-view.component';
 import { ReportsComponent } from './projects/categories/reports/reports.component';
 import { TestCasesListComponent } from './projects/categories/test-cases-list/test-cases-list.component';
 import { TestCasesComponent } from './projects/categories/test-cases-list/test-cases/test-cases.component';
 import { ProjectComponent } from './projects/project/project.component';
 import { ProjectsComponent } from './projects/projects/projects.component';
 import { ProjectResolver } from './resolver/projects.resolver';
+import { ReportResolver } from './resolver/report.resolver';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TodoComponent } from './todo/todo.component';
 
@@ -73,6 +75,15 @@ const routes: Routes = [
           {
             path: 'reports',
             component: ReportsComponent,
+            children: [
+              {
+                path: ':id',
+                resolve: {
+                  report: ReportResolver,
+                },
+                component: ReportViewComponent,
+              }
+            ]
           },
           {
             path: 'notes',

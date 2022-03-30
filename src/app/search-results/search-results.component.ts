@@ -61,7 +61,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   goToReport(pid: string, reportid: string) {
-    this.router.navigate(['/projects', pid, 'reports'], { queryParams: { id: reportid } })
+    this.router.navigate(['/projects', pid, 'reports', reportid]);
   }
 
   goToNote(pid: string, noteid: string) {
