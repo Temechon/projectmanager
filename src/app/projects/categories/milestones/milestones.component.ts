@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getDateFromString, guid } from 'src/app/model/project.model';
+import { getDateFromString, guid, Pin } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
 
@@ -35,6 +35,17 @@ export class MilestonesComponent extends CategoryComponent {
       return date1.diff(date2).toObject().milliseconds;
     });
     this.save();
+  }
+
+  _pin(): Pin {
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: 'Jalons',
+      projectinternalid: this.project.internalid,
+      category: 'milestones',
+      params: null
+    })
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { guid } from 'src/app/model/project.model';
+import { guid, Pin } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 
 @Component({
@@ -35,6 +35,10 @@ export class TestCasesListComponent extends CategoryComponent {
     }
 
     // Otherwise, display the list of test cases.
+  }
+
+  _pin(): Pin {
+    throw new Error('Method not implemented.');
   }
 
 }

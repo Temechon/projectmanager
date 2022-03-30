@@ -36,7 +36,7 @@ export const pinSchema: RxJsonSchema<IPin> = {
             type: 'string'
         },
         params: {
-            type: 'string'
+            type: ["string", "null"]
         },
 
     }

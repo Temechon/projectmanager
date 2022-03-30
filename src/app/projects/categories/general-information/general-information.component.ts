@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import randomColor from 'randomcolor';
-import { Project } from 'src/app/model/project.model';
+import { guid, Pin, Project } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 
@@ -64,5 +64,17 @@ export class GeneralInformationComponent extends CategoryComponent {
     } else {
       window.open(link, "_blank");
     }
+  }
+
+  _pin(): Pin {
+
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: 'Infos générales',
+      projectinternalid: this.project.internalid,
+      category: 'general',
+      params: null
+    })
   }
 }

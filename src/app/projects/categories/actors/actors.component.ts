@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { guid, Pin } from 'src/app/model/project.model';
 import _ from 'underscore';
 import { CategoryComponent } from '../../category.component';
 
@@ -101,6 +102,17 @@ export class ActorsComponent extends CategoryComponent {
   setTypeToActor(t, $event) {
     console.log(t, $event);
 
+  }
+
+  _pin(): Pin {
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: 'Acteurs',
+      projectinternalid: this.project.internalid,
+      category: 'actors',
+      params: null
+    })
   }
 
 }

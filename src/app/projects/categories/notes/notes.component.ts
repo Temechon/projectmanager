@@ -1,7 +1,7 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
-import { guid, Note } from 'src/app/model/project.model';
+import { guid, Note, Pin } from 'src/app/model/project.model';
 import { Subscription } from 'rxjs';
 import _ from 'underscore';
 import { EditableAreaComponent } from 'src/app/gui/editable-area/editable-area.component';
@@ -84,5 +84,17 @@ export class NotesComponent extends CategoryComponent {
   ngOnDestroy() {
     this.keymap();
     this.sub.unsubscribe();
+  }
+
+  _pin(): Pin {
+
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: 'Notes',
+      projectinternalid: this.project.internalid,
+      category: 'notes',
+      params: null
+    })
   }
 }

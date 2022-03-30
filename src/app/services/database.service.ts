@@ -76,9 +76,12 @@ export class DatabaseService {
   getPins$(): Observable<Pin[]> {
     return projectsCollection.pins.find().$.pipe(map(datarr => datarr.map(data => new Pin(data))));
   }
+  getPins(): Promise<Pin[]> {
+    return projectsCollection.pins.find().exec().then(datarr => datarr.map(data => new Pin(data)));
+  }
 
   savePin(pin: Pin) {
-    return projectsCollection.pins.atomicUpsert(pin.toObject());
+    return projectsCollection.pins.atomicUpsert(pin);
   }
 
   deletePin(p: Pin): Promise<any> {

@@ -2,13 +2,14 @@ import { Directive, OnInit, Renderer2 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import _ from "underscore";
-import { Project } from "../model/project.model";
+import { Pin, Project } from "../model/project.model";
 import { DatabaseService } from "../services/database.service";
 import { IpcService } from "../services/ipc.service";
+import { PinService } from "../services/pin.service";
 import { SearchService } from "../services/search.service";
 
 @Directive()
-export class CategoryComponent implements OnInit {
+export abstract class CategoryComponent implements OnInit {
 
     constructor(
         protected route: ActivatedRoute,
@@ -16,7 +17,8 @@ export class CategoryComponent implements OnInit {
         protected router: Router,
         protected index: SearchService,
         protected renderer: Renderer2,
-        protected ipcService: IpcService
+        protected ipcService: IpcService,
+        protected pinner: PinService
     ) { }
 
     project: Project
@@ -38,4 +40,11 @@ export class CategoryComponent implements OnInit {
     ngOnDestroy() {
         this.routesub?.unsubscribe();
     }
+
+    pinElement() {
+        let pin = this._pin();
+        this.pinner.pin(pin);
+    }
+
+    protected abstract _pin(): Pin;
 }

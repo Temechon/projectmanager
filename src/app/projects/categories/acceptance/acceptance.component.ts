@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AcceptanceComponent, guid } from 'src/app/model/project.model';
+import { AcceptanceComponent, guid, Pin } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 import _ from 'underscore';
 import { Subscription } from 'rxjs';
@@ -127,6 +127,10 @@ export class AcceptanceTestsComponent extends CategoryComponent {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  _pin(): Pin {
+    throw new Error('Method not implemented.');
   }
 
 }

@@ -181,7 +181,11 @@ export class ProjectsComponent implements OnInit {
   }
 
   goToPin(pin: any) {
-    this.router.navigate(['projects', pin.projectid, pin.category], { queryParams: pin.params });
+    if (pin.params) {
+      this.router.navigate(['projects', pin.projectid, pin.category, pin.params]);
+    } else {
+      this.router.navigate(['projects', pin.projectid, pin.category]);
+    }
   }
 
 }

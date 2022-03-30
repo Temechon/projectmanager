@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Pin } from 'src/app/model/project.model';
 import { CategoryComponent } from 'src/app/projects/category.component';
 
 @Component({
@@ -27,6 +28,11 @@ export class TestCasesComponent extends CategoryComponent {
    */
   add() {
 
+  }
+
+
+  _pin(): Pin {
+    throw new Error('Method not implemented.');
   }
 
 }

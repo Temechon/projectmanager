@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { DateTime } from "luxon";
-import { Subscription } from 'rxjs';
-import { guid, Report } from 'src/app/model/project.model';
-import _ from 'underscore';
+import { guid, Pin } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 
 
@@ -14,14 +12,21 @@ import { CategoryComponent } from '../../category.component';
 export class ReportsComponent extends CategoryComponent {
 
   selected: boolean;
-  selectedindex: number;
 
   ngOnInit() {
     super.ngOnInit();
-    let url = this.route.snapshot.routeConfig.children?.length
-    if (url > 0) {
+    let url = this.router.url.split('/').pop().trim();
+    if (url !== "reports") {
       this.selected = true;
+    } else {
+      // forward to the last report if any
+      this.selected = false;
+      if (this.project.reports.length > 0) {
+        this.goToReport(this.project.reports[this.project.reports.length - 1].id);
+      }
+
     }
+
   }
   goToReport(reportid: string) {
     this.selected = true;
@@ -42,15 +47,17 @@ export class ReportsComponent extends CategoryComponent {
     });
   }
 
-
-  fullscreen(div: HTMLDivElement) {
-    div.classList.toggle("w-[calc(100%-15rem)]")
-    div.classList.toggle("pl-8")
-    div.classList.toggle("absolute")
-    div.classList.toggle("left-5");
-    div.classList.toggle("right-5");
-    div.classList.toggle("top-5");
-    div.classList.toggle("bottom-5");
+  _pin(): Pin {
+    // Get the current report
+    let report = this.project.reports.find(report => report.id === this.router.url.split('/').pop().trim());
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: report.title,
+      projectinternalid: this.project.internalid,
+      category: 'reports',
+      params: report.id
+    })
   }
 }
 
