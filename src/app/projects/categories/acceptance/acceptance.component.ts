@@ -34,6 +34,11 @@ export class AcceptanceTestsComponent extends CategoryComponent {
   sub: Subscription;
   selectedindex: number;
 
+
+  get category(): string {
+    return 'acceptance';
+  }
+
   ngOnInit() {
     super.ngOnInit();
 
@@ -129,7 +134,7 @@ export class AcceptanceTestsComponent extends CategoryComponent {
     this.sub.unsubscribe();
   }
 
-  _pin(): Pin {
+  createPin(): Pin {
     throw new Error('Method not implemented.');
   }
 

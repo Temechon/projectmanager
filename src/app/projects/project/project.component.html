@@ -31,12 +31,12 @@
         <!-- Toolbar -->
         <div class="mt-8 mr-4">
 
-            <div *ngIf="pinned" (click)="pin()"
+            <div *ngIf="isPinned() |async" (click)="unpin()"
                 class="border-primary-200 border border-transparent px-2 py-1 rounded-full text-primary transition-all cursor-pointer">
                 <i class="fas fa-thumbtack -rotate-12 mr-2"></i> <span class="">Désépingler</span>
             </div>
 
-            <div *ngIf="!pinned" (click)="pin()"
+            <div *ngIf="!(isPinned() |async)" (click)="pin()"
                 class="hover:border-primary-200 border border-transparent px-2 py-1 rounded-full hover:text-primary transition-all cursor-pointer">
                 <i class="fas fa-thumbtack -rotate-12 mr-2"></i> <span class="">Epingler</span>
             </div>

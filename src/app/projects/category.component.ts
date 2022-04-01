@@ -19,15 +19,27 @@ export abstract class CategoryComponent implements OnInit {
         protected renderer: Renderer2,
         protected ipcService: IpcService,
         protected pinner: PinService
-    ) { }
+    ) {
+    }
 
     project: Project
     routesub: Subscription;
+
+    abstract get category(): string;
 
     ngOnInit(): void {
 
         this.routesub = this.route.parent.data.subscribe(data => {
             this.project = data.project
+            // Category changed
+            console.log("category changed");
+
+            let projectid = this.project.id;
+            let childrenid = this.route.snapshot.firstChild?.data.report.id;
+            let category = this.category;
+
+            this.pinner.setPinned(projectid, category, childrenid);
+
         })
     }
 
@@ -42,9 +54,14 @@ export abstract class CategoryComponent implements OnInit {
     }
 
     pinElement() {
-        let pin = this._pin();
+        let pin = this.createPin();
         this.pinner.pin(pin);
     }
 
-    protected abstract _pin(): Pin;
+    unpinElement() {
+        let pin = this.createPin();
+        this.pinner.unpin(pin);
+    }
+
+    public abstract createPin(): Pin;
 }

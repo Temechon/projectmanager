@@ -84,10 +84,10 @@ export class DatabaseService {
     return projectsCollection.pins.atomicUpsert(pin);
   }
 
-  deletePin(p: Pin): Promise<any> {
+  deletePin(pid: string): Promise<any> {
     return projectsCollection.pins.findOne({
       selector: {
-        id: p.id
+        id: pid
       }
     }).remove()
   }

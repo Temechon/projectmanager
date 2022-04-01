@@ -28,6 +28,10 @@ export class GeneralInformationComponent extends CategoryComponent {
   ]
 
 
+  get category(): string {
+    return 'general';
+  }
+
   delete() {
     let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
     if (res) {
@@ -66,14 +70,14 @@ export class GeneralInformationComponent extends CategoryComponent {
     }
   }
 
-  _pin(): Pin {
+  createPin(): Pin {
 
     return new Pin({
       id: guid(),
       projectid: this.project.id,
       title: 'Infos générales',
       projectinternalid: this.project.internalid,
-      category: 'general',
+      category: this.category,
       params: null
     })
   }

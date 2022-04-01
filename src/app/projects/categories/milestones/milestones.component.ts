@@ -25,6 +25,10 @@ export class MilestonesComponent extends CategoryComponent {
     this.save();
   }
 
+  get category(): string {
+    return 'milestones';
+  }
+
   orderAndSave() {
     this.project.milestones.sort((a, b) => {
       // convert a and b in datetime and sort them
@@ -37,13 +41,13 @@ export class MilestonesComponent extends CategoryComponent {
     this.save();
   }
 
-  _pin(): Pin {
+  createPin(): Pin {
     return new Pin({
       id: guid(),
       projectid: this.project.id,
       title: 'Jalons',
       projectinternalid: this.project.internalid,
-      category: 'milestones',
+      category: this.category,
       params: null
     })
   }

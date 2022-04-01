@@ -12,8 +12,10 @@ export class TestCasesComponent extends CategoryComponent {
 
   ngOnInit(): void {
     super.ngOnInit();
+  }
 
-
+  get category(): string {
+    return 'test-cases';
   }
 
   /**
@@ -31,7 +33,7 @@ export class TestCasesComponent extends CategoryComponent {
   }
 
 
-  _pin(): Pin {
+  createPin(): Pin {
     throw new Error('Method not implemented.');
   }
 

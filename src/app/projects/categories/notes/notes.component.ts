@@ -40,6 +40,12 @@ export class NotesComponent extends CategoryComponent {
     })
 
   }
+
+
+  get category(): string {
+    return 'notes';
+  }
+
   ngAfterViewInit() {
     // console.log(this.editableAreas);
     if (this.selectedIndex !== null) {
@@ -86,14 +92,14 @@ export class NotesComponent extends CategoryComponent {
     this.sub.unsubscribe();
   }
 
-  _pin(): Pin {
+  createPin(): Pin {
 
     return new Pin({
       id: guid(),
       projectid: this.project.id,
       title: 'Notes',
       projectinternalid: this.project.internalid,
-      category: 'notes',
+      category: this.category,
       params: null
     })
   }

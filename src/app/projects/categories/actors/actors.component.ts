@@ -28,6 +28,10 @@ export class ActorsComponent extends CategoryComponent {
     }
   ];
 
+  get category(): string {
+    return 'actors';
+  }
+
   add() {
     this.project.actors.push({
       name: "",
@@ -104,13 +108,13 @@ export class ActorsComponent extends CategoryComponent {
 
   }
 
-  _pin(): Pin {
+  createPin(): Pin {
     return new Pin({
       id: guid(),
       projectid: this.project.id,
       title: 'Acteurs',
       projectinternalid: this.project.internalid,
-      category: 'actors',
+      category: this.category,
       params: null
     })
   }
