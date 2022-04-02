@@ -42,6 +42,12 @@ export type Milestone = {
     date: string
 }
 
+export type TestCasesList = {
+    id: string,
+    name: string,
+    testCases: TestCase[]
+}
+
 export type TestCase = {
     id: string,
     name: string,
@@ -49,7 +55,8 @@ export type TestCase = {
     test_date: string,
     expected_result: string,
     status: string,
-    comments: string;
+    comments: string,
+    index: number
 }
 
 export abstract class IProject {
@@ -96,7 +103,7 @@ export abstract class IProject {
     status: string;
 
     /** Test cases */
-    testCasesList: Array<{ id: string, version: string, testCases: Array<TestCase> }>;
+    testCasesList: Array<TestCasesList>;
 
     /** The list of all milestone for this project */
     milestones: Array<Milestone>;

@@ -1,8 +1,10 @@
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Pin } from 'src/app/model/pin.model';
-import { guid, Project, TestCase } from 'src/app/model/project.model';
+import { guid, Project, TestCase, TestCasesList } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
+import _ from 'underscore';
 
 @Component({
   selector: 'app-test-cases',
@@ -12,7 +14,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class TestCasesComponent implements OnInit {
 
   testCases: Array<TestCase> = [];
-  testsListId: string;
+  testsList: TestCasesList;
   project: Project;
 
   status = [
@@ -39,10 +41,13 @@ export class TestCasesComponent implements OnInit {
     this.project = this.route.parent.parent.snapshot.data.project as Project;
 
     // Get test list id from url
-    this.testsListId = this.route.snapshot.paramMap.get('id');
+    let testsListId = this.route.snapshot.paramMap.get('id');
 
     // Get test case from project
-    this.testCases = this.project.testCasesList.find(tc => tc.id === this.testsListId).testCases;
+    this.testsList = this.project.testCasesList.find(tc => tc.id === testsListId)
+
+    this.testCases = this.testsList.testCases;
+    this.testCases = _.sortBy(this.testCases, 'index');
 
   }
 
@@ -59,6 +64,7 @@ export class TestCasesComponent implements OnInit {
 
 
   save() {
+    this.project.testCasesList.find(tc => tc.id === this.testsList.id).testCases = this.testCases;
     this.db.saveProject(this.project.toObject())
   }
 
@@ -77,12 +83,29 @@ export class TestCasesComponent implements OnInit {
       test_date: lastTestCase?.test_date || "",
       expected_result: lastTestCase?.expected_result || "",
       status: "",
-      comments: ""
+      comments: "",
+      index: lastTestCase?.index + 1 || 0
     });
+    this.save();
+  }
+
+  delete(index: number) {
+    this.testCases.splice(index, 1);
+    this.save();
   }
 
   toggleOkTests() {
 
+  }
+
+  drop(event: CdkDragDrop<string>) {
+    moveItemInArray(this.testCases, event.previousIndex, event.currentIndex);
+
+    this.testCases.forEach((tc: TestCase, index: number) => {
+      tc.index = index;
+    });
+
+    this.save();
   }
 
   createPin(): Pin {

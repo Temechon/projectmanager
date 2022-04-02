@@ -46,8 +46,34 @@ export class ProjectsComponent implements OnInit {
       this.pins = d;
     })
 
-    this.db.getProjects$().subscribe(data => {
+    // Get all projects once
+    this.db.getProjects().then(data => {
 
+      this.projects = data;
+      let runningProjects = data.filter(d => d.status == Project.STATUS.running);
+
+      let url = this.router.url;
+      if (url === "/projects") {
+
+        // If no projects, create one
+        if (data.length === 0) {
+          this.addProject()
+          console.log("new project");
+
+        } else if (runningProjects.length > 0) {
+          // order running project by internal id and use the first one
+          let firstId = _.sortBy(runningProjects, 'internalid')[0].id;
+          this.router.navigate(['projects', firstId])
+        } else {
+          // Display the first project
+          this.router.navigate(['projects', this.projects[0].id])
+        }
+      }
+
+    });
+
+
+    this.db.getProjects$().subscribe(data => {
       this.projects = data;
       this.runningProjects = data.filter(d => d.status == Project.STATUS.running);
       this.waitingProjects = data.filter(d => d.status == Project.STATUS.waiting);
@@ -62,37 +88,6 @@ export class ProjectsComponent implements OnInit {
         let internalid2 = Number.parseInt(b.internalid);
         return internalid - internalid2;
       });
-
-      let keys = ['&', 'é', '"', "'", '(', '-', 'è', '_', 'ç']
-      let index = 0;
-      // remove any listeners
-      this.unlisten.forEach(item => item());
-      this.unlisten = [];
-
-      // Add a listener for each project
-      for (let project of this.projects) {
-        let key = keys[index];
-
-        let listener = this.renderer.listen('document', 'keydown.control.' + key, (event: KeyboardEvent) => {
-          this.router.navigate(['projects', project.id])
-          event.stopPropagation();
-          event.preventDefault();
-        });
-        this.unlisten.push(listener);
-        index++;
-      }
-
-      let url = this.router.url;
-      if (url === "/projects") {
-        if (this.runningProjects.length > 0) {
-          // order running project by internal id and use the first one
-          let firstId = _.sortBy(this.runningProjects, 'internalid')[0].id;
-          this.router.navigate(['projects', firstId])
-        } else {
-          // Display the first project
-          this.router.navigate(['projects', this.projects[0].id])
-        }
-      }
     })
 
   }

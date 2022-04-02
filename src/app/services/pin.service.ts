@@ -67,8 +67,6 @@ export class PinService {
      */
     setPinned(projectid: string, category: string, childrenid?: string) {
 
-        console.log("set pinned");
-
         this.db.getPins().then(allPins => {
 
             let pinInThisCategory = allPins.filter(p => p.projectid === projectid && p.category === category);

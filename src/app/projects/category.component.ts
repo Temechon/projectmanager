@@ -32,9 +32,10 @@ export abstract class CategoryComponent implements OnInit {
 
         this.routesub = this.route.parent.data.subscribe(data => {
             this.project = data.project
-            // Category changed
-            console.log("category changed");
-
+            if (!this.project) {
+                // Retrieve the project object from the parent parent route
+                this.project = this.route.parent.parent.snapshot.data.project as Project;
+            }
             let projectid = this.project.id;
             let childrenid = this.route.snapshot.firstChild?.data.report.id;
             let category = this.category;

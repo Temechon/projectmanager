@@ -245,7 +245,7 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                     id: {
                         type: 'string'
                     },
-                    version: {
+                    name: {
                         type: 'string'
                     },
                     testCases: {
@@ -273,6 +273,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                                 },
                                 comments: {
                                     type: 'string'
+                                },
+                                index: {
+                                    type: 'number'
                                 }
                             }
                         }

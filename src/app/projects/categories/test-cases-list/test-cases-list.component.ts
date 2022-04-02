@@ -23,7 +23,7 @@ export class TestCasesListComponent extends CategoryComponent {
     if (this.project.testCasesList.length === 0) {
       this.project.testCasesList = [{
         id: guid(),
-        version: '1',
+        name: '',
         testCases: []
       }];
       this.save();
