@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { addPouchPlugin, createRxDatabase, getRxStoragePouch } from 'rxdb';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { IProject, Pin, Project } from '../model/project.model';
+import { Pin } from '../model/pin.model';
+import { IProject, Project } from '../model/project.model';
 import { ITask, Task } from '../model/task.model';
 import { pinSchema, PMCollections, PMDatabase, projectsSchema, taskSchema } from './dbmodel';
 import { IpcService } from './ipc.service';

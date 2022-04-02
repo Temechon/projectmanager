@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { AcceptanceComponent, guid, Pin } from 'src/app/model/project.model';
-import { CategoryComponent } from '../../category.component';
-import _ from 'underscore';
+import { Component } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Pin } from 'src/app/model/pin.model';
+import { guid } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
+import _ from 'underscore';
+import { CategoryComponent } from '../../category.component';
 
 @Component({
   selector: 'app-acceptance',

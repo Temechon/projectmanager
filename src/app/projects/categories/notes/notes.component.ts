@@ -1,10 +1,11 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { CategoryComponent } from '../../category.component';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { DateTime } from "luxon";
-import { guid, Note, Pin } from 'src/app/model/project.model';
 import { Subscription } from 'rxjs';
-import _ from 'underscore';
 import { EditableAreaComponent } from 'src/app/gui/editable-area/editable-area.component';
+import { Pin } from 'src/app/model/pin.model';
+import { guid, Note } from 'src/app/model/project.model';
+import _ from 'underscore';
+import { CategoryComponent } from '../../category.component';
 
 @Component({
   selector: 'app-notes',

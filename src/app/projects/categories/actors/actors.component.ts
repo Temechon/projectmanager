@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { guid, Pin } from 'src/app/model/project.model';
+import { Pin } from 'src/app/model/pin.model';
+import { guid } from 'src/app/model/project.model';
 import _ from 'underscore';
 import { CategoryComponent } from '../../category.component';
 

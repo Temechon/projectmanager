@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import randomColor from 'randomcolor';
-import { guid, Pin, Project } from 'src/app/model/project.model';
+import { Pin } from 'src/app/model/pin.model';
+import { guid, Project } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
 

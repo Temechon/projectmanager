@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { getDateFromString, guid, Pin } from 'src/app/model/project.model';
+import { Component } from '@angular/core';
+import { Pin } from 'src/app/model/pin.model';
+import { getDateFromString, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
-import { DateTime } from "luxon";
 
 @Component({
   selector: 'app-milestones',

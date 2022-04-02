@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { guid, Pin } from 'src/app/model/project.model';
+import { Pin } from 'src/app/model/pin.model';
+import { guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 
 @Component({
@@ -35,6 +36,7 @@ export class TestCasesListComponent extends CategoryComponent {
     }
 
     // Otherwise, display the list of test cases.
+    // TODO
   }
 
 

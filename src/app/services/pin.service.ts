@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from } from 'rxjs';
-import { Pin } from '../model/project.model';
+import { BehaviorSubject } from 'rxjs';
+import { Pin } from '../model/pin.model';
 import { DatabaseService } from './database.service';
 
 

@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Pin, Project } from 'src/app/model/project.model';
+import { Pin } from 'src/app/model/pin.model';
+import { Project } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { SearchService } from 'src/app/services/search.service';
 import _ from 'underscore';

@@ -6,9 +6,8 @@
             [ngStyle]="{'background-color':  options[selected].data.color }" *ngIf="options[selected]">
             {{options[selected].label}}
         </div>
-        <div class="truncate text-white px-3 bg-yellow-200 rounded-full text-sm hover:bg-yellow -300"
-            *ngIf="!options[selected]">
-            Aucun projet
+        <div class="truncate text-white px-3 bg-yellow-300 rounded-full text-sm" *ngIf="!options[selected]">
+            Aucune valeur
         </div>
     </button>
 

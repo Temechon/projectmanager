@@ -1,5 +1,6 @@
 import { RxCollection, RxDatabase, RxJsonSchema } from "rxdb";
-import { IPin, IProject } from "../model/project.model";
+import { IPin } from "../model/pin.model";
+import { IProject } from "../model/project.model";
 import { ITask } from "../model/task.model";
 
 export type PMCollections = {
