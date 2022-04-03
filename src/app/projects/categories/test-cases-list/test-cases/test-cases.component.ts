@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Pin } from 'src/app/model/pin.model';
 import { guid, Project, TestCase, TestCasesList } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
+import { ExcelService } from 'src/app/services/excel.service';
 import _ from 'underscore';
 
 @Component({
@@ -30,7 +31,8 @@ export class TestCasesComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private db: DatabaseService
+    private db: DatabaseService,
+    private excel: ExcelService
   ) {
 
   }
@@ -59,7 +61,21 @@ export class TestCasesComponent implements OnInit {
    * Export all incident to excel
    */
   export() {
+    let rows = this.testCases.map(tc => {
+      return {
+        "Categorie": tc.category,
+        "Nom": tc.name,
+        "Date": tc.test_date,
+        "Résultat attendu": tc.expected_result,
+        "Statut": tc.status,
+        "Commentaires": tc.comments
+      }
+    });
+    this.excel.export(this.project.internalid, this.testsList.name, rows);
+  }
 
+  goToTestLists() {
+    throw new Error('Method not implemented.');
   }
 
 
