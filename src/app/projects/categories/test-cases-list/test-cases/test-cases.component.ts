@@ -1,8 +1,9 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Pin } from 'src/app/model/pin.model';
 import { guid, Project, TestCase, TestCasesList } from 'src/app/model/project.model';
+import { CategoryComponent } from 'src/app/projects/category.component';
 import { DatabaseService } from 'src/app/services/database.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import _ from 'underscore';
@@ -12,7 +13,7 @@ import _ from 'underscore';
   templateUrl: './test-cases.component.html',
   styleUrls: ['./test-cases.component.scss']
 })
-export class TestCasesComponent implements OnInit {
+export class TestCasesComponent extends CategoryComponent {
 
   testCases: Array<TestCase> = [];
   testsList: TestCasesList;
@@ -29,15 +30,10 @@ export class TestCasesComponent implements OnInit {
     }
   ];
 
-  constructor(
-    private route: ActivatedRoute,
-    private db: DatabaseService,
-    private excel: ExcelService
-  ) {
-
-  }
 
   ngOnInit(): void {
+
+    super.ngOnInit();
 
     // Get project from parent route snapshot
     this.project = this.route.parent.parent.snapshot.data.project as Project;
@@ -54,7 +50,7 @@ export class TestCasesComponent implements OnInit {
   }
 
   get category(): string {
-    return 'test-cases';
+    return 'testCases';
   }
 
   /**
@@ -75,13 +71,13 @@ export class TestCasesComponent implements OnInit {
   }
 
   goToTestLists() {
-    throw new Error('Method not implemented.');
+    this.router.navigate(['/projects', this.project.id, 'testCases']);
   }
 
 
-  save() {
+  save(): Promise<any> {
     this.project.testCasesList.find(tc => tc.id === this.testsList.id).testCases = this.testCases;
-    this.db.saveProject(this.project.toObject())
+    return this.db.saveProject(this.project.toObject())
   }
 
   /**
@@ -125,7 +121,14 @@ export class TestCasesComponent implements OnInit {
   }
 
   createPin(): Pin {
-    throw new Error('Method not implemented.');
+    return new Pin({
+      id: guid(),
+      projectid: this.project.id,
+      title: `Tests ${this.testsList.name}`,
+      projectinternalid: this.project.internalid,
+      category: this.category,
+      params: this.testsList.id,
+    })
   }
 
 }

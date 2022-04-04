@@ -24,8 +24,6 @@ export class ReportsComponent extends CategoryComponent {
 
     this.urlSub = this.route.url.subscribe(res => {
 
-      console.log("init reports", this.route.snapshot.data);
-
       // If no report has been selected, forward to the last one
       let url = this.router.url.split('/').pop().trim();
       if (url !== "reports") {
@@ -34,7 +32,6 @@ export class ReportsComponent extends CategoryComponent {
         this.reportRouteSub?.unsubscribe();
         this.reportRouteSub = this.route.firstChild.data.subscribe(d => {
           let report = d.report;
-          console.log("report changed");
           if (report) {
             this.pinner.setPinned(this.project.id, this.category, report.id);
           }
@@ -43,7 +40,6 @@ export class ReportsComponent extends CategoryComponent {
         // forward to the last report if any
         this.selected = false;
         if (this.project.reports.length > 0) {
-          console.log("go to next report");
           this.goToReport(this.project.reports[this.project.reports.length - 1].id);
         }
       }

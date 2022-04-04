@@ -1,4 +1,4 @@
-<div class="p-12 pr-4 w-full bg-white">
+<div class="p-12 pt-0 pr-4 w-full bg-white">
     <div class="flex items-baseline mb-12">
         <h1 class="text-4xl font-bold text-darker">Jeux de tests</h1>
         <sync></sync>
@@ -6,5 +6,46 @@
 
     <div class="w-full mr-auto">
 
+        <div class="w-2/3 flex border-b-2  py-2 font-bold">
+            <div class="w-2/4">
+                Nom
+            </div>
+            <div class="w-1/4">
+                Tests
+            </div>
+            <div class="w-1/4">
+                Actions
+            </div>
+        </div>
+        <div class="w-2/3 flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
+            *ngFor="let tcl of project.testCasesList; let index=index"
+            [routerLink]="['/projects', project.id, 'testCases', tcl.id]">
+            <div class="w-2/4">
+                {{tcl.name}}
+            </div>
+            <div class="flex space-x-2 w-1/4">
+                <span *ngIf="checkOkTests(tcl) > 0" class="text-green-500">{{checkOkTests(tcl)}} <i
+                        class="fas fa-check-square"></i></span>
+                <span *ngIf="checkKoTests(tcl) > 0" class="text-red-500">{{checkKoTests(tcl)}} <i
+                        class="fas fa-times-circle"></i></span>
+                <span *ngIf="checkUnknownTests(tcl) > 0" class="text-yellow-500">{{checkUnknownTests(tcl)}} <i
+                        class="fas fa-question-circle"></i></span>
+            </div>
+            <div class="flex space-x-2 w-1/4">
+                <i class="fas fa-times-circle text-xl text-red-500 hover:text-red-700 mx-1 cursor-pointer"
+                    (click)="delete(index, $event)"></i>
+                <i class="fas fa-clone text-lg text-indigo-500 hover:text-indigo-700 mx-1 cursor-pointer"
+                    (click)="clone(tcl, $event)"></i>
+            </div>
+        </div>
+
+
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                </action-button>
+            </div>
+        </div>
     </div>
 </div>

@@ -5,6 +5,7 @@ import _ from "underscore";
 import { Pin } from "../model/pin.model";
 import { Project } from "../model/project.model";
 import { DatabaseService } from "../services/database.service";
+import { ExcelService } from "../services/excel.service";
 import { IpcService } from "../services/ipc.service";
 import { PinService } from "../services/pin.service";
 import { SearchService } from "../services/search.service";
@@ -19,7 +20,8 @@ export abstract class CategoryComponent implements OnInit {
         protected index: SearchService,
         protected renderer: Renderer2,
         protected ipcService: IpcService,
-        protected pinner: PinService
+        protected pinner: PinService,
+        protected excel: ExcelService
     ) {
     }
 
@@ -30,14 +32,27 @@ export abstract class CategoryComponent implements OnInit {
 
     ngOnInit(): void {
 
-        this.routesub = this.route.parent.data.subscribe(data => {
-            this.project = data.project
+        // Listen to the parent route and check if this category has been pinned
+        this.routesub = this.route.url.subscribe(url => {
+            let currentRoute = this.route;
+            console.log("ici", url);
+            this.project = currentRoute.parent.snapshot.data.project
+
+
+            let childrenid = "";
             if (!this.project) {
-                // Retrieve the project object from the parent parent route
-                this.project = this.route.parent.parent.snapshot.data.project as Project;
+                currentRoute = currentRoute.parent;
+                // Then it's an access to a test case. Retrieve the project from the parent parent route.
+                this.project = currentRoute.parent.snapshot.data.project
+            }
+
+
+            if (currentRoute.snapshot.firstChild) {
+                // In this case, it's a direct access to a sub element (report, test case details, etc)
+                let childrenid = currentRoute.snapshot.firstChild.paramMap.get('id');
+                console.log("CHILDREN ID", childrenid);
             }
             let projectid = this.project.id;
-            let childrenid = this.route.snapshot.firstChild?.data.report.id;
             let category = this.category;
 
             this.pinner.setPinned(projectid, category, childrenid);

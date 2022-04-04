@@ -74,6 +74,8 @@ export class PinService {
                 if (childrenid) {
                     this._isPinned.next(pinInThisCategory.filter(p => p.params === childrenid).length > 0);
                 } else {
+                    // Remove pins without params
+                    pinInThisCategory = pinInThisCategory.filter(p => p.params === null);
                     this._isPinned.next(pinInThisCategory.length > 0);
                 }
             } else {
