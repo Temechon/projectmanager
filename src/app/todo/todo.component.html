@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="flex h-[calc(100%-4rem)] overflow-y-auto space-x-4" cdkDropListGroup>
+    <div class="flex h-[calc(100%-5rem)] space-x-4" cdkDropListGroup>
         <!-- !! Todo Column -->
         <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
             cdkDropListData="todo" (cdkDropListDropped)="drop($event)" cdkDropList>
@@ -62,6 +62,35 @@
             <!-- !! Task -->
             <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
                 [cdkDragData]="t" *ngFor="let t of runningtasks">
+                <div class="flex items-center mb-4">
+                    <select-list [options]="options" [(value)]="t.projectinternalid"
+                        (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
+                    <!-- !! delete task -->
+                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                        (click)="delete(t.id)">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+
+                <editable-area custom="!outline-none !px-2 !border-none !pb-0 !ring-0" resize
+                    placeholder="Description..." [(text)]="t.content" (onFinished)="update(t)">
+                </editable-area>
+            </div>
+        </div>
+
+        <!-- !! Standby column -->
+        <div class="relative bg-gray-50 p-4 pt-2 border h-full w-96 min-w-[24rem] overflow-y-auto flex flex-col"
+            cdkDropListData="standby" (cdkDropListDropped)="drop($event)" cdkDropList>
+
+            <div class="flex items-center mb-4">
+                <div class="text-gray-400 font-semibold select-none">
+                    En attente
+                </div>
+            </div>
+
+            <!-- !! Task -->
+            <div cdkDrag class="px-2 pt-2 border bg-white select-none hover:border-primary-200 my-0.5 group"
+                [cdkDragData]="t" *ngFor="let t of standbytasks">
                 <div class="flex items-center mb-4">
                     <select-list [options]="options" [(value)]="t.projectinternalid"
                         (onSelected)="linkTaskToProjectid(t, $event)"></select-list>

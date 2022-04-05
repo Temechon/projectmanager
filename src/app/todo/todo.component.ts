@@ -12,6 +12,7 @@ export enum TASK_STATUS {
   todo = "todo",
   running = "running",
   done = "done",
+  standby = "standby",
   archived = "archived"
 }
 
@@ -26,6 +27,7 @@ export class TodoComponent implements OnInit {
   todotasks: Task[] = [];
   runningtasks: Task[] = [];
   donetasks: Task[] = [];
+  standbytasks: Task[] = [];
 
   filterLabel: string = ""
 
@@ -57,6 +59,7 @@ export class TodoComponent implements OnInit {
       this.todotasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.todo), 'index');
       this.runningtasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.running), 'index');
       this.donetasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.done), 'index');
+      this.standbytasks = _.sortBy(tasks.filter(t => t.status === TASK_STATUS.standby), 'index');
     });
   }
 
@@ -115,7 +118,7 @@ export class TodoComponent implements OnInit {
       this.todotasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.todo).sortBy('index').value();
       this.runningtasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.running).sortBy('index').value();
       this.donetasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.done).sortBy('index').value();
-
+      this.standbytasks = _.chain(this._allTasks).filter(t => t.status === TASK_STATUS.standby).sortBy('index').value();
 
       this.index.removeObject(taskid);
     })
@@ -137,6 +140,9 @@ export class TodoComponent implements OnInit {
       case TASK_STATUS.todo:
         oldArray = this.todotasks;
         break;
+      case TASK_STATUS.standby:
+        oldArray = this.standbytasks;
+        break;
       case TASK_STATUS.running:
         oldArray = this.runningtasks;
         break;
@@ -147,6 +153,9 @@ export class TodoComponent implements OnInit {
     switch (status) {
       case TASK_STATUS.todo:
         array = this.todotasks;
+        break;
+      case TASK_STATUS.standby:
+        array = this.standbytasks;
         break;
       case TASK_STATUS.running:
         array = this.runningtasks;
@@ -188,6 +197,7 @@ export class TodoComponent implements OnInit {
     this.todotasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.todo), 'index');
     this.runningtasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.running), 'index');
     this.donetasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.done), 'index');
+    this.standbytasks = _.sortBy(this._allTasks.filter(t => t.status === TASK_STATUS.standby), 'index');
 
     // If the given label is already selected, remove it
     if (this.filterLabel === label) {
@@ -201,6 +211,7 @@ export class TodoComponent implements OnInit {
       this.todotasks = this.todotasks.filter(t => t.projectinternalid === label);
       this.runningtasks = this.runningtasks.filter(t => t.projectinternalid === label);
       this.donetasks = this.donetasks.filter(t => t.projectinternalid === label);
+      this.standbytasks = this.standbytasks.filter(t => t.projectinternalid === label);
     }
   }
 
