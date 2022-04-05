@@ -49,7 +49,7 @@ export abstract class CategoryComponent implements OnInit {
 
             if (currentRoute.snapshot.firstChild) {
                 // In this case, it's a direct access to a sub element (report, test case details, etc)
-                let childrenid = currentRoute.snapshot.firstChild.paramMap.get('id');
+                childrenid = currentRoute.snapshot.firstChild.paramMap.get('id');
                 console.log("CHILDREN ID", childrenid);
             }
             let projectid = this.project.id;

@@ -1,6 +1,7 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Pin } from 'src/app/model/pin.model';
 import { guid, Project, TestCase, TestCasesList } from 'src/app/model/project.model';
 import { CategoryComponent } from 'src/app/projects/category.component';
@@ -18,6 +19,7 @@ export class TestCasesComponent extends CategoryComponent {
   testCases: Array<TestCase> = [];
   testsList: TestCasesList;
   project: Project;
+  testCaseSub: Subscription;
 
   status = [
     {
@@ -35,18 +37,25 @@ export class TestCasesComponent extends CategoryComponent {
 
     super.ngOnInit();
 
-    // Get project from parent route snapshot
-    this.project = this.route.parent.parent.snapshot.data.project as Project;
+    this.testCaseSub = this.route.params.subscribe(params => {
 
-    // Get test list id from url
-    let testsListId = this.route.snapshot.paramMap.get('id');
+      // Get project from parent route snapshot
+      this.project = this.route.parent.parent.snapshot.data.project as Project;
 
-    // Get test case from project
-    this.testsList = this.project.testCasesList.find(tc => tc.id === testsListId)
+      // Get test list id from url
+      let testsListId = this.route.snapshot.paramMap.get('id');
 
-    this.testCases = this.testsList.testCases;
-    this.testCases = _.sortBy(this.testCases, 'index');
+      // Get test case from project
+      this.testsList = this.project.testCasesList.find(tc => tc.id === testsListId)
 
+      this.testCases = this.testsList.testCases;
+      this.testCases = _.sortBy(this.testCases, 'index');
+
+    });
+  }
+
+  ngOnDestroy() {
+    this.testCaseSub?.unsubscribe();
   }
 
   get category(): string {
