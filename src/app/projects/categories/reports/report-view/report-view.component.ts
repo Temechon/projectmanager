@@ -12,6 +12,8 @@ import { Project, Report } from 'src/app/model/project.model';
 import { DatabaseService } from 'src/app/services/database.service';
 import { PinService } from 'src/app/services/pin.service';
 import { SearchService } from 'src/app/services/search.service';
+import { TaskService } from 'src/app/services/task.service';
+import { ToastService } from 'src/app/services/toast.service';
 import _ from 'underscore';
 import { StyleButtonComponent } from './style-button/style-button.component';
 
@@ -40,7 +42,9 @@ export class ReportViewComponent implements OnInit {
     protected index: SearchService,
     protected router: Router,
     protected route: ActivatedRoute,
-    protected pinner: PinService
+    protected pinner: PinService,
+    private taskService: TaskService,
+    private toaster: ToastService
   ) {
 
   }
@@ -153,6 +157,23 @@ export class ReportViewComponent implements OnInit {
       sel?.removeAllRanges();
       sel?.addRange(range);
     }
+  }
+
+  /**
+   * Create an action in the todo panel with to the selected text and linked to the current project
+   */
+  createAction() {
+    // Retrieve selected text with tiptap editor
+
+    const { state } = this.editor
+    const { from, to } = state.selection
+    const content = state.doc.textBetween(from, to, ' ')
+
+    // Create a task
+    this.taskService.createTask(this.project.id, this.project.internalid, content);
+    this.toaster.toast({
+      content: "yeah", icon: "fas fa-check"
+    })
   }
 
   save() {

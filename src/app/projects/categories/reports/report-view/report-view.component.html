@@ -71,6 +71,13 @@
             <button (click)="editor.chain().focus().setHorizontalRule().run()" class="button">
                 <i class="fas fa-minus"></i>
             </button>
+            <!-- Separator -->
+            <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+            <button (click)="createAction()" class="button">
+                <i class="fas fa-bolt text-yellow-400"></i>
+            </button>
+
         </div>
 
         <div class="element w-full h-full pl-4 overflow-y-auto">

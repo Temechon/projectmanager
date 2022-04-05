@@ -7,6 +7,7 @@ import { EditableAreaComponent } from './editable-area/editable-area.component';
 import { EditableTextComponent } from './editable-text/editable-text.component';
 import { SelectListComponent } from './select-list/select-list.component';
 import { SyncComponent } from './sync/sync.component';
+import { ToastComponent } from './toast/toast.component';
 
 
 
@@ -17,6 +18,7 @@ import { SyncComponent } from './sync/sync.component';
     EditableAreaComponent,
     SelectListComponent,
     SyncComponent,
+    ToastComponent,
   ],
   imports: [
     CommonModule,

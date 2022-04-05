@@ -2,10 +2,8 @@
     @apply w-8 h-full;
     @apply rounded-md;
     @apply mx-1;
+    @apply  border-2 px-2;
 
-    &:hover {
-        @apply shadow-lg;
-    }
     &:active {
         @apply text-indigo-400;
         @apply bg-blue-50;
