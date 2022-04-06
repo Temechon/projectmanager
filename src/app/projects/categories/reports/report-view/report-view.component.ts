@@ -172,7 +172,7 @@ export class ReportViewComponent implements OnInit {
     // Create a task
     this.taskService.createTask(this.project.id, this.project.internalid, content);
     this.toaster.toast({
-      content: "yeah", icon: "fas fa-check"
+      content: "Une action a été créée !", icon: "fas fa-times", type: "success"
     })
   }
 
