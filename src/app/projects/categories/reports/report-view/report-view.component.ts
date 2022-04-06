@@ -169,11 +169,23 @@ export class ReportViewComponent implements OnInit {
     const { from, to } = state.selection
     const content = state.doc.textBetween(from, to, ' ')
 
-    // Create a task
-    this.taskService.createTask(this.project.id, this.project.internalid, content);
-    this.toaster.toast({
-      content: "Une action a été créée !", icon: "fas fa-times", type: "success"
-    })
+    if (content) {
+
+      // Create a task
+      this.taskService.createTask(this.project.id, this.project.internalid, content);
+      this.toaster.toast({
+        content: "Une tâche a bien été créée !",
+        icon: "fas fa-check-circle",
+        type: "success"
+      })
+    } else {
+      this.toaster.toast({
+        content: "Sélectionnez du texte pour créer une tâche",
+        icon: "fas fa-info-circle",
+        type: "info",
+        time: 2000
+      })
+    }
   }
 
   save() {

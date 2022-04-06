@@ -24,13 +24,14 @@ export class ToastComponent {
       toast.classList.remove("translate-x-full")
     }, 100)
 
+    // scroll out view
     setTimeout(() => {
       toast.classList.add("translate-x-full")
-    }, 700)
+    }, this.data.time || 1000)
 
     setTimeout(() => {
       this.close();
-    }, 1000)
+    }, (this.data.time + 300) || 1300)
 
   }
 

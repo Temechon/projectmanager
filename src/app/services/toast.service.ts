@@ -17,7 +17,8 @@ export class ToastService {
     toast(data: {
         content: string,
         icon: string,
-        type: string
+        type: string,
+        time?: number
     }): ToastRef<ToastComponent> {
 
         const componentRef = this.componentFactoryResolver.resolveComponentFactory(ToastComponent).create(this.injector);

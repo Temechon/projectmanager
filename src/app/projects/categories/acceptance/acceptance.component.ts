@@ -83,6 +83,17 @@ export class AcceptanceTestsComponent extends CategoryComponent {
     this.save();
   }
   goToSpira(index: number) {
+
+    if (!this.project.spira_projectid) {
+      this.toaster.toast({
+        type: 'info',
+        content: "Il faut renseigner l'ID du projet Spira dans le projet avant de pouvoir accéder à cet incident.",
+        time: 3000,
+        icon: 'fas fa-info-circle'
+      })
+      return;
+    }
+
     let incident = this.project.incidents[index].id;
     let link = `http://intraspiraprd.matmut.fr/SpiraTest/${this.project.spira_projectid}/Incident/${incident}.aspx`;
     if (environment.production) {

@@ -76,7 +76,16 @@ export class TestCasesComponent extends CategoryComponent {
         "Commentaires": tc.comments
       }
     });
-    this.excel.export(this.project.internalid, this.testsList.name, rows);
+    try {
+      this.excel.export(this.project.internalid, this.testsList.name, rows);
+    } catch (exc: any) {
+      this.toaster.toast({
+        type: 'error',
+        content: exc.message,
+        icon: 'fas fa-times',
+        time: 2500
+      })
+    }
   }
 
   goToTestLists() {
