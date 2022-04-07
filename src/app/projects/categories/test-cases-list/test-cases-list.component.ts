@@ -19,25 +19,6 @@ export class TestCasesListComponent extends CategoryComponent {
     // Get the project from the parent parent route
     let prr = this.route.parent.parent.snapshot.data;
     this.project = prr.project;
-
-    // IF no test case list, create one and forward 
-    if (this.project.testCasesList.length === 0) {
-      this.project.testCasesList = [{
-        id: guid(),
-        name: '',
-        testCases: []
-      }];
-      this.save();
-      this.router.navigate(['/projects', this.project.id, 'testCases', this.project.testCasesList[0].id]);
-    }
-
-    // If only one test case list, forward to test case list
-    // else if (this.project.testCasesList.length === 1) {
-    //   this.router.navigate(['/projects', this.project.id, 'testCases', this.project.testCasesList[0].id]);
-    // }
-
-    // Otherwise, display the list of test cases.
-
   }
 
   /**
