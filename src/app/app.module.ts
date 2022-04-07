@@ -27,6 +27,7 @@ import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { SyncService } from './services/sync.service';
 import { TestCasesListComponent } from './projects/categories/test-cases-list/test-cases-list.component';
 import { TestCasesComponent } from './projects/categories/test-cases-list/test-cases/test-cases.component';
+import { NgScrollbarModule } from 'ngx-scrollbar';
 
 
 
@@ -57,7 +58,8 @@ import { TestCasesComponent } from './projects/categories/test-cases-list/test-c
     AppRoutingModule,
     GuiModule,
     DragDropModule,
-    NgxTippyModule
+    NgxTippyModule,
+    NgScrollbarModule
   ],
   providers: [
     SearchService,

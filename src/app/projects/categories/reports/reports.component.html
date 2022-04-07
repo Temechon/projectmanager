@@ -1,20 +1,21 @@
-<div class="p-12 pt-0 w-full h-full bg-white relative">
-    <div class="flex items-baseline mb-12">
+<div class="p-12 pl-0 pt-0 w-full h-full bg-white relative">
+
+    <div class="flex items-baseline mb-12 pl-12">
         <h1 class="text-4xl font-bold text-darker">Comptes rendus</h1>
         <sync></sync>
     </div>
 
-    <div class="flex w-full mr-auto h-[calc(100%-40px)]">
+    <div class="flex ml-4 w-full mr-auto h-[calc(100%-40px)]">
 
-        <div class="w-60 flex flex-col relative h-full">
+        <div class="w-60 flex flex-col relative h-full overflow-y-auto">
 
-            <div class="w-full truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
+            <div class="w-full truncate flex flex-shrink-0 items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
                 [routerLink]="p.id" (click)="goToReport(p.id)" routerLinkActive="text-primary bg-primary-50"
                 *ngFor="let p of project.reports; let index=index">
                 <div class="truncate">{{p.title}}</div>
             </div>
 
-            <div class="absolute left-0 bottom-20 w-full text-center">
+            <div class="w-full text-center mt-8">
                 <action-button text="Ajouter un CR" (onClick)="addReport()" icon="fa-plus-circle"></action-button>
             </div>
         </div>

@@ -80,26 +80,29 @@
 
         </div>
 
-        <div class="element w-full h-full pl-4 overflow-y-auto">
 
-            <h1 #title class="text-3xl font-extrabold mt-3 outline-none" contenteditable="true">
-                {{note.title}}</h1>
+        <ng-scrollbar>
+            <div class="element w-full h-full pl-4 min-h-[500px]">
 
-            <!-- Separator -->
-            <div class="w-4/5 h-px bg-gray-100 my-2"></div>
+                <h1 #title class="text-3xl font-extrabold mt-3 outline-none" contenteditable="true">
+                    {{note.title}}</h1>
 
-            <!-- header-bar -->
-            <div class="flex items-center w-full flex-wrap mb-7 ">
-                <div class="flex flex-col mr-4">
-                    <div class="text-sm text-gray-400">
-                        <i class="fas fa-clock"></i>
-                        {{note.date}}
+                <!-- Separator -->
+                <div class="w-4/5 h-px bg-gray-200 my-2"></div>
+
+                <!-- header-bar -->
+                <div class="flex items-center w-full flex-wrap mb-7 ">
+                    <div class="flex flex-col mr-4">
+                        <div class="text-sm text-gray-400">
+                            <i class="fas fa-clock"></i>
+                            {{note.date}}
+                        </div>
                     </div>
+
                 </div>
 
             </div>
-
-        </div>
+        </ng-scrollbar>
     </div>
 
     <div class="absolute bottom-6 right-12 flex flex-col-reverse">

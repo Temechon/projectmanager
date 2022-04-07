@@ -38,7 +38,7 @@
             </span>
         </div>
 
-        <div class="action w-full h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-secondary cursor-pointer select-none"
+        <div class="action w-full h-8 mb-4 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-secondary cursor-pointer select-none"
             routerLinkActive="bg-primary-50 text-secondary font-semibold" routerLink="projectlist">
             <i class="fas fa-project-diagram mr-3"></i>
             <span class="action-name">
@@ -46,10 +46,9 @@
             </span>
         </div>
 
+        <ng-scrollbar>
+            <h1 class="project-label text-gray-400 mb-8 pl-4 pt-4">Projets en cours</h1>
 
-        <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets en cours</h1>
-
-        <div class="overflow-y-auto overflow-x-hidden">
             <div id="project-list">
                 <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
                     routerLinkActive="bg-primary-50 text-primary font-semibold" [routerLink]="p.id"
@@ -62,7 +61,7 @@
                 </div>
             </div>
 
-            <h1 class="project-label text-gray-400 mb-8 pl-4 pt-8">Projets en attente</h1>
+            <h1 class="project-label text-gray-400 mb-8 pl-4 pt-4">Projets en attente</h1>
 
             <div id="project-list">
                 <div class="project h-8 truncate flex items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer select-none"
@@ -85,7 +84,7 @@
             <div id="button" class="my-4 hidden w-full text-center">
                 <action-button (onClick)="addProject()" icon="fa-plus-circle"></action-button>
             </div>
-        </div>
+        </ng-scrollbar>
     </div>
 
     <!-- Content -->
