@@ -177,13 +177,25 @@ export async function initDatabase(search: SearchService, ipc: IpcService, sync:
   // Load database from disk if any found
   let projectsdatabase = ipc.sendSync('read-projects');
   let tasksdatabase = ipc.sendSync('read-tasks');
-  console.log("Projects from disk", projectsdatabase);
-  console.log("Tasks from disk", tasksdatabase);
+  // console.log("Projects from disk", projectsdatabase);
+  // console.log("Tasks from disk", tasksdatabase);
 
   if (projectsdatabase) {
     console.log("Loading projects!");
     let jsondatabase = JSON.parse(projectsdatabase)
-    projectsCollection.projects.importJSON(jsondatabase);
+
+    try {
+      projectsCollection.projects.importJSON(jsondatabase);
+    } catch (e) {
+      // Run migration strategy 
+      const migration = projectsCollection.projects.migrationStrategies['7'];
+      jsondatabase.docs.forEach(doc => {
+        doc = migration(doc);
+      });
+
+      await projectsCollection.projects.remove();
+      projectsCollection.projects.bulkInsert(jsondatabase.docs);
+    }
   }
   if (tasksdatabase) {
     console.log("Loading tasks!");
