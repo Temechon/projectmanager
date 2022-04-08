@@ -145,6 +145,10 @@ async function _create() {
           doc.testCasesList = [];
           return doc;
         },
+        8: (doc: Project) => {
+          doc.actions = [];
+          return doc;
+        },
       }
     },
     tasks: {
@@ -188,7 +192,7 @@ export async function initDatabase(search: SearchService, ipc: IpcService, sync:
       projectsCollection.projects.importJSON(jsondatabase);
     } catch (e) {
       // Run migration strategy 
-      const migration = projectsCollection.projects.migrationStrategies['7'];
+      const migration = projectsCollection.projects.migrationStrategies['8'];
       jsondatabase.docs.forEach(doc => {
         doc = migration(doc);
       });

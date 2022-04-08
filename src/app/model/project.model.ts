@@ -59,6 +59,18 @@ export type TestCase = {
     index: number
 }
 
+export type Action = {
+    id: string,
+    name: string,
+    from: string,
+    date: string,
+    status: string,
+    details: string,
+    answer: string,
+    close_date: string,
+    comments: Array<{ date: string, content: string }>
+}
+
 export abstract class IProject {
 
     static STATUS = {
@@ -108,6 +120,9 @@ export abstract class IProject {
     /** The list of all milestone for this project */
     milestones: Array<Milestone>;
 
+    /** List all actions for this project */
+    actions: Array<Action>;
+
 }
 
 export class Project extends IProject {
@@ -136,6 +151,9 @@ export class Project extends IProject {
         this.milestones = rxdoc.milestones?.slice().map(_.clone) || [];
         this.testCasesList = rxdoc.testCasesList?.slice().map(_.clone) || [];
         this.testCasesList.forEach(list => list.testCases = list.testCases?.slice().map(_.clone) || []);
+
+        this.actions = rxdoc.actions?.slice().map(_.clone) || [];
+        this.actions.forEach(act => act.comments = act.comments?.slice().map(_.clone) || []);
     }
 
     toObject(): IProject {

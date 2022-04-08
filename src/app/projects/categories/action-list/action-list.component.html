@@ -1,0 +1,50 @@
+<div class="p-12 pt-0 pr-4 w-full bg-white">
+    <div class="flex items-baseline mb-12">
+        <h1 class="text-4xl font-bold text-darker">Actions en cours</h1>
+        <sync></sync>
+    </div>
+
+    <div class="w-full mr-auto">
+
+        <div class="w-full flex border-b-2  py-2 font-bold">
+            <div class="w-1/2">
+                Nom
+            </div>
+            <div class="min-w-[320px]">
+                Provenance
+            </div>
+            <div class="w-48">
+                Statut
+            </div>
+            <div class="w-16">
+                Actions
+            </div>
+        </div>
+        <div class="w-full flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
+            *ngFor="let act of project.actions; let index=index"
+            [routerLink]="['/projects', project.id, 'actions', act.id]">
+            <div class="w-1/2">
+                {{act.name}}
+            </div>
+            <div class="flex min-w-[320px]">
+                {{act.from}}
+            </div>
+            <div class="flex w-48">
+                {{act.date}}
+            </div>
+            <div class="flex space-x-2 w-16">
+                <i class="fas fa-times-circle text-xl text-red-500 hover:text-red-700 mx-1 cursor-pointer"
+                    (click)="delete(index, $event)"></i>
+            </div>
+        </div>
+
+
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                </action-button>
+            </div>
+        </div>
+    </div>
+</div>

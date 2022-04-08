@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ProjectlistComponent } from './projectlist/projectlist.component';
 import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
+import { ActionListComponent } from './projects/categories/action-list/action-list.component';
+import { ActionComponent } from './projects/categories/action-list/action/action.component';
 import { ActorsComponent } from './projects/categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
 import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
@@ -69,6 +71,19 @@ const routes: Routes = [
               {
                 path: ':id',
                 component: TestCasesComponent,
+              }
+            ]
+          },
+          {
+            path: 'actions',
+            children: [
+              {
+                path: '',
+                component: ActionListComponent,
+              },
+              {
+                path: ':id',
+                component: ActionComponent,
               }
             ]
           },

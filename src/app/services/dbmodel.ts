@@ -79,7 +79,7 @@ export const taskSchema: RxJsonSchema<ITask> = {
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 7,
+    version: 8,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -276,6 +276,52 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                                 },
                                 index: {
                                     type: 'number'
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        actions: {
+            type: 'array',
+            items: {
+                type: 'object',
+                properties: {
+                    id: {
+                        type: 'string'
+                    },
+                    name: {
+                        type: 'string'
+                    },
+                    from: {
+                        type: 'string'
+                    },
+                    date: {
+                        type: 'string'
+                    },
+                    status: {
+                        type: 'string'
+                    },
+                    details: {
+                        type: 'string'
+                    },
+                    answer: {
+                        type: 'string'
+                    },
+                    close_date: {
+                        type: 'string'
+                    },
+                    comments: {
+                        type: 'array',
+                        items: {
+                            type: 'object',
+                            properties: {
+                                date: {
+                                    type: 'string'
+                                },
+                                content: {
+                                    type: 'string'
                                 }
                             }
                         }
