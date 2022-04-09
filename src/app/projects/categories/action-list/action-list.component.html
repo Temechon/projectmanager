@@ -13,10 +13,13 @@
             <div class="min-w-[320px]">
                 Provenance
             </div>
-            <div class="w-48">
+            <div class="w-48 flex items-center justify-center">
+                Créée le
+            </div>
+            <div class="w-48 flex items-center justify-center">
                 Statut
             </div>
-            <div class="w-16">
+            <div class="w-24 flex items-center justify-center">
                 Actions
             </div>
         </div>
@@ -29,10 +32,17 @@
             <div class="flex min-w-[320px]">
                 {{act.from}}
             </div>
-            <div class="flex w-48">
+            <!-- creation date -->
+            <div class="w-48 flex items-center justify-center">
                 {{act.date}}
             </div>
-            <div class="flex space-x-2 w-16">
+            <!-- Status -->
+            <div class="flex w-48 items-center justify-center">
+                <i class="fas fa-check-circle text-green-500" *ngIf="act.status===actionStatus.CLOSED"></i>
+
+                <i class="fas fa-hourglass-half text-yellow-500" *ngIf="act.status===actionStatus.OPEN"></i>
+            </div>
+            <div class="w-24 flex items-center justify-center">
                 <i class="fas fa-times-circle text-xl text-red-500 hover:text-red-700 mx-1 cursor-pointer"
                     (click)="delete(index, $event)"></i>
             </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pin } from 'src/app/model/pin.model';
-import { guid } from 'src/app/model/project.model';
+import { ActionStatus, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
 
@@ -11,6 +11,8 @@ import { DateTime } from "luxon";
 })
 export class ActionListComponent extends CategoryComponent {
 
+
+  actionStatus = ActionStatus;
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -46,7 +48,7 @@ export class ActionListComponent extends CategoryComponent {
       name: '',
       from: '',
       date: DateTime.now().toLocaleString(DateTime.DATE_SHORT),
-      status: '',
+      status: ActionStatus.OPEN,
       details: '',
       answer: '',
       close_date: '',

@@ -71,6 +71,12 @@ export type Action = {
     comments: Array<{ date: string, content: string }>
 }
 
+// Export action status
+export const ActionStatus = {
+    OPEN: 'OPEN',
+    CLOSED: 'CLOSED'
+}
+
 export abstract class IProject {
 
     static STATUS = {

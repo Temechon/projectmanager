@@ -6,12 +6,10 @@
 
     <div class="w-11/12 mr-auto">
 
-        <div class="flex items-center w-full flex-wrap mb-7 ">
-            <div class="flex flex-col mr-4">
-                <div class="text-sm text-gray-400">
-                    <i class="fas fa-clock"></i>
-                    {{action.date}}
-                </div>
+        <div class="flex flex-row mb-2 pl-4">
+            <div class="text-sm text-gray-400">
+                <i class="fas fa-clock"></i>
+                {{action.date}}
             </div>
 
         </div>
@@ -53,8 +51,12 @@
                     custom="bg-indigo-500 hover:bg-indigo-700">
                 </action-button>
             </div>
-            <div class="flex items-center justify-start mr-4">
-                <action-button text="Clôturer" (onClick)="goToActions()" icon="fa-check-circle">
+            <div class="flex items-center justify-start mr-4" *ngIf="action.status === actionStatus.OPEN">
+                <action-button text="Clôturer" (onClick)="closeAction()" icon="fa-check-circle">
+                </action-button>
+            </div>
+            <div class="flex items-center justify-start mr-4" *ngIf="action.status === actionStatus.CLOSED">
+                <action-button text="Réouvrir" (onClick)="reopenAction()" icon="fa-redo-alt">
                 </action-button>
             </div>
         </div>
