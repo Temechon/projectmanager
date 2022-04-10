@@ -5,52 +5,70 @@
     </div>
 
     <div class="w-full mr-auto">
+        <div class="w-full flex border-b-2  py-2 font-bold">
+            <div class="w-72 relative cursor-pointer" (click)="sortBy('name', caretname)">
+                Nom
+                <i #caretname
+                    class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
+            </div>
+            <div class="w-52 relative cursor-pointer" (click)="sortBy('dga', caretdga)">
+                DGA
+                <i #caretdga
+                    class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
+            </div>
+            <div class="relative cursor-pointer w-96">
+                Commentaire
+            </div>
+            <div class="relative cursor-pointer w-40 flex items-center justify-center"
+                (click)="sortBy('type', carettype)">
+                Type
+                <i #carettype
+                    class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
+            </div>
+            <div class="relative cursor-pointer w-16 flex items-center justify-center">
+                Actions
+            </div>
+        </div>
+        <div class="w-full flex" *ngFor="let actor of project.actors; let index=index">
+            <div class="w-72">
+                <editable-text [(text)]="actor.name" (onFinished)="save()"></editable-text>
+            </div>
+            <div class="w-52">
+                <editable-text [(text)]="actor.dga" (onFinished)="save()" (enterPressed)="add()">
+                </editable-text>
+            </div>
+            <div class="w-96">
+                <editable-text [(text)]=" actor.comment" (onFinished)="save()" (enterPressed)="add()">
+                </editable-text>
+            </div>
+            <div class="w-40 flex items-center justify-center">
+                <select-list [options]="actorsType" [(value)]="actor.type" (onSelected)="save()"></select-list>
+            </div>
+            <div class="w-16 flex items-center justify-center">
+                <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer" (click)="delete(index)"></i>
+            </div>
+        </div>
+
         <table class="w-full border-collapse table-fixed">
-            <thead>
-                <th class="font-normal text-primary relative table-cell cursor-pointer w-72"
-                    (click)="sortBy('name', caretname)">
-                    Nom
-                    <i #caretname
-                        class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
-                </th>
-                <th class="font-normal text-primary relative table-cell w-64 cursor-pointer"
-                    (click)="sortBy('dga', caretdga)">
-                    DGA
-                    <i #caretdga
-                        class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
-                </th>
-                <th class="font-normal text-primary relative table-cell cursor-pointer">
-                    Commentaire
-                </th>
-                <th class="font-normal text-primary relative table-cell w-40 cursor-pointer"
-                    (click)="sortBy('type', carettype)">
-                    Type
-                    <i #carettype
-                        class="fas fa-caret-up absolute right-4 top-1/2 transform -translate-y-1/2 transition-transform"></i>
-                </th>
-                <th class="w-20"></th>
-            </thead>
+
             <tbody>
                 <tr *ngFor="let actor of project.actors; let index=index">
 
                     <td class="table-cell">
-                        <editable-text [(text)]="actor.name" (onFinished)="save()"></editable-text>
+
                     </td>
                     <td class="table-cell">
-                        <editable-text [(text)]="actor.dga" (onFinished)="save()" (enterPressed)="add()">
-                        </editable-text>
+
                     </td>
                     <td class="table-cell">
-                        <editable-text [(text)]="actor.comment" (onFinished)="save()" (enterPressed)="add()">
-                        </editable-text>
+
                     </td>
                     <td class="table-cell text-center">
-                        <select-list [options]="actorsType" [(value)]="actor.type" (onSelected)="save()"></select-list>
+
                     </td>
 
                     <td class="px-4 py-1 text-center">
-                        <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer"
-                            (click)="delete(index)"></i>
+
 
                     </td>
                 </tr>
