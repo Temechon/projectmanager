@@ -4,36 +4,34 @@
         <sync></sync>
     </div>
 
-    <div class="w-11/12 mr-auto">
+    <div class="w-full mr-auto">
 
-        <table class="w-full border-collapse table-fixed">
-            <thead>
-                <th class="font-normal text-sm text-primary w-[25%]">
-                    Date
-                </th>
-                <th class="font-normal text-sm text-primary w-96">
-                    Nom
-                </th>
-                <th class="w-12"></th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let milestone of project.milestones; let index=index">
+        <div class="w-full flex border-b-2 py-2 font-bold">
+            <div class="w-1/4">
+                Date
+            </div>
+            <div class="w-1/2">
+                Nom
+            </div>
+            <div class="w-24 flex items-center justify-center">
+                Actions
+            </div>
+        </div>
 
-                    <td class="table-cell">
-                        <editable-text [(text)]="milestone.date" (onFinished)="orderAndSave()">
-                        </editable-text>
-                    </td>
-                    <td class="table-cell">
-                        <editable-text [(text)]="milestone.name" (onFinished)="orderAndSave()"></editable-text>
-                    </td>
+        <div class="w-full flex" *ngFor="let milestone of project.milestones; let index=index">
+            <div class="w-1/4">
+                <editable-text [(text)]="milestone.date" (onFinished)="orderAndSave()">
+                </editable-text>
+            </div>
+            <div class="w-1/2">
+                <editable-text [(text)]="milestone.name" (onFinished)="orderAndSave()"></editable-text>
+            </div>
+            <div class="w-24 flex items-center justify-center">
+                <i class="fas fa-times-circle text-xl text-red-500 hover:text-red-700 mx-1 cursor-pointer"
+                    (click)="delete(index)"></i>
+            </div>
 
-                    <td class="table-cell text-center">
-                        <i class="fas fa-times-circle text-xl text-red-500 mx-1 cursor-pointer"
-                            (click)="delete(index)"></i>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        </div>
 
         <div class="flex flex-row mb-2 mt-8">
 

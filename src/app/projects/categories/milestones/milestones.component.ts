@@ -34,6 +34,14 @@ export class MilestonesComponent extends CategoryComponent {
       // convert a and b in datetime and sort them
       let date1 = getDateFromString(a.date);
       let date2 = getDateFromString(b.date);
+      // If date1 is null, return date2
+      if (!date1) {
+        return 1;
+      }
+      if (!date2) {
+        return -1
+      }
+
       console.log("diff", date1.diff(date2).toObject().milliseconds);
 
       return date1.diff(date2).toObject().milliseconds;

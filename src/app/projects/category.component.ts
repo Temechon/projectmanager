@@ -37,7 +37,6 @@ export abstract class CategoryComponent implements OnInit {
         // Listen to the parent route and check if this category has been pinned
         this.routesub = this.route.url.subscribe(url => {
             let currentRoute = this.route;
-            console.log("ici", url);
             this.project = currentRoute.parent.snapshot.data.project
 
 

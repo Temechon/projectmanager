@@ -18,7 +18,7 @@ import { ToastComponent } from './toast/toast.component';
     EditableAreaComponent,
     SelectListComponent,
     SyncComponent,
-    ToastComponent,
+    ToastComponent
   ],
   imports: [
     CommonModule,
