@@ -21,12 +21,13 @@ export class ProjectlistComponent implements OnInit {
   filters: Array<{ label: string, data: Project }> = [];
 
   filterLabel: string = null;
-  displayArchived: boolean = true;
+  displayArchived: boolean = false;
 
   ngOnInit(): void {
     this.db.getProjects$().subscribe(data => {
       this.allProjects = data;
-      this.projects = this.allProjects.slice();
+      // Removede archived projects
+      this.projects = this.allProjects.filter(p => p.status !== Project.STATUS.archived);
 
       this.allProjects.map(p => {
         this.filters.push({ label: p.domain, data: p });

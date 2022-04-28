@@ -178,35 +178,6 @@ export async function initDatabase(search: SearchService, ipc: IpcService, sync:
   let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
   let alltasks = await projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
 
-  // Load database from disk if any found
-  let projectsdatabase = ipc.sendSync('read-projects');
-  let tasksdatabase = ipc.sendSync('read-tasks');
-  // console.log("Projects from disk", projectsdatabase);
-  // console.log("Tasks from disk", tasksdatabase);
-
-  if (projectsdatabase) {
-    console.log("Loading projects!");
-    let jsondatabase = JSON.parse(projectsdatabase)
-
-    try {
-      projectsCollection.projects.importJSON(jsondatabase);
-    } catch (e) {
-      // Run migration strategy 
-      const migration = projectsCollection.projects.migrationStrategies['8'];
-      jsondatabase.docs.forEach(doc => {
-        doc = migration(doc);
-      });
-
-      await projectsCollection.projects.remove();
-      projectsCollection.projects.bulkInsert(jsondatabase.docs);
-    }
-  }
-  if (tasksdatabase) {
-    console.log("Loading tasks!");
-    let jsondatabase = JSON.parse(tasksdatabase)
-    projectsCollection.tasks.importJSON(jsondatabase);
-  }
-
   // Save all projects to disk when an update is done
   projectsCollection.projects.$.subscribe(() => {
     console.log("On se met en statut syncing");
