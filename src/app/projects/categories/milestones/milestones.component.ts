@@ -15,7 +15,8 @@ export class MilestonesComponent extends CategoryComponent {
     this.project.milestones.push({
       id: guid(),
       name: "",
-      date: ""
+      date: "",
+      type: ""
     });
     this.save();
   }

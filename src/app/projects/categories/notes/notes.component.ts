@@ -72,7 +72,8 @@ export class NotesComponent extends CategoryComponent {
     this.project.notes.push({
       id: guid(),
       date: DateTime.local().toFormat('dd LLL yyyy - HH:mm'),
-      content: ''
+      content: '',
+      pinned: false
     });
     this.save();
   }

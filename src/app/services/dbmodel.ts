@@ -79,7 +79,7 @@ export const taskSchema: RxJsonSchema<ITask> = {
 export const projectsSchema: RxJsonSchema<IProject> = {
     title: 'project schema',
     description: 'describes a project',
-    version: 8,
+    version: 9,
     keyCompression: true,
     primaryKey: 'id',
     type: 'object',
@@ -94,6 +94,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
             type: 'string'
         },
         color: {
+            type: 'string'
+        },
+        priority: {
             type: 'string'
         },
         pplink: {
@@ -164,6 +167,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                     },
                     content: {
                         type: 'string'
+                    },
+                    pinned: {
+                        type: 'boolean'
                     }
                 }
             }
@@ -233,6 +239,9 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                     },
                     date: {
                         type: 'string'
+                    },
+                    type: {
+                        type: 'string'
                     }
                 }
             }
@@ -266,6 +275,12 @@ export const projectsSchema: RxJsonSchema<IProject> = {
                                     type: 'string'
                                 },
                                 expected_result: {
+                                    type: 'string'
+                                },
+                                obtained_result: {
+                                    type: 'string'
+                                },
+                                test_data: {
                                     type: 'string'
                                 },
                                 status: {

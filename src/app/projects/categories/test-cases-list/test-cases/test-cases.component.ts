@@ -112,6 +112,8 @@ export class TestCasesComponent extends CategoryComponent {
       category: lastTestCase?.category || "",
       test_date: lastTestCase?.test_date || "",
       expected_result: lastTestCase?.expected_result || "",
+      obtained_result: "",
+      test_data: "",
       status: "",
       comments: "",
       index: lastTestCase?.index + 1 || 0

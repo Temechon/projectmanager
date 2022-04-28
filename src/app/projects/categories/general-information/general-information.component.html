@@ -20,6 +20,13 @@
             </div>
         </div>
         <div class="flex flex-row mb-2">
+            <div class="w-52 pl-4 flex items-center justify-start">Priorité</div>
+            <div class="w-full">
+                <editable-text placeholder="Priorité" [(text)]="project.priority" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+        <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">Statut</div>
             <div class="w-full">
                 <select-list [options]="status" [(value)]="project.status" (onSelected)="save()">

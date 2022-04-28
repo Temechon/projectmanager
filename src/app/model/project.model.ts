@@ -19,7 +19,8 @@ export type Report = {
 export type Note = {
     id: string,
     date: string,
-    content: string
+    content: string,
+    pinned: boolean
 }
 
 export type Incident = {
@@ -39,7 +40,8 @@ export type AcceptanceComponent = {
 export type Milestone = {
     id: string,
     name: string,
-    date: string
+    date: string,
+    type: string
 }
 
 export type TestCasesList = {
@@ -54,6 +56,8 @@ export type TestCase = {
     category: string,
     test_date: string,
     expected_result: string,
+    obtained_result: string,
+    test_data: string,
     status: string,
     comments: string,
     index: number
@@ -88,6 +92,7 @@ export abstract class IProject {
     id: string;
     name: string;
     internalid: string;
+    priority: string;
     /** hex string of the project color */
     color: string;
     /** Lien vers le portefeuille projet */
@@ -139,6 +144,7 @@ export class Project extends IProject {
         this.id = rxdoc.id || guid();
         this.name = rxdoc.name;
         this.internalid = rxdoc.internalid;
+        this.priority = rxdoc.priority;
         this.color = rxdoc.color || randomColor({ format: 'hex' });
         this.pplink = rxdoc.pplink;
         this.actors = rxdoc.actors?.slice().map(_.clone) || []; // Clone because rxdb returns read only objects - why ??

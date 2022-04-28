@@ -149,6 +149,18 @@ async function _create() {
           doc.actions = [];
           return doc;
         },
+        9: (doc: Project) => {
+          doc.priority = "";
+          doc.milestones.forEach(m => m.type = "");
+          doc.testCasesList.forEach(
+            testlist => testlist.testCases.forEach(t => {
+              t.obtained_result = "";
+              t.test_data = "";
+            })
+          );
+          doc.notes.forEach(note => note.pinned = false)
+          return doc;
+        },
       }
     },
     tasks: {
