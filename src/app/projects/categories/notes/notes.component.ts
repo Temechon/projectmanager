@@ -16,7 +16,6 @@ export class NotesComponent extends CategoryComponent {
 
   selected: Note = null;
   selectedIndex: number = null;
-  keymap: () => void;
   sub: Subscription;
 
   @ViewChildren(EditableAreaComponent) editableAreas: QueryList<EditableAreaComponent>;
@@ -24,12 +23,7 @@ export class NotesComponent extends CategoryComponent {
   ngOnInit(): void {
     super.ngOnInit();
 
-    // Add listener on control.n - Does not seem to work on chrome...
-    this.keymap = this.renderer.listen('document', 'keydown.control.n', (event) => {
-      this.add();
-      event.stopPropagation();
-      event.preventDefault();
-    });
+    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
 
     this.sub = this.route.queryParams.subscribe((data) => {
       let noteid = data.id;
@@ -75,6 +69,7 @@ export class NotesComponent extends CategoryComponent {
       content: '',
       pinned: false
     });
+    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
     this.save();
   }
 
@@ -89,8 +84,15 @@ export class NotesComponent extends CategoryComponent {
     this.index.removeObject(notes[0].id)
   }
 
+
+  togglePin(note: Note) {
+    note.pinned = !note.pinned;
+    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
+
+    this.save();
+  }
+
   ngOnDestroy() {
-    this.keymap();
     this.sub.unsubscribe();
   }
 

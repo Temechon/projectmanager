@@ -12,26 +12,42 @@
             </div>
         </div>
 
+
         <div class="flex flex-col-reverse">
-            <div class="flex items-center" *ngFor="let note of project.notes let index=index">
-                <div class="flex-grow">
-                    <!-- Date -->
-                    <div class="text-gray-400 text-sm font-semibold my-2">
+            <div class="flex items-center" *ngFor="let note of project.notes; let index=index">
+                <div class="flex-grow group">
+
+                    <!-- Date & pin -->
+                    <div class="text-gray-400 text-sm font-semibold my-2 flex items-center mb-4 h-6">
                         {{note.date}}
-                    </div>
-                    <div *ngIf="selectedIndex !== index; else selectedTemplate">
-                        <editable-area [(text)]="note.content" (onFinished)="save()">
-                        </editable-area>
+
+                        <div [ngClass]="{'group-hover:block hidden':!note.pinned, 'block':note.pinned}"
+                            class="group-hover:block hidden ml-4 text-lg">
+                            <i [ngClass]="{'text-yellow-500' : note.pinned, 'text-gray-400' : !note.pinned}"
+                                class="fas fa-star mx-2 cursor-pointer" (click)="togglePin(note)"></i>
+                        </div>
                     </div>
 
-                    <ng-template #selectedTemplate>
-                        <editable-area [(text)]="note.content" (onFinished)="save()" custom="ring-accent">
-                        </editable-area>
-                    </ng-template>
+                    <!-- Edit area -->
+                    <div class="flex items-center">
+                        <div class="flex-grow">
+                            <div *ngIf="selectedIndex !== index; else selectedTemplate">
+                                <editable-area [(text)]="note.content" (onFinished)="save()">
+                                </editable-area>
+                            </div>
+
+                            <ng-template #selectedTemplate>
+                                <editable-area [(text)]="note.content" (onFinished)="save()" custom="ring-accent">
+                                </editable-area>
+                            </ng-template>
+                        </div>
+                        <!-- Delete -->
+                        <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer"
+                            (click)="delete(index)"></i>
+                    </div>
                 </div>
 
                 <div>
-                    <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer" (click)="delete(index)"></i>
                 </div>
             </div>
         </div>
