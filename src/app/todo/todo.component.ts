@@ -124,6 +124,22 @@ export class TodoComponent implements OnInit {
     })
   }
 
+  /**
+   * Transfert the given task to the 'done' status
+   * @param {string} taskid - string
+   */
+  done(task: Task) {
+    task.status = TASK_STATUS.done;
+    this.update(task);
+
+    this.todotasks = _.without(this.todotasks, task);
+    this.runningtasks = _.without(this.runningtasks, task);
+    this.standbytasks = _.without(this.standbytasks, task);
+    this.donetasks.push(task);
+    _.each(this.donetasks, t => t.index++);
+    _.each(this.donetasks, this.updateTaskOrder.bind(this));
+  }
+
 
   /**
    * Move the task from the old array to the new array

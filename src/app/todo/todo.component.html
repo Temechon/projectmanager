@@ -33,10 +33,18 @@
                 <div class="flex items-center mb-4">
                     <select-list [options]="options" [(value)]="t.projectinternalid"
                         (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
-                    <!-- !! delete task -->
-                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
-                        (click)="delete(t.id)">
-                        <i class="fas fa-times"></i>
+
+                    <div class="flex ml-auto space-x-4">
+                        <!-- !! Transfer to finished -->
+                        <div class="group-hover:flex ml-auto hidden items-center justify-center text-indigo-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                            (click)="done(t)">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <!-- !! delete task -->
+                        <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                            (click)="delete(t.id)">
+                            <i class="fas fa-times"></i>
+                        </div>
                     </div>
                 </div>
                 <editable-area custom="!outline-none !px-2 !border-none !pb-0 !ring-0" resize
@@ -65,10 +73,18 @@
                 <div class="flex items-center mb-4">
                     <select-list [options]="options" [(value)]="t.projectinternalid"
                         (onSelected)="linkTaskToProjectid(t, $event)"></select-list>
-                    <!-- !! delete task -->
-                    <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
-                        (click)="delete(t.id)">
-                        <i class="fas fa-times"></i>
+
+                    <div class="flex ml-auto space-x-4">
+                        <!-- !! Transfer to finished -->
+                        <div class="group-hover:flex ml-auto hidden items-center justify-center text-indigo-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                            (click)="done(t)">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                        <!-- !! delete task -->
+                        <div class="group-hover:flex ml-auto hidden items-center justify-center text-red-400 border w-5 h-5 text-sm rounded-md shadow-sm cursor-pointer"
+                            (click)="delete(t.id)">
+                            <i class="fas fa-times"></i>
+                        </div>
                     </div>
                 </div>
 
