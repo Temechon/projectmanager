@@ -190,15 +190,21 @@ export async function initDatabase(search: SearchService, ipc: IpcService, sync:
   let allp = await projectsCollection.projects.find().exec().then(datarr => datarr.map(data => new Project(data)));
   let alltasks = await projectsCollection.tasks.find().exec().then(datarr => datarr.map(data => new Task(data)));
 
-  // Save all projects to disk when an update is done
-  projectsCollection.projects.$.subscribe(() => {
-    console.log("On se met en statut syncing");
+  // Save the updated project to disk when an update is done
+  projectsCollection.projects.$.subscribe(a => {
+    let projectid = a.documentId;
+    // Get project data from db
     sync.syncStatus.next(SyncService.STATUS_SYNCING);
-    projectsCollection.projects.exportJSON().then((json) => {
-      // console.log("JSON", json);
-      ipc.send('async-save-projects', json);
+    projectsCollection.projects.findOne({
+      selector: {
+        id: projectid
+      }
+    }).exec().then((data) => {
+      ipc.send('async-save-projects', projectid, JSON.stringify(data));
     })
   })
+
+  // Save all tasks when an update is done
   projectsCollection.tasks.$.subscribe(() => {
     projectsCollection.tasks.exportJSON().then((json) => {
       // console.log("JSON", json);

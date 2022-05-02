@@ -39,7 +39,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -64,10 +64,12 @@ app.on('activate', function () {
 // Display disk path
 console.log("DISK PATH", app.getAppPath());
 
-ipcMain.on('async-save-projects', (event, arg) => {
-    // console.log("async-save", arg);
+/**
+ * Save project json to disk
+ */
+ipcMain.on('async-save-projects', (event, projectid, projectjson) => {
     try {
-        fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+        fs.writeFileSync(`projectmanager.projects.${projectid}`, projectjson, 'utf-8');
         mainWindow.webContents.send('save-status', { status: true });
     }
     catch (e) {
@@ -87,24 +89,24 @@ ipcMain.on('async-save-tasks', (event, arg) => {
     }
 })
 
-ipcMain.on('read-projects', (event, arg) => {
-    let projects = null;
-    try {
-        projects = fs.readFileSync('projectmanager.projects', 'utf-8');
-    } catch (e) {
-        console.error(e, 'No file called projectmanager.projects');
-    }
-    event.returnValue = projects;
-})
-ipcMain.on('read-tasks', (event, arg) => {
-    let tasks = null;
-    try {
-        tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
-    } catch (e) {
-        console.error(e, 'No file called projectmanager.tasks');
-    }
-    event.returnValue = tasks;
-})
+// // ipcMain.on('read-projects', (event, arg) => {
+// //     let projects = null;
+// //     try {
+// //         projects = fs.readFileSync('projectmanager.projects', 'utf-8');
+// //     } catch (e) {
+// //         console.error(e, 'No file called projectmanager.projects');
+// //     }
+// //     event.returnValue = projects;
+// // })
+// ipcMain.on('read-tasks', (event, arg) => {
+//     let tasks = null;
+//     try {
+//         tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
+//     } catch (e) {
+//         console.error(e, 'No file called projectmanager.tasks');
+//     }
+//     event.returnValue = tasks;
+// })
 ipcMain.on('minimize', (event, arg) => {
     mainWindow.minimize();
 })

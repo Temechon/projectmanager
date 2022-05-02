@@ -33,7 +33,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
@@ -53,10 +53,13 @@ electron_1.app.on('activate', function () {
 });
 // Display disk path
 console.log("DISK PATH", electron_1.app.getAppPath());
-electron_1.ipcMain.on('async-save-projects', function (event, arg) {
-    // console.log("async-save", arg);
+/**
+ * Save project json to disk
+ */
+electron_1.ipcMain.on('async-save-projects', function (event, projectid, projectjson) {
+    // console.log("async-save", arg1, arg2);
     try {
-        fs.writeFileSync('projectmanager.projects', JSON.stringify(arg), 'utf-8');
+        fs.writeFileSync("projectmanager.projects." + projectid, projectjson, 'utf-8');
         mainWindow.webContents.send('save-status', { status: true });
     }
     catch (e) {
