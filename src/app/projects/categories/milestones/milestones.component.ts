@@ -11,6 +11,33 @@ import { CategoryComponent } from '../../category.component';
 export class MilestonesComponent extends CategoryComponent {
 
 
+  milestoneTypes = [
+    {
+      label: "Atelier",
+      data: { color: '#37BA83' }
+    },
+    {
+      label: "Envoi analyse d'impacts",
+      data: { color: '#024873' }
+    },
+    {
+      label: "Envoi spécifications",
+      data: { color: '#3366FF' }
+    },
+    {
+      label: "Mise en intégration",
+      data: { color: '#F2B33D' }
+    },
+    {
+      label: "Mise en recette",
+      data: { color: '#F29422' }
+    },
+    {
+      label: "Mise en production",
+      data: { color: '#F80A50' }
+    }
+  ];
+
   add() {
     this.project.milestones.push({
       id: guid(),
