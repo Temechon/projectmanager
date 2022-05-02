@@ -1,1 +1,45 @@
-<p>actions-list works!</p>
+<div class="p-12 pt-0 h-full bg-white">
+    <h1 class="text-4xl font-bold text-darker mb-8">Toutes les actions en cours</h1>
+
+
+
+    <div class="w-full">
+        <div class="w-full flex border-b-2  py-2 font-bold">
+            <div class="w-28">
+                ID
+            </div>
+            <div class="flex-grow">
+                Nom
+            </div>
+            <div class="flex-grow">
+                Details
+            </div>
+        </div>
+        <div class="w-full flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
+            *ngFor="let a of allActions" [routerLink]="['/projects', a.projectid, 'actions', a.action.id]">
+            <div class="w-28 truncate font-bold" [ngStyle]="{'color':  a.color }">
+                {{a.projectinternalid}}
+            </div>
+            <div class="flex-grow truncate">
+                {{a.action.name}}
+            </div>
+            <div class="flex-grow truncate">
+                {{a.action.details}}
+            </div>
+        </div>
+        <!-- <div class=" w-48 truncate font-bold" [ngStyle]="{'color':  p.color }">
+                {{p.internalid}}
+            </div>
+            <div class="w-1/4 truncate">
+                {{p.name}}
+            </div>
+            <div class="w-48 truncate">
+                {{p.domain}}
+            </div>
+            <div>
+                <span
+                    [ngClass]="{'bg-[#37BA83]': p.status === 'En cours', 'bg-[#ffaa00]': p.status === 'En attente','bg-[#0095ff]': p.status === 'Archivé'}"
+                    class="px-3 rounded-full text-sm text-white">{{p.status}}</span>
+            </div> -->
+    </div>
+</div>
