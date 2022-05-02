@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { guid } from '../model/project.model';
 import { Task } from '../model/task.model';
-import { TASK_STATUS } from '../todo/todo.component';
+import { TASK_STATUS } from '../views/todo/todo.component';
 import { DatabaseService } from './database.service';
 import { SearchService } from './search.service';
 import { DateTime } from "luxon";

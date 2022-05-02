@@ -1,10 +1,10 @@
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import _ from 'underscore';
-import { guid, Project } from '../model/project.model';
-import { Task } from '../model/task.model';
-import { DatabaseService } from '../services/database.service';
-import { SearchService } from '../services/search.service';
+import { guid, Project } from '../../model/project.model';
+import { Task } from '../../model/task.model';
+import { DatabaseService } from '../../services/database.service';
+import { SearchService } from '../../services/search.service';
 import { DateTime } from "luxon";
 
 

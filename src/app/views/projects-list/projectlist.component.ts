@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Project } from '../model/project.model';
-import { DatabaseService } from '../services/database.service';
+import { Project } from '../../model/project.model';
+import { DatabaseService } from '../../services/database.service';
 import _ from "underscore";
 
 @Component({

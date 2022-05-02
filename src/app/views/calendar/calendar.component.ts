@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DateTime } from "luxon";
-import { getDateFromString, Project } from '../model/project.model';
-import { DatabaseService } from '../services/database.service';
+import { Project } from 'src/app/model/project.model';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-calendar',

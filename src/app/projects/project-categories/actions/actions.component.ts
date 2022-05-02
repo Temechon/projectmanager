@@ -5,11 +5,11 @@ import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
 
 @Component({
-  selector: 'app-action-list',
-  templateUrl: './action-list.component.html',
-  styleUrls: ['./action-list.component.scss']
+  selector: 'app-actions',
+  templateUrl: './actions.component.html',
+  styleUrls: ['./actions.component.scss']
 })
-export class ActionListComponent extends CategoryComponent {
+export class ActionsComponent extends CategoryComponent {
 
 
   actionStatus = ActionStatus;

@@ -7,10 +7,10 @@ import { CategoryComponent } from '../category.component';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.scss']
+  templateUrl: './project-view.component.html',
+  styleUrls: ['./project-view.component.scss']
 })
-export class ProjectComponent implements OnInit {
+export class ProjectViewComponent implements OnInit {
 
   constructor(
     protected route: ActivatedRoute,

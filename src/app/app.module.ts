@@ -6,38 +6,39 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { NgxTippyModule } from 'ngx-tippy-wrapper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { ProjectInfoComponent } from './calendar/project-info/project-info.component';
 import { GuiModule } from './gui/gui.module';
-import { ProjectlistComponent } from './projectlist/projectlist.component';
-import { AcceptanceTestsComponent } from './projects/categories/acceptance/acceptance.component';
-import { ActionListComponent } from './projects/categories/action-list/action-list.component';
-import { ActionComponent } from './projects/categories/action-list/action/action.component';
-import { ActorsComponent } from './projects/categories/actors/actors.component';
-import { GeneralInformationComponent } from './projects/categories/general-information/general-information.component';
-import { MilestonesComponent } from './projects/categories/milestones/milestones.component';
-import { NotesComponent } from './projects/categories/notes/notes.component';
-import { ReportViewComponent } from './projects/categories/reports/report-view/report-view.component';
-import { StyleButtonComponent } from './projects/categories/reports/report-view/style-button/style-button.component';
-import { ReportsComponent } from './projects/categories/reports/reports.component';
-import { TestCasesListComponent } from './projects/categories/test-cases-list/test-cases-list.component';
-import { TestCasesComponent } from './projects/categories/test-cases-list/test-cases/test-cases.component';
-import { ProjectComponent } from './projects/project/project.component';
-import { ProjectsComponent } from './projects/projects/projects.component';
-import { SearchResultsComponent } from './search-results/search-results.component';
+import { ProjectlistComponent } from './views/projects-list/projectlist.component';
+import { ProjectViewComponent } from './projects/project-view/project-view.component';
+import { MainViewComponent } from './projects/main-view/main-view.component';
+import { SearchResultsComponent } from './views/search-results/search-results.component';
 import { DatabaseService, initDatabase } from './services/database.service';
 import { IpcService } from './services/ipc.service';
 import { SearchService } from './services/search.service';
 import { SyncService } from './services/sync.service';
-import { TodoComponent } from './todo/todo.component';
+import { CalendarComponent } from './views/calendar/calendar.component';
+import { ProjectInfoComponent } from './views/calendar/project-info/project-info.component';
+import { TodoComponent } from './views/todo/todo.component';
+import { ActionsListComponent } from './views/actions-list/actions-list.component';
+import { AcceptanceTestsComponent } from './projects/project-categories/acceptance/acceptance.component';
+import { ActionsComponent } from './projects/project-categories/actions/actions.component';
+import { ActionComponent } from './projects/project-categories/actions/action/action.component';
+import { ActorsComponent } from './projects/project-categories/actors/actors.component';
+import { GeneralInformationComponent } from './projects/project-categories/general-information/general-information.component';
+import { MilestonesComponent } from './projects/project-categories/milestones/milestones.component';
+import { NotesComponent } from './projects/project-categories/notes/notes.component';
+import { ReportViewComponent } from './projects/project-categories/reports/report-view/report-view.component';
+import { StyleButtonComponent } from './projects/project-categories/reports/report-view/style-button/style-button.component';
+import { ReportsComponent } from './projects/project-categories/reports/reports.component';
+import { TestCasesListComponent } from './projects/project-categories/test-cases-list/test-cases-list.component';
+import { TestCasesComponent } from './projects/project-categories/test-cases-list/test-cases/test-cases.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProjectsComponent,
-    ProjectComponent,
+    MainViewComponent,
+    ProjectViewComponent,
     GeneralInformationComponent,
     ActorsComponent,
     ReportsComponent,
@@ -53,8 +54,9 @@ import { TodoComponent } from './todo/todo.component';
     ProjectlistComponent,
     TestCasesListComponent,
     TestCasesComponent,
-    ActionListComponent,
-    ActionComponent
+    ActionsComponent,
+    ActionComponent,
+    ActionsListComponent
   ],
   imports: [
     FormsModule,

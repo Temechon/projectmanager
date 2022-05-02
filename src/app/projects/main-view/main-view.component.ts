@@ -9,10 +9,10 @@ import _ from 'underscore';
 
 @Component({
   selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  templateUrl: './main-view.component.html',
+  styleUrls: ['./main-view.component.scss']
 })
-export class ProjectsComponent implements OnInit {
+export class MainViewComponent implements OnInit {
 
   constructor(
     private db: DatabaseService,
