@@ -126,8 +126,12 @@ export class TestCasesComponent extends CategoryComponent {
     this.save();
   }
 
-  toggleOkTests() {
-
+  /**
+   * Display details of this test
+   */
+  toggleDetails(index: number) {
+    document.querySelector(`#details-${index}`)?.classList.toggle('hidden');
+    document.querySelector(`#details-${index}`)?.classList.toggle('flex');
   }
 
   drop(event: CdkDragDrop<string>) {

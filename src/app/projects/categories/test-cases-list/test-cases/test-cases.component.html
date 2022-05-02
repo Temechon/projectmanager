@@ -13,81 +13,116 @@
                 </editable-text>
             </div>
         </div>
-        <!-- <div class="flex flex-row mb-2">
-            <div class="text-gray-400 w-72 pl-4 flex items-center justify-start">Afficher les tests réussis</div>
-            <div class="w-full">
 
-                <div class="inline-flex items-center">
-                    <input type="checkbox" class="h-4 w-4 cursor-pointer" checked (click)="toggleOkTests()">
+
+        <div class="w-full mr-auto">
+
+            <div class="w-full flex border-b-2 py-2 font-bold">
+                <div class="w-4">
+
                 </div>
+                <div class="w-60">
+                    Catégorie
+                </div>
+                <div class="flex-grow">
+                    Cas testé
+                </div>
+                <div class="w-36 flex items-center justify-center">
+                    Date
+                </div>
+                <div class="w-60 flex items-center justify-center">
+                    Résultat attendu
+                </div>
+                <div class="w-32 flex items-center justify-center">
+                    Statut
+                </div>
+                <th class="w-16">
+                    Actions
+                </th>
             </div>
-        </div> -->
 
-        <div class="py-4">
-            <table class="w-full border-collapse table-fixed">
-                <thead>
-                    <th class="w-4"></th>
-                    <th class="font-normal text-sm text-primary w-60">
-                        Catégorie
-                    </th>
-                    <th class="font-normal text-sm text-primary">
-                        Cas testé
-                    </th>
-                    <th class="font-normal text-sm text-primary w-36">
-                        Date
-                    </th>
-                    <th class="font-normal text-sm text-primary w-60">
-                        Résultat attendu
-                    </th>
-                    <th class="font-normal text-sm text-primary w-32">
-                        Status
-                    </th>
-                    <th class="w-12"></th>
-                </thead>
-                <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-                    <tr *ngFor="let test of testCases;let index=index" cdkDrag class="relative">
-                        <th class="w-4 h-full absolute left-0 bg-gray-100 text-gray-400 flex items-center justify-center cursor-move"
+            <div class="w-full flex flex-col" cdkDropList (cdkDropListDropped)="drop($event)">
+
+                <ng-container *ngFor="let test of testCases;let index=index">
+
+                    <div cdkDrag class="relative flex items-stretch">
+
+                        <!-- Move handle -->
+                        <div class="w-4 bg-gray-100 text-gray-400 flex items-center justify-center cursor-move"
                             cdkDragHandle>
                             <i class="fas fa-ellipsis-v"></i>
-                        </th>
-                        <td class="table-cell">
+                        </div>
+
+                        <div class="w-60">
                             <editable-text [(text)]="test.category" (onFinished)="save()">
                             </editable-text>
-                        </td>
-                        <td class="table-cell">
+                        </div>
+                        <div class="flex-grow">
                             <editable-text [(text)]="test.name" (onFinished)="save()">
                             </editable-text>
-                        </td>
-                        <td class="table-cell">
+                        </div>
+                        <div class="w-36">
                             <editable-text [(text)]="test.test_date" (onFinished)="save()">
                             </editable-text>
-                        </td>
-                        <td class="table-cell">
+                        </div>
+                        <div class="w-60">
                             <editable-text [(text)]="test.expected_result" (onFinished)="save()">
                             </editable-text>
-                        </td>
-                        <td class="table-cell text-center">
-                            <select-list [options]="status" [(value)]="test.status" (onSelected)="save()"></select-list>
-                        </td>
-                        <td class="w-12">
-                            <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer"
+                        </div>
+                        <div class="w-32 flex items-center justify-center">
+                            <select-list [options]="status" [(value)]="test.status" (onSelected)="save()">
+                            </select-list>
+                        </div>
+                        <!-- Actions -->
+                        <div class="w-16 flex items-center justify-center">
+                            <i class="fas fa-edit text-xl mx-1 text-gray-400 cursor-pointer"
+                                (click)="toggleDetails(index)"></i>
+
+                            <i class="fas fa-times-circle text-xl mx-1 text-red-500 cursor-pointer"
                                 (click)="delete(index)"></i>
-                        </td>
+                        </div>
                         <!-- Drag preview -->
                         <div *cdkDragPreview class="px-4 py-2 rounded-lg border bg-white shadow-md">
                             {{test.category}} - {{test.name}}
                         </div>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="flex flex-row mb-2 mt-8">
-                <div class="flex items-center justify-start mr-4">
-                    <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
-                    </action-button>
-                </div>
+                    </div>
+                    <div attr.id="details-{{index}}" class="hidden flex-grow flex-col bg-gray-50 pl-12">
+                        <div class="flex w-full items-center">
+                            <div class="w-44 italic text-gray-400">
+                                Résultat obtenu
+                            </div>
+                            <div class="flex-grow">
+                                <editable-text [(text)]="test.obtained_result" (onFinished)="save()">
+                                </editable-text>
+                            </div>
+                        </div>
+                        <div class="flex w-full items-center">
+                            <div class="w-44 italic text-gray-400">
+                                Données de tests
+                            </div>
+                            <div class="flex-grow">
+                                <editable-text [(text)]="test.test_data" (onFinished)="save()">
+                                </editable-text>
+                            </div>
+                        </div>
+                        <div class="flex w-full items-center">
+                            <div class="w-44 italic text-gray-400">
+                                Commentaires
+                            </div>
+                            <div class="flex-grow">
+                                <editable-text [(text)]="test.comments" (onFinished)="save()">
+                                </editable-text>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
-
+        </div>
+        <div class="flex flex-row mb-2 mt-8">
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                </action-button>
+            </div>
         </div>
 
         <div class="flex flex-row mb-2 mt-8">
