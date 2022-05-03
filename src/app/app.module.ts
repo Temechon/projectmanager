@@ -31,6 +31,9 @@ import { StyleButtonComponent } from './projects/project-categories/reports/repo
 import { ReportsComponent } from './projects/project-categories/reports/reports.component';
 import { TestCasesListComponent } from './projects/project-categories/test-cases-list/test-cases-list.component';
 import { TestCasesComponent } from './projects/project-categories/test-cases-list/test-cases/test-cases.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CreateSpiraComponent } from './gui/dialog/create-spira/create-spira.component';
+import { DialogComponent } from './gui/dialog/dialog.component';
 
 
 
@@ -56,7 +59,8 @@ import { TestCasesComponent } from './projects/project-categories/test-cases-lis
     TestCasesComponent,
     ActionsComponent,
     ActionComponent,
-    ActionsListComponent
+    ActionsListComponent,
+    CreateSpiraComponent
   ],
   imports: [
     FormsModule,
@@ -65,7 +69,8 @@ import { TestCasesComponent } from './projects/project-categories/test-cases-lis
     GuiModule,
     DragDropModule,
     NgxTippyModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    HttpClientModule,
   ],
   providers: [
     SearchService,

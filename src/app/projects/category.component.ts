@@ -5,6 +5,8 @@ import _ from "underscore";
 import { Pin } from "../model/pin.model";
 import { Project } from "../model/project.model";
 import { DatabaseService } from "../services/database.service";
+import { DialogService } from "../services/dialog.service";
+import { DocxService } from "../services/docx.service";
 import { ExcelService } from "../services/excel.service";
 import { IpcService } from "../services/ipc.service";
 import { PinService } from "../services/pin.service";
@@ -23,7 +25,9 @@ export abstract class CategoryComponent implements OnInit {
         protected ipcService: IpcService,
         protected pinner: PinService,
         protected excel: ExcelService,
-        protected toaster: ToastService
+        protected toaster: ToastService,
+        protected docx: DocxService,
+        protected dialog: DialogService
     ) {
     }
 

@@ -1,0 +1,66 @@
+<div class="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-100 bg-opacity-70 z-30">
+
+    <div class="bg-white w-5/6 lg:w-2/3 max-w-[600px] border border-gray-300 rounded-lg z-10 shadow-lg">
+
+        <h3 class="text-lg leading-6 font-semibold rounded-t-lg bg-darker text-white p-4 flex items-center"
+            id="modal-title">
+            Créer le template Spira
+        </h3>
+        <div class="p-4 my-auto">
+            <div class="mb-2 font-semibold text-gray-400">Encore quelques informations nécessaires...</div>
+
+            <div class="border p-4 py-8 overflow-y-auto bg-white">
+
+                <div class="flex flex-row mb-2">
+                    <div class="text-gray-400 w-60 flex items-center justify-start">Nom et prénom du demandeur</div>
+                    <div class="w-full">
+                        <editable-text placeholder="Nom" [(text)]="infos.author" (onFinished)="updateTrigram()">
+                        </editable-text>
+                    </div>
+                </div>
+
+                <div class="flex flex-row mb-2">
+                    <div class="text-gray-400 w-60 flex items-center justify-start">Pôle du demandeur</div>
+                    <div class="w-full">
+                        <select-list [options]="teams" [(value)]="infos.authorteam"></select-list>
+                    </div>
+                </div>
+
+                <div class="flex flex-row mb-2">
+                    <div class="text-gray-400 w-60 flex items-center justify-start">Trigramme</div>
+                    <div class="w-full">
+                        <editable-text placeholder="Trigramme" [(text)]="infos.trigram">
+                        </editable-text>
+                    </div>
+                </div>
+
+                <div class="flex flex-row mb-2">
+                    <div class="text-gray-400 w-60 flex items-center justify-start">Date de mise en place souhaitée
+                    </div>
+                    <div class="w-full">
+                        <editable-text placeholder="Date cible" [(text)]="infos.targetdate">
+                        </editable-text>
+                    </div>
+                </div>
+
+                <div class="flex flex-row mb-2">
+                    <div class="text-gray-400 w-60 flex items-center justify-start">VP cible</div>
+                    <div class="w-full">
+                        <editable-text placeholder="VP cible" [(text)]="infos.targetvp">
+                        </editable-text>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-gray-50 px-4 py-3 rounded-lg flex items-center space-x-4 justify-center">
+                <action-button text="Annuler" custom="!bg-gray-500 hover:!bg-gray-400" (onClick)="close()"
+                    icon="fa-times-circle">
+                </action-button>
+
+                <action-button text="Exporter" custom="bg-green-500 hover:bg-green-700" icon="fa-check-circle"
+                    (onClick)="closeAndCreate()"></action-button>
+            </div>
+        </div>
+
+    </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import randomColor from 'randomcolor';
+import { CreateSpiraComponent } from 'src/app/gui/dialog/create-spira/create-spira.component';
 import { Pin } from 'src/app/model/pin.model';
 import { guid, Project } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
@@ -80,6 +81,39 @@ export class GeneralInformationComponent extends CategoryComponent {
       projectinternalid: this.project.internalid,
       category: this.category,
       params: null
+    })
+  }
+
+  /**
+   * Create Spira template
+   */
+  createTemplate() {
+
+    let dialogref = this.dialog.openDialog(CreateSpiraComponent, {
+
+      button1: {
+        text: 'Valider',
+        param: 'ok',
+      },
+      button2: {
+        text: 'Annuler',
+        param: 'cancel'
+      }
+    }
+    );
+
+    dialogref.onClose.subscribe((data?: any) => {
+      if (!data) {
+        return;
+      }
+      let d = {
+        internalid: this.project.internalid,
+        name: this.project.name,
+        ...data
+      }
+      console.log("ITEM RECU", d);
+
+      this.docx.generateSpiraTemplate(d);
     })
   }
 }

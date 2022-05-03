@@ -57,7 +57,6 @@ console.log("DISK PATH", electron_1.app.getAppPath());
  * Save project json to disk
  */
 electron_1.ipcMain.on('async-save-projects', function (event, projectid, projectjson) {
-    // console.log("async-save", arg1, arg2);
     try {
         fs.writeFileSync("projectmanager.projects." + projectid, projectjson, 'utf-8');
         mainWindow.webContents.send('save-status', { status: true });
@@ -76,26 +75,24 @@ electron_1.ipcMain.on('async-save-tasks', function (event, arg) {
         console.error(e, 'Failed to save the file !');
     }
 });
-electron_1.ipcMain.on('read-projects', function (event, arg) {
-    var projects = null;
-    try {
-        projects = fs.readFileSync('projectmanager.projects', 'utf-8');
-    }
-    catch (e) {
-        console.error(e, 'No file called projectmanager.projects');
-    }
-    event.returnValue = projects;
-});
-electron_1.ipcMain.on('read-tasks', function (event, arg) {
-    var tasks = null;
-    try {
-        tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
-    }
-    catch (e) {
-        console.error(e, 'No file called projectmanager.tasks');
-    }
-    event.returnValue = tasks;
-});
+// // ipcMain.on('read-projects', (event, arg) => {
+// //     let projects = null;
+// //     try {
+// //         projects = fs.readFileSync('projectmanager.projects', 'utf-8');
+// //     } catch (e) {
+// //         console.error(e, 'No file called projectmanager.projects');
+// //     }
+// //     event.returnValue = projects;
+// // })
+// ipcMain.on('read-tasks', (event, arg) => {
+//     let tasks = null;
+//     try {
+//         tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
+//     } catch (e) {
+//         console.error(e, 'No file called projectmanager.tasks');
+//     }
+//     event.returnValue = tasks;
+// })
 electron_1.ipcMain.on('minimize', function (event, arg) {
     mainWindow.minimize();
 });

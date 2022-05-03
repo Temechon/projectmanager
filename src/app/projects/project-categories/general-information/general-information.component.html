@@ -100,9 +100,13 @@
         <h2 class="text-gray-400 mt-8 mb-4">Divers</h2>
         <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">ID projet Spira</div>
-            <div class="w-full">
-                <editable-text placeholder="Nom" [(text)]="project.spira_projectid" (onFinished)="save()">
+            <div class="w-[calc(100%-4rem)]">
+                <editable-text placeholder="ID Spira" [(text)]="project.spira_projectid" (onFinished)="save()">
                 </editable-text>
+            </div>
+            <div class="w-16 flex items-center justify-center cursor-pointer">
+                <action-button (onClick)="createTemplate()" icon="fa-file-export"
+                    custom="bg-green-500 hover:bg-green-700"></action-button>
             </div>
         </div>
         <div class="flex flex-row mb-2">
@@ -118,7 +122,7 @@
         <h2 class="text-gray-400 mt-8 mb-4"></h2>
         <div class="flex flex-row mb-2">
             <div class="w-52 pl-4 flex items-center justify-start">
-                <action-button text="Supprimer" (onClick)="delete()"></action-button>
+                <action-button text="Supprimer" (onClick)="delete()" icon="fa-minus-circle"></action-button>
             </div>
         </div>
     </div>
