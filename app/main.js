@@ -17,10 +17,11 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false
         },
-        show: false
+        show: false,
     });
     mainWindow.center();
     mainWindow.removeMenu();
+    mainWindow.webContents.setAudioMuted(true);
     // Path when running electron executable
     var pathIndex = './index.html';
     if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
@@ -109,5 +110,8 @@ electron_1.ipcMain.on('open-link', function (event, arg) {
 electron_1.ipcMain.on('open-folder', function (event, arg) {
     console.log("FOLDER TO OPEN", arg);
     electron_1.shell.openPath(arg);
+});
+electron_1.ipcMain.on('show-dialog', function (event, options) {
+    event.returnValue = electron_1.dialog.showMessageBoxSync(mainWindow, options);
 });
 //# sourceMappingURL=main.js.map

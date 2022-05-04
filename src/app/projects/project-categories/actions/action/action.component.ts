@@ -4,6 +4,7 @@ import { Pin } from 'src/app/model/pin.model';
 import { Action, ActionStatus, guid, Project } from 'src/app/model/project.model';
 import { CategoryComponent } from 'src/app/projects/category.component';
 import { DateTime } from "luxon";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-action',
@@ -62,9 +63,24 @@ export class ActionComponent extends CategoryComponent {
    * Close this actions
    */
   closeAction() {
-    let res = window.confirm("Êtes-vous sûr de vouloir clôturer cette action ?");
-    if (res) {
 
+    let close = false;
+    const options = {
+      type: 'question',
+      buttons: ["Oui", "Annuler"],
+      title: "Clôturer l'action",
+      message: 'Êtes vous sûr de vouloir clôturer cette action ?'
+    };
+    if (environment.production) {
+
+      let clickedButton = this.ipcService.sendSync('show-dialog', options)
+      close = clickedButton === 0;
+    } else {
+      close = window.confirm("Êtes-vous sûr de vouloir clôturer cette action ?");
+    }
+
+    if (close) {
+      // Then close the action      
       this.action.close_date = DateTime.now().toLocaleString(DateTime.DATE_SHORT);
       this.action.status = ActionStatus.CLOSED;
 
@@ -77,6 +93,9 @@ export class ActionComponent extends CategoryComponent {
         this.goToActions();
       })
     }
+
+    // if (res) {
+
   }
 
   reopenAction() {

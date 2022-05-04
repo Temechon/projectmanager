@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, screen, shell } from 'electron';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as url from 'url';
@@ -20,7 +20,8 @@ function createWindow() {
             nodeIntegration: true,
             contextIsolation: false
         },
-        show: false
+        show: false,
+
     })
     mainWindow.center();
     mainWindow.removeMenu();
@@ -89,24 +90,6 @@ ipcMain.on('async-save-tasks', (event, arg) => {
     }
 })
 
-// // ipcMain.on('read-projects', (event, arg) => {
-// //     let projects = null;
-// //     try {
-// //         projects = fs.readFileSync('projectmanager.projects', 'utf-8');
-// //     } catch (e) {
-// //         console.error(e, 'No file called projectmanager.projects');
-// //     }
-// //     event.returnValue = projects;
-// // })
-// ipcMain.on('read-tasks', (event, arg) => {
-//     let tasks = null;
-//     try {
-//         tasks = fs.readFileSync('projectmanager.tasks', 'utf-8');
-//     } catch (e) {
-//         console.error(e, 'No file called projectmanager.tasks');
-//     }
-//     event.returnValue = tasks;
-// })
 ipcMain.on('minimize', (event, arg) => {
     mainWindow.minimize();
 })
@@ -123,4 +106,7 @@ ipcMain.on('open-link', (event, arg) => {
 ipcMain.on('open-folder', (event, arg) => {
     console.log("FOLDER TO OPEN", arg);
     shell.openPath(arg);
+})
+ipcMain.on('show-dialog', (event, options) => {
+    event.returnValue = dialog.showMessageBoxSync(mainWindow, options);
 })
