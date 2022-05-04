@@ -200,6 +200,7 @@ export class ReportViewComponent implements OnInit {
         id: guid(),
         name: `CR ${this.note.title} - Action créée`,
         from: '',
+        waitingfor: '',
         date: DateTime.now().toLocaleString(DateTime.DATE_SHORT),
         status: ActionStatus.OPEN,
         details: content,

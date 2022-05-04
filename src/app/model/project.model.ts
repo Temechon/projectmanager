@@ -67,6 +67,7 @@ export type Action = {
     id: string,
     name: string,
     from: string,
+    waitingfor: string,
     date: string,
     status: string,
     details: string,

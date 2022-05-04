@@ -161,6 +161,10 @@ async function _create() {
           doc.notes.forEach(note => note.pinned = false)
           return doc;
         },
+        10: (doc: Project) => {
+          doc.actions.forEach(action => action.waitingfor = "");
+          return doc;
+        }
       }
     },
     tasks: {

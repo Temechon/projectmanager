@@ -47,6 +47,7 @@ export class ActionsComponent extends CategoryComponent {
       id: uid,
       name: '',
       from: '',
+      waitingfor: '',
       date: DateTime.now().toLocaleString(DateTime.DATE_SHORT),
       status: ActionStatus.OPEN,
       details: '',

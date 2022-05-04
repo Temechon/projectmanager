@@ -31,6 +31,14 @@
         </div>
 
         <div class="flex flex-row mb-2">
+            <div class="text-gray-400 w-60 pl-4 flex items-center justify-start">En attente de</div>
+            <div class="w-full">
+                <editable-text placeholder="En attente de" [(text)]="action.waitingfor" (onFinished)="save()">
+                </editable-text>
+            </div>
+        </div>
+
+        <div class="flex flex-row mb-2">
             <div class="text-gray-400 w-60 pl-4 flex items-center justify-start">Details</div>
             <div class="w-full">
                 <editable-area [(text)]="action.details" (onFinished)="save()" placeholder="Détails">
