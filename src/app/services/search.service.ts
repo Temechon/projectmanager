@@ -37,6 +37,7 @@ export class SearchService {
 
     this.removeProject(proj);
 
+    // Index reports
     for (let report of proj.reports) {
       this.index.update(report.id,
         {
@@ -50,6 +51,8 @@ export class SearchService {
           type: "report"
         });
     }
+
+    // Index notes
     for (let note of proj.notes) {
       this.index.update(note.id,
         {
@@ -64,6 +67,22 @@ export class SearchService {
         });
     }
 
+    // Index actions
+    for (let action of proj.actions) {
+      this.index.update(action.id,
+        {
+          id: action.id,
+          content: action.details + " - " + action.answer,
+          title: action.name,
+          p_id: proj.id,
+          p_name: proj.name,
+          p_internalid: proj.internalid,
+          date: action.date,
+          type: "action"
+        });
+    }
+
+    // Index project details
     this.index.update(proj.id, {
       id: proj.id,
       content: proj.description,
@@ -103,6 +122,23 @@ export class SearchService {
         date: note.date,
         type: "note"
       }
+      this.index.add(obj)
+    }
+
+
+    // Index actions
+    for (let action of proj.actions) {
+      let obj =
+      {
+        id: action.id,
+        content: action.details + " - " + action.answer,
+        title: action.name,
+        p_id: proj.id,
+        p_name: proj.name,
+        p_internalid: proj.internalid,
+        date: action.date,
+        type: "action"
+      };
       this.index.add(obj)
     }
 

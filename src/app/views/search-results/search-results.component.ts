@@ -46,6 +46,9 @@ export class SearchResultsComponent implements OnInit {
             else if (firstRes.doc.type === 'note') {
               this.goToNote(firstRes.doc.p_id, firstRes.id);
             }
+            else if (firstRes.doc.type === 'action') {
+              this.goToAction(firstRes.doc.p_id, firstRes.id);
+            }
           }
         }
       }
@@ -66,6 +69,10 @@ export class SearchResultsComponent implements OnInit {
 
   goToNote(pid: string, noteid: string) {
     this.router.navigate(['/projects', pid, 'notes'], { queryParams: { id: noteid } });
+  }
+
+  goToAction(pid: string, actionid: string) {
+    this.router.navigate(['/projects', pid, 'actions', actionid]);
   }
 
   goToTask(taskid: string) {
@@ -101,6 +108,9 @@ export class SearchResultsComponent implements OnInit {
         break;
       case "task":
         classname = "border-mygreen";
+        break;
+      case "action":
+        classname = "border-darker-200";
         break;
       default:
         classname = "border-white ";

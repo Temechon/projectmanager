@@ -1,4 +1,4 @@
-<div class="p-12 w-full h-full bg-white">
+<div class="p-12 pt-0 w-full h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-12">Recherche</h1>
 
     <div class="w-5/6 mr-auto">
@@ -74,6 +74,32 @@
                         </div>
                         <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
                             <div>Contenu :</div>
+                            <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
+                                *ngIf="res.field === 'content'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- !! If the result is an action -->
+                <div class="flex items-center group" *ngIf="r.doc.type === 'action'"
+                    (click)="goToAction(r.doc.p_id, r.id)">
+                    <!-- Icon -->
+                    <i class="fas fa-tasks text-4xl text-gray-100 ml-2 mr-6 group-hover:text-gray-400"></i>
+
+                    <!-- Results -->
+                    <div class="flex flex-col flex-grow">
+                        <div class="flex items-center">
+                            <div
+                                class="flex items-center justify-center rounded-full text-sm text-white px-3 mr-4 bg-primary-200">
+                                {{r.doc.p_internalid}}
+                            </div>
+                            <div class="text-darker text-2xl font-bold">Action</div>
+                            <span class="text-gray-400 text-sm ml-4">{{r.doc.title}} - {{r.doc.date}}</span>
+                        </div>
+                        <div class="flex pt-4 items-center" *ngIf="res.field === 'content'">
+                            <div>Description :</div>
                             <div class="text-gray-400 text-sm" [innerHtml]="snippet(r.doc.content)"
                                 *ngIf="res.field === 'content'">
                             </div>
