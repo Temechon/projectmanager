@@ -4,6 +4,7 @@ import { Subscription } from "rxjs";
 import _ from "underscore";
 import { Pin } from "../model/pin.model";
 import { Project } from "../model/project.model";
+import { ConfirmService } from "../services/confirm.service";
 import { DatabaseService } from "../services/database.service";
 import { DialogService } from "../services/dialog.service";
 import { DocxService } from "../services/docx.service";
@@ -27,7 +28,8 @@ export abstract class CategoryComponent implements OnInit {
         protected excel: ExcelService,
         protected toaster: ToastService,
         protected docx: DocxService,
-        protected dialog: DialogService
+        protected dialog: DialogService,
+        protected confirmService: ConfirmService
     ) {
     }
 

@@ -64,20 +64,7 @@ export class ActionComponent extends CategoryComponent {
    */
   closeAction() {
 
-    let close = false;
-    const options = {
-      type: 'question',
-      buttons: ["Oui", "Annuler"],
-      title: "Clôturer l'action",
-      message: 'Êtes vous sûr de vouloir clôturer cette action ?'
-    };
-    if (environment.production) {
-
-      let clickedButton = this.ipcService.sendSync('show-dialog', options)
-      close = clickedButton === 0;
-    } else {
-      close = window.confirm("Êtes-vous sûr de vouloir clôturer cette action ?");
-    }
+    let close = this.confirmService.confirm('Êtes vous sûr de vouloir clôturer cette action ?', "Clôturer l'action");
 
     if (close) {
       // Then close the action      
@@ -93,9 +80,6 @@ export class ActionComponent extends CategoryComponent {
         this.goToActions();
       })
     }
-
-    // if (res) {
-
   }
 
   reopenAction() {

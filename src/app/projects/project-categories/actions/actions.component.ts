@@ -62,7 +62,7 @@ export class ActionsComponent extends CategoryComponent {
 
   delete(index: number, $event: any) {
     $event.stopPropagation();
-    let res = window.confirm("Êtes-vous sûr de vouloir supprimer cette action ?");
+    let res = this.confirmService.confirm('Êtes vous sûr de vouloir supprimer cette action ?', "Supprimer l'action");
     if (res) {
       this.project.actions.splice(index, 1);
       this.toaster.toast({

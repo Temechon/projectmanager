@@ -17,6 +17,7 @@ import { ToastService } from 'src/app/services/toast.service';
 import _ from 'underscore';
 import { StyleButtonComponent } from './style-button/style-button.component';
 import { DateTime } from "luxon";
+import { ConfirmService } from 'src/app/services/confirm.service';
 
 
 
@@ -45,7 +46,8 @@ export class ReportViewComponent implements OnInit {
     protected route: ActivatedRoute,
     protected pinner: PinService,
     private taskService: TaskService,
-    private toaster: ToastService
+    private toaster: ToastService,
+    private confirmService: ConfirmService
   ) {
 
   }
@@ -128,7 +130,7 @@ export class ReportViewComponent implements OnInit {
    * Delete a report from the project
    */
   deleteNote() {
-    let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce compte-rendu ?");
+    let res = this.confirmService.confirm('Êtes vous sûr de vouloir supprimer ce compte rendu ?', "Supprimer un compte rendu");
     if (res) {
       let reportIndex = this.project.reports.findIndex(r => r.id === this.note.id);
       let reports = this.project.reports.splice(reportIndex, 1);

@@ -35,7 +35,7 @@ export class GeneralInformationComponent extends CategoryComponent {
   }
 
   delete() {
-    let res = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    let res = this.confirmService.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?", "Supprimer un projet");
     if (res) {
       this.db.deleteProject(this.project).then(() => {
         // Update index        

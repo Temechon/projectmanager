@@ -39,7 +39,7 @@ export class TestCasesListComponent extends CategoryComponent {
 
   delete(index: number, $event: any) {
     $event.stopPropagation();
-    let res = window.confirm("Êtes-vous sûr de vouloir supprimer ces tests ?");
+    let res = this.confirmService.confirm("Êtes-vous sûr de vouloir supprimer ces tests ?", "Supprimer des tests");
     if (res) {
       this.project.testCasesList.splice(index, 1);
       this.save();
@@ -47,7 +47,7 @@ export class TestCasesListComponent extends CategoryComponent {
   }
   clone(tcl: TestCasesList, $event: any) {
     $event.stopPropagation();
-    let res = window.confirm("Êtes-vous sûr de vouloir duppliquer ces tests ?");
+    let res = this.confirmService.confirm("Êtes-vous sûr de vouloir duppliquer ces tests ?", "Dupliquer des tests");
     if (res) {
 
       let uid = guid();
