@@ -13,45 +13,36 @@ import { CategoryComponent } from '../../category.component';
 })
 export class ReportsComponent extends CategoryComponent {
 
-  selected: boolean;
 
-  reportRouteSub: Subscription;
-  urlSub: Subscription;
-
-
-  ngOnInit() {
+  ngOnInit(): void {
     super.ngOnInit();
 
-    this.urlSub = this.route.url.subscribe(res => {
-
-      // If no report has been selected, forward to the last one
-      let url = this.router.url.split('/').pop().trim();
-      if (url !== "reports") {
-        this.selected = true;
-
-        this.reportRouteSub?.unsubscribe();
-        this.reportRouteSub = this.route.firstChild.data.subscribe(d => {
-          let report = d.report;
-          if (report) {
-            this.pinner.setPinned(this.project.id, this.category, report.id);
-          }
-        })
-      } else {
-        // forward to the last report if any
-        this.selected = false;
-        if (this.project.reports.length > 0) {
-          this.goToReport(this.project.reports[this.project.reports.length - 1].id);
-        }
-      }
-
-    });
+    // Get the project from the parent parent route
+    let prr = this.route.parent.parent.snapshot.data;
+    this.project = prr.project;
   }
 
-  ngOnDestroy() {
-    super.ngOnDestroy();
-    this.reportRouteSub?.unsubscribe();
-    this.urlSub?.unsubscribe();
+  delete(index: number, $event: any) {
+    $event.stopPropagation();
+    let res = this.confirmService.confirm('Êtes vous sûr de vouloir supprimer ce CR ?', "Supprimer le compte rendu");
+    if (res) {
+      let reports = this.project.reports.splice(index, 1);
+
+      this.index.removeObject(reports[0].id);
+      this.db.saveProject(this.project.toObject());
+      this.index.updateProject(this.project);
+      this.pinner.unpinReport(reports[0].id);
+
+      this.toaster.toast({
+        type: 'success',
+        icon: 'fas fa-check',
+        content: "Le compte rendu a bien été supprimé !"
+      })
+      this.save();
+    }
   }
+
+
 
   get category(): string {
     return 'reports';
@@ -62,7 +53,7 @@ export class ReportsComponent extends CategoryComponent {
 
   }
 
-  addReport() {
+  add() {
     let note = {
       id: guid(),
       title: 'Titre',

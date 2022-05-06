@@ -1,28 +1,44 @@
-<div class="p-12 pl-0 pt-0 w-full h-full bg-white relative">
-
-    <div class="flex items-baseline mb-12 pl-12">
+<div class="p-12 pt-0 pr-4 w-full bg-white">
+    <div class="flex items-baseline mb-12">
         <h1 class="text-4xl font-bold text-darker">Comptes rendus</h1>
         <sync></sync>
     </div>
 
-    <div class="flex ml-4 w-full mr-auto h-[calc(100%-40px)]">
+    <div class="mr-auto">
 
-        <div class="w-60 flex flex-col relative h-full overflow-y-auto">
-
-            <div class="w-full truncate flex flex-shrink-0 items-center pl-4 hover:bg-primary-50 hover:text-primary cursor-pointer rounded-r-md"
-                [routerLink]="p.id" (click)="goToReport(p.id)" routerLinkActive="text-primary bg-primary-50"
-                *ngFor="let p of project.reports; let index=index">
-                <div class="truncate">{{p.title}}</div>
+        <div class="w-2/3 flex border-b-2  py-2 font-bold">
+            <div class="min-w-[320px]">
+                Nom
             </div>
-
-            <div class="w-full text-center mt-8">
-                <action-button text="Ajouter un CR" (onClick)="addReport()" icon="fa-plus-circle"></action-button>
+            <div class="w-48">
+                Date
+            </div>
+            <div class="w-24 flex items-center justify-center">
+                Actions
+            </div>
+        </div>
+        <div class="w-2/3 flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
+            *ngFor="let cr of project.reports; let index=index"
+            [routerLink]="['/projects', project.id, 'reports', cr.id]">
+            <div class="min-w-[320px] flex items-center">
+                {{cr.title}}
+            </div>
+            <div class="w-48 flex items-center justify-center">
+                {{cr.date}}
+            </div>
+            <div class="w-24 flex items-center justify-center">
+                <i class="fas fa-times-circle text-xl text-red-500 hover:text-red-700 mx-1 cursor-pointer"
+                    (click)="delete(index, $event)"></i>
             </div>
         </div>
 
 
-        <div #reportroot class="w-[calc(100%-15rem)] pl-8" *ngIf="selected">
-            <router-outlet></router-outlet>
+        <div class="flex flex-row mb-2 mt-8">
+
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Ajouter" (onClick)="add()" icon="fa-plus-circle">
+                </action-button>
+            </div>
         </div>
     </div>
 </div>

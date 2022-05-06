@@ -34,6 +34,7 @@ import { TestCasesComponent } from './projects/project-categories/test-cases-lis
 import { HttpClientModule } from '@angular/common/http';
 import { CreateSpiraComponent } from './gui/dialog/create-spira/create-spira.component';
 import { DialogComponent } from './gui/dialog/dialog.component';
+import { ReportComponent } from './projects/project-categories/reports/report/report.component';
 
 
 
@@ -60,7 +61,8 @@ import { DialogComponent } from './gui/dialog/dialog.component';
     ActionsComponent,
     ActionComponent,
     ActionsListComponent,
-    CreateSpiraComponent
+    CreateSpiraComponent,
+    ReportComponent
   ],
   imports: [
     FormsModule,

@@ -1,0 +1,130 @@
+<div class="p-12 pt-0 pr-4 w-full bg-white">
+    <div class="flex items-baseline mb-12">
+        <h1 class="text-4xl font-bold text-darker">Compte rendu</h1>
+        <sync></sync>
+    </div>
+
+    <div class="w-11/12 mr-auto h-full relative">
+
+        <div class="h-full flex flex-col">
+
+            <!-- Toolbar -->
+            <div class="h-8 leading-8 mb-2 flex items-center">
+
+                <!-- Heading/paragraph combo list -->
+                <style-button #style (onStyleSelected)="toggleHeading($event)">
+                </style-button>
+                <!-- Separator -->
+                <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+                <!-- Bold -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('bold') }"
+                    (click)="editor.chain().focus().toggleBold().run()">
+                    <i class="fas fa-bold"></i>
+                </button>
+                <!-- Italic -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('italic') }"
+                    (click)="editor.chain().focus().toggleItalic().run()">
+                    <i class="fas fa-italic"></i>
+                </button>
+                <!-- strike -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('strike') }"
+                    (click)="editor.chain().focus().toggleStrike().run()">
+                    <i class="fas fa-strikethrough"></i>
+                </button>
+                <!-- Highlight -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('highlight') }"
+                    (click)="editor.chain().focus().toggleHighlight({ color: '#DBEAFE' }).run()">
+                    <i class="fas fa-highlighter"></i>
+                </button>
+                <!-- Separator -->
+                <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+                <!-- bullet list -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('bulletList') }"
+                    (click)="editor.chain().focus().toggleBulletList().run()">
+                    <i class="fas fa-list-ul"></i>
+                </button>
+
+                <!-- Ordered list -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('orderedList') }"
+                    (click)="editor.chain().focus().toggleOrderedList().run()">
+                    <i class="fas fa-list-ol"></i>
+                </button>
+
+                <!-- Task list -->
+                <button [ngClass]="{ 'button':true,  'is-active': editor.isActive('taskList') }"
+                    (click)="editor.chain().focus().toggleTaskList().run()">
+                    <i class="fas fa-tasks"></i>
+                </button>
+
+
+                <!-- Separator -->
+                <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+
+                <!-- Blockquote -->
+                <button (click)="editor.chain().focus().toggleBlockquote().run()"
+                    [ngClass]="{ 'button':true,  'is-active': editor.isActive('blockquote') }">
+                    <i class="fas fa-quote-right"></i>
+                </button>
+                <!-- Table -->
+                <!-- <button (click)="editor.chain().focus().insertTable({rows:2, cols:2, withHeaderRow:true}).run()"
+                    class="button">
+                    <i class="fas fa-table"></i>
+                </button> -->
+                <!-- HR -->
+                <button (click)="editor.chain().focus().setHorizontalRule().run()" class="button">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <!-- Separator -->
+                <div class="w-0.5 mx-2 bg-gray-100 h-6 inline-block"></div>
+                <!-- Create todo task -->
+                <button (click)="createTask()" class="button">
+                    <i class="fas fa-bolt text-yellow-400"></i>
+                </button>
+
+                <!-- Create action -->
+                <button (click)="createAction()" class="button">
+                    <i class="fas fa-cogs text-indigo-400"></i>
+                </button>
+
+            </div>
+
+            <div class="element w-full h-full pl-4 min-h-[500px]">
+
+                <h1 #title class="text-3xl font-extrabold mt-3 outline-none" contenteditable="true">
+                    {{note.title}}</h1>
+
+                <!-- Separator -->
+                <div class="w-4/5 h-px bg-gray-200 my-2"></div>
+
+                <!-- header-bar -->
+                <div class="flex items-center w-full flex-wrap mb-7 ">
+                    <div class="flex flex-col mr-4">
+                        <div class="text-sm text-gray-400">
+                            <i class="fas fa-clock"></i>
+                            {{note.date}}
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Actio buttons -->
+        <div class="flex flex-row mb-2 mt-8">
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Retour" (onClick)="goToReports()" icon="fa-arrow-left"
+                    custom="bg-indigo-500 hover:bg-indigo-700">
+                </action-button>
+            </div>
+            <div class="flex items-center justify-start mr-4">
+                <action-button text="Effacer" (onClick)="delete()" icon="fa-trash-alt">
+                </action-button>
+            </div>
+        </div>
+
+    </div>
+</div>

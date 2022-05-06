@@ -12,6 +12,7 @@ import { ExcelService } from "../services/excel.service";
 import { IpcService } from "../services/ipc.service";
 import { PinService } from "../services/pin.service";
 import { SearchService } from "../services/search.service";
+import { TaskService } from "../services/task.service";
 import { ToastService } from "../services/toast.service";
 
 @Directive()
@@ -29,6 +30,7 @@ export abstract class CategoryComponent implements OnInit {
         protected toaster: ToastService,
         protected docx: DocxService,
         protected dialog: DialogService,
+        protected taskService: TaskService,
         protected confirmService: ConfirmService
     ) {
     }

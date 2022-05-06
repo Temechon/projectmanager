@@ -1,25 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectlistComponent } from './views/projects-list/projectlist.component';
-import { ProjectViewComponent } from './projects/project-view/project-view.component';
 import { MainViewComponent } from './projects/main-view/main-view.component';
-import { ProjectResolver } from './resolver/projects.resolver';
-import { ReportResolver } from './resolver/report.resolver';
-import { SearchResultsComponent } from './views/search-results/search-results.component';
-import { CalendarComponent } from './views/calendar/calendar.component';
-import { TodoComponent } from './views/todo/todo.component';
 import { AcceptanceTestsComponent } from './projects/project-categories/acceptance/acceptance.component';
-import { ActionsComponent } from './projects/project-categories/actions/actions.component';
 import { ActionComponent } from './projects/project-categories/actions/action/action.component';
+import { ActionsComponent } from './projects/project-categories/actions/actions.component';
 import { ActorsComponent } from './projects/project-categories/actors/actors.component';
 import { GeneralInformationComponent } from './projects/project-categories/general-information/general-information.component';
 import { MilestonesComponent } from './projects/project-categories/milestones/milestones.component';
 import { NotesComponent } from './projects/project-categories/notes/notes.component';
-import { ReportViewComponent } from './projects/project-categories/reports/report-view/report-view.component';
+import { ReportComponent } from './projects/project-categories/reports/report/report.component';
 import { ReportsComponent } from './projects/project-categories/reports/reports.component';
 import { TestCasesListComponent } from './projects/project-categories/test-cases-list/test-cases-list.component';
 import { TestCasesComponent } from './projects/project-categories/test-cases-list/test-cases/test-cases.component';
+import { ProjectViewComponent } from './projects/project-view/project-view.component';
+import { ProjectResolver } from './resolver/projects.resolver';
 import { ActionsListComponent } from './views/actions-list/actions-list.component';
+import { CalendarComponent } from './views/calendar/calendar.component';
+import { ProjectlistComponent } from './views/projects-list/projectlist.component';
+import { SearchResultsComponent } from './views/search-results/search-results.component';
+import { TodoComponent } from './views/todo/todo.component';
 
 
 const routes: Routes = [
@@ -94,17 +93,28 @@ const routes: Routes = [
           },
           {
             path: 'reports',
-            component: ReportsComponent,
             children: [
               {
+                path: '',
+                component: ReportsComponent,
+              },
+              {
                 path: ':id',
-                resolve: {
-                  report: ReportResolver,
-                },
-                component: ReportViewComponent,
+                component: ReportComponent,
               }
             ]
           },
+          //   component: ReportsComponent,
+          //   children: [
+          //     {
+          //       path: ':id',
+          //       resolve: {
+          //         report: ReportResolver,
+          //       },
+          //       component: ReportViewComponent,
+          //     }
+          //   ]
+          // },
           {
             path: 'notes',
             component: NotesComponent,
