@@ -1,21 +1,19 @@
 <div class="p-12 pt-0 h-full bg-white">
     <h1 class="text-4xl font-bold text-darker mb-8">Toutes les actions en cours</h1>
 
-
-
     <div class="w-full">
         <div class="w-full flex border-b-2  py-2 font-bold">
             <div class="w-28">
                 ID
             </div>
-            <div class="flex-grow">
+            <div class="w-96">
                 Nom
             </div>
-            <div class="flex-grow">
-                En attente de
+            <div class="w-52">
+                Provenance
             </div>
-            <div class="flex-grow">
-                Details
+            <div class="w-52">
+                En attente de
             </div>
         </div>
         <div class="w-full flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
@@ -23,14 +21,14 @@
             <div class="w-28 truncate font-bold" [ngStyle]="{'color':  a.color }">
                 {{a.projectinternalid}}
             </div>
-            <div class="flex-grow truncate">
+            <div class="w-96 truncate">
                 {{a.action.name}}
             </div>
-            <div class="flex-grow truncate">
-                {{a.action.waitingfor}}
+            <div class="w-52 truncate">
+                {{a.action.from}}
             </div>
-            <div class="flex-grow truncate">
-                {{a.action.details}}
+            <div class="w-52 truncate">
+                {{a.action.waitingfor}}
             </div>
         </div>
         <!-- <div class=" w-48 truncate font-bold" [ngStyle]="{'color':  p.color }">
