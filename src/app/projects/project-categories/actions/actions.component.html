@@ -4,14 +4,25 @@
         <sync></sync>
     </div>
 
+    <!-- !! Filters -->
+    <div class="flex my-4 space-x-4 items-center">
+        <h2 class="text-gray-400">Afficher les actions terminées</h2>
+        <!-- input checkbox -->
+        <div class="inline-flex items-center">
+            <input type="checkbox" class="h-4 w-4 cursor-pointer" (click)="toggleClosed()">
+        </div>
+    </div>
     <div class="w-full mr-auto">
 
         <div class="w-full flex border-b-2  py-2 font-bold">
             <div class="w-1/2">
                 Nom
             </div>
-            <div class="min-w-[320px]">
+            <div class="min-w-[160px]">
                 Provenance
+            </div>
+            <div class="min-w-[160px]">
+                En attente de
             </div>
             <div class="w-48 flex items-center justify-center">
                 Créée le
@@ -24,13 +35,15 @@
             </div>
         </div>
         <div class="w-full flex border-b py-2 cursor-pointer hover:bg-primary-50 hover:text-primary"
-            *ngFor="let act of project.actions; let index=index"
-            [routerLink]="['/projects', project.id, 'actions', act.id]">
+            *ngFor="let act of allActions; let index=index" [routerLink]="['/projects', project.id, 'actions', act.id]">
             <div class="w-1/2">
                 {{act.name}}
             </div>
-            <div class="min-w-[320px]">
+            <div class="min-w-[160px]">
                 {{act.from}}
+            </div>
+            <div class="min-w-[160px]">
+                {{act.waitingfor}}
             </div>
             <!-- creation date -->
             <div class="w-48 flex items-center justify-center">

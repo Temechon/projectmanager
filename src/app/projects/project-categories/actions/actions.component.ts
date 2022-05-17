@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Pin } from 'src/app/model/pin.model';
-import { ActionStatus, guid } from 'src/app/model/project.model';
+import { Action, ActionStatus, guid } from 'src/app/model/project.model';
 import { CategoryComponent } from '../../category.component';
 import { DateTime } from "luxon";
 
@@ -13,6 +13,9 @@ export class ActionsComponent extends CategoryComponent {
 
 
   actionStatus = ActionStatus;
+  displayClosed: boolean = false;
+
+  allActions: Array<Action> = [];
 
   ngOnInit(): void {
     super.ngOnInit();
@@ -20,6 +23,8 @@ export class ActionsComponent extends CategoryComponent {
     // Get the project from the parent parent route
     let prr = this.route.parent.parent.snapshot.data;
     this.project = prr.project;
+
+    this._filter();
   }
 
   get category(): string {
@@ -34,6 +39,15 @@ export class ActionsComponent extends CategoryComponent {
       projectinternalid: this.project.internalid,
       category: this.category,
       params: null
+    })
+  }
+
+  private _filter() {
+    this.allActions = this.project.actions.filter(a => {
+      if (this.displayClosed) {
+        return true;
+      }
+      return a.status !== ActionStatus.CLOSED;
     })
   }
 
@@ -72,6 +86,11 @@ export class ActionsComponent extends CategoryComponent {
       })
       this.save();
     }
+  }
+
+  toggleClosed() {
+    this.displayClosed = !this.displayClosed;
+    this._filter();
   }
 
 

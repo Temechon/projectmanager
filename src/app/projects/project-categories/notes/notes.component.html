@@ -14,7 +14,7 @@
 
 
         <div class="flex flex-col-reverse">
-            <div class="flex items-center" *ngFor="let note of project.notes; let index=index">
+            <div class="flex items-center" *ngFor="let note of allNotes; let index=index">
                 <div class="flex-grow group">
 
                     <!-- Date & pin -->
@@ -43,7 +43,7 @@
                         </div>
                         <!-- Delete -->
                         <i class="fas fa-times-circle text-xl text-red-500 mx-2 cursor-pointer"
-                            (click)="delete(index)"></i>
+                            (click)="delete(note.id)"></i>
                     </div>
                 </div>
 

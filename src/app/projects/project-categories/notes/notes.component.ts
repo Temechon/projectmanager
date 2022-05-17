@@ -18,22 +18,43 @@ export class NotesComponent extends CategoryComponent {
   selectedIndex: number = null;
   sub: Subscription;
 
+  allNotes: Note[];
+
   @ViewChildren(EditableAreaComponent) editableAreas: QueryList<EditableAreaComponent>;
 
   ngOnInit(): void {
     super.ngOnInit();
 
-    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
+    this.sortNotes();
 
     this.sub = this.route.queryParams.subscribe((data) => {
       let noteid = data.id;
       if (noteid) {
         // Select this note
-        this.selected = _.find(this.project.notes, n => n.id === noteid);
-        this.selectedIndex = _.indexOf(this.project.notes, this.selected);
+        this.selected = _.find(this.allNotes, n => n.id === noteid);
+        this.selectedIndex = _.indexOf(this.allNotes, this.selected);
       }
     })
+  }
 
+  private sortNotes() {
+    let pinned = this.project.notes.filter(n => n.pinned);
+    let unpinned = this.project.notes.filter(n => !n.pinned);
+
+    // Sort pinned by date
+    this.allNotes = [...this.sortByDate(unpinned), ...this.sortByDate(pinned)]
+  }
+
+  /**
+   * Sort the given array by date descending
+   */
+  private sortByDate(notes: Array<Note>) {
+    return notes.sort((a: Note, b: Note) => {
+      // get the date of the first note
+      let dateA = DateTime.fromFormat(a.date, "dd LLL yyyy - HH:mm");
+      let dateB = DateTime.fromFormat(b.date, "dd LLL yyyy - HH:mm");
+      return dateA.toMillis() - dateB.toMillis()
+    })
   }
 
 
@@ -49,7 +70,6 @@ export class NotesComponent extends CategoryComponent {
 
     // When the list is updated, focus the new one
     this.editableAreas.changes.subscribe((r) => {
-      console.log("changes", r);
       this._focus(this.project.notes.length - 1);
     });
   }
@@ -69,25 +89,27 @@ export class NotesComponent extends CategoryComponent {
       content: '',
       pinned: false
     });
-    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
+    this.sortNotes();
     this.save();
   }
 
-  delete(index: number) {
-    let notes = this.project.notes.splice(index, 1);
+  delete(noteid: string) {
+    let index = _.findIndex(this.project.notes, n => n.id === noteid);
     // remove selected if this was the selected note
-    if (this.selectedIndex === index) {
+    if (this.selected?.id === noteid) {
       this.selected = null;
       this.selectedIndex = null;
     }
+    this.project.notes.splice(index, 1);
     this.save();
-    this.index.removeObject(notes[0].id)
+    this.sortNotes();
+    this.index.removeObject(noteid)
   }
 
 
   togglePin(note: Note) {
     note.pinned = !note.pinned;
-    this.project.notes = _.chain(this.project.notes).sortBy('date').sortBy('pinned').value();
+    this.sortNotes();
 
     this.save();
   }
