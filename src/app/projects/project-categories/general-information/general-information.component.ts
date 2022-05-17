@@ -5,6 +5,8 @@ import { Pin } from 'src/app/model/pin.model';
 import { guid, Project } from 'src/app/model/project.model';
 import { environment } from 'src/environments/environment';
 import { CategoryComponent } from '../../category.component';
+import { debounce } from 'underscore';
+
 
 @Component({
   selector: 'app-general-information',
@@ -45,6 +47,69 @@ export class GeneralInformationComponent extends CategoryComponent {
       }).then((projects) => {
         console.log("data ici", projects);
         this.router.navigate(['projects', projects[0].id])
+      })
+    }
+  }
+
+  reload() {
+    let res = this.confirmService.confirm("Êtes-vous sûr de vouloir recharger ce projet? Toutes les données seront supprimées", "Recharger un projet");
+    if (res) {
+      this.db.deleteProject(this.project).then(() => {
+        // Update index        
+        return this.index.removeProject(this.project);
+      }).then(() => {
+
+        if (environment.production) {
+          // Open file explorer to select the old project file
+          let file = this.ipcService.sendSync('open-file-explorer', {
+            title: 'Ouvrir un projet',
+            filters: [{ name: "Fichier '.project'" }]
+          })
+
+          console.log("File selected", file);
+          let jsonProject = JSON.parse(file);
+
+          let project = new Project(jsonProject);
+          project.reloadIds();
+
+          this.db.saveProject(project).then((newproject) => {
+            // Update index
+            this.index.addProject(project);
+            // Open the project
+            setTimeout(() => {
+              this.router.navigate(['projects', newproject.id])
+            }, 50)
+          })
+
+
+        } else {
+          console.log("Not in production");
+
+          openFilePicker().then((file: any) => {
+            console.log("File selected", file);
+            // Read the given file with a FileRead
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              console.log(e.target.result);
+              let jsonProject = JSON.parse(reader.result as string);
+              console.log("JSON", jsonProject);
+
+              // Load the project in database
+              let project = new Project(jsonProject);
+              project.reloadIds();
+              this.db.saveProject(project).then((newproject) => {
+                // // Update index
+                this.index.addProject(project);
+                // Open the project
+                setTimeout(() => {
+                  this.router.navigate(['projects', newproject.id])
+                }, 50)
+              })
+
+            };
+            reader.readAsText(file);
+          })
+        }
       })
     }
   }
@@ -116,4 +181,50 @@ export class GeneralInformationComponent extends CategoryComponent {
       this.docx.generateSpiraTemplate(d);
     })
   }
+}
+
+/**
+ * Run the file explorer and returns the selected file
+ * @param options 
+ * @returns 
+ */
+function openFilePicker(options = {}) {
+  const fileInput = document.createElement('input');
+  fileInput.type = 'file';
+  fileInput.classList.add('opacity-0');
+  fileInput.classList.add('absolute');
+  fileInput.classList.add('bottom-0');
+
+  Object.keys(options).forEach((attribute) => {
+    fileInput.setAttribute(attribute, options[attribute]);
+  });
+
+  document.body.appendChild(fileInput);
+  fileInput.focus();
+  fileInput.click();
+
+  return new Promise((resolve, reject) => {
+
+    function checkFiles(event: any) {
+      let input = event.target;
+
+      let files = event.target.files;
+      console.log('ici', files);
+
+      if (files.length) {
+        resolve(files[0]);
+      } else {
+        reject(files[0]);
+      }
+
+      if (input.parentNode === document.body) {
+        document.body.removeChild(input);
+      }
+    }
+
+    const eventListener = debounce(checkFiles, 200);
+
+    // fileInput.addEventListener('focus', eventListener, { once: true });
+    fileInput.addEventListener('change', eventListener, { once: true });
+  });
 }

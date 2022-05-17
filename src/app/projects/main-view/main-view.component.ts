@@ -97,9 +97,10 @@ export class MainViewComponent implements OnInit {
   addProject() {
     let proj = new Project();
     this.db.saveProject(proj).then(d => {
-      this.index.addProject(proj);
       console.log("Project créé!", d);
-      this.router.navigate(['projects', d.id])
+      setTimeout(() => {
+        this.router.navigate(['projects', proj.id])
+      }, 10)
     })
   }
 

@@ -120,9 +120,14 @@
         </div>
 
         <h2 class="text-gray-400 mt-8 mb-4"></h2>
-        <div class="flex flex-row mb-2">
-            <div class="w-52 pl-4 flex items-center justify-start">
+
+        <div class="flex flex-row mb-2 space-x-2">
+            <div class="pl-4 flex items-center justify-start">
                 <action-button text="Supprimer" (onClick)="delete()" icon="fa-minus-circle"></action-button>
+            </div>
+
+            <div class="flex items-center justify-start">
+                <action-button text="Recharger" (onClick)="reload()" icon="fa-sync-alt"></action-button>
             </div>
         </div>
     </div>

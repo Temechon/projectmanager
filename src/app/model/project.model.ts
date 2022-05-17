@@ -186,6 +186,22 @@ export class Project extends IProject {
         return getDateFromString(this.recette_date);
     }
 
+    /**
+     * Updates the project uid
+     */
+    reloadIds() {
+        this.id = guid();
+        this.reports.forEach(report => report.id = guid());
+        this.notes.forEach(note => note.id = guid());
+
+        this.incidents.forEach(incident => incident.id = guid());
+        this.acceptanceComponents.forEach(component => component.id = guid());
+        this.milestones.forEach(milestone => milestone.id = guid());
+        this.testCasesList.forEach(list => list.id = guid());
+        this.testCasesList.forEach(list => list.testCases.forEach(test => test.id = guid()));
+        this.actions.forEach(action => action.id = guid());
+    }
+
 }
 
 /**

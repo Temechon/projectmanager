@@ -40,7 +40,7 @@ function createWindow() {
         slashes: true
     }));
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    mainWindow.webContents.openDevTools()
 
     mainWindow.on('closed', function () {
         mainWindow = null
@@ -109,4 +109,10 @@ ipcMain.on('open-folder', (event, arg) => {
 })
 ipcMain.on('show-dialog', (event, options) => {
     event.returnValue = dialog.showMessageBoxSync(mainWindow, options);
+})
+
+ipcMain.on('open-file-explorer', (event, options) => {
+    let filepath = dialog.showOpenDialogSync(mainWindow, options)[0];
+    let fileContent = fs.readFileSync(filepath, 'utf-8');
+    event.returnValue = fileContent;
 })

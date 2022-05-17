@@ -20,12 +20,13 @@ export class DatabaseService {
   }
 
   getProject(id: string): Promise<IProject> {
+    console.log("Getting project", id);
+
     return projectsCollection.projects.findOne({
       selector: {
         id: id
       }
     }).exec().then(data => {
-      // console.log("get project", new Project(data).toObject());
 
       return new Project(data)
     });

@@ -30,6 +30,9 @@ export class SearchService {
     for (let note of p.notes) {
       this.index.remove(note.id);
     }
+    for (let act of p.actions) {
+      this.index.remove(act.id);
+    }
     this.index.remove(p.id);
   }
 
